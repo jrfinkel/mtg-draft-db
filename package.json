@@ -1,0 +1,13 @@
+{
+  "name": "mtg-draft",
+  "version": "0.0.1",
+  "dependencies": {
+      "pg": "0.6.15",
+      "express": "latest",
+      "url": "latest"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}
