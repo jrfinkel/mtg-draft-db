@@ -3,6 +3,8 @@ var pg = require('pg');
 var util = require('./util');
 
 function insertPlayerInDB(body) {
+    console.log('adding player to db');
+
     var name = body['name'];
     var ind_wins = parseInt(body['ind_wins']);
     var ind_losses = parseInt(body['ind_losses']);
