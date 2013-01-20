@@ -80,9 +80,9 @@ function playerRowFn(row) {
 	'<td>'+row['rating']+'</td>\n' +
 	'<td>'+row['ind_wins']+'</td>\n' +
 	'<td>'+row['ind_losses']+'</td>\n' +
-	'<td>'+row['team_wins']+'</td>\n' +
-	'<td>'+row['team_ties']+'</td>\n' +
-	'<td>'+row['team_losses']+'</td>\n' +
+	'<td>'+row['draft_wins']+'</td>\n' +
+	'<td>'+row['draft_ties']+'</td>\n' +
+	'<td>'+row['draft_losses']+'</td>\n' +
 	'<td>'+row['money']+'</td></tr>\n';
 
 }
