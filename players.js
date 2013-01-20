@@ -54,9 +54,55 @@ function addPlayerPage (header, response) {
     response.end();
 }
 
+function allPlayers (response) {
+    var body = '<html><head>\n'+
+	'<title>All Players</title>\n' +
+    	'</head><body>\n' +
+	compareTableHeader();
+
+    response.writeHead(200, {"Content-Type": "text/html"});
+
+    processQueryResults('SELECT * FROM players ORDER BY id DESC;', 
+			function rowFn (row) {
+			    console.log('hi there');
+			    body += compareRowFn(row); },
+			function endFn () { 
+			    console.log('good-bye');
+			    body += '</table></body></html>\n';	
+			    response.write(body);
+			    response.end(); });
+}
+
+
+function playerRowFn(row) {
+    return '<tr><td>'+row['name']+'</td>\n' +
+	'<td>'+row['set_credit']+'</td>\n' +
+	'<td>'+row['rating']+'</td>\n' +
+	'<td>'+row['ind_wins']+'</td>\n' +
+	'<td>'+row['ind_losses']+'</td>\n' +
+	'<td>'+row['team_wins']+'</td>\n' +
+	'<td>'+row['team_ties']+'</td>\n' +
+	'<td>'+row['team_losses']+'</td>\n' +
+	'<td>'+row['money']+'</td></tr>\n';
+
+}
+
+function playerTableHeader() {
+    return '<table cellpadding="5" cellspacing="0" border="5"><tr><th>Name<th>Set Credit<th>Rating<th>Personal Wins<th>Personal Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money</tr>' ;
+}
+
+function processQueryResults(querySQL, rowCallback, endCallback) {
+    pg.connect(process.env.DATABASE_URL, function(err, client) {
+	var query = client.query(querySQL);
+	query.on('row', function(row) { console.log(row); rowCallback(row); });
+	query.on('end', function() { console.log("end"); endCallback(); });
+    });
+}
+
+
 exports.setup = function setupHandlers (app) {
     app.get('/all-players', function(request, response) {
-	//allPlayers(response);
+	allPlayers(response);
     });
 
     app.get('/player', function(request, response) {
