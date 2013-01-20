@@ -2,25 +2,6 @@ var pg = require('pg');
 
 var util = require('./util');
 
-exports.setup = function setupHandlers (app) {
-    app.get('/all-players', function(request, response) {
-	//allPlayers(response);
-    });
-
-    app.get('/player', function(request, response) {
-	//playerInfo(response);
-    });
-
-    app.get('/add-player', function(request, response) {
-	addPlayerPage(response);
-    });
-
-    app.post('/add-player', function(request, response) {
-	util.readPostData(request, insertPlayerInDB);
-	addPlayerPage(response);
-    });
-}
-
 function insertPlayerInDB(body) {
     var name = body['name'];
     var ind_wins = parseInt(body['ind_wins']);
@@ -65,4 +46,23 @@ function addPlayerPage (response) {
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(body);
     response.end();
+}
+
+exports.setup = function setupHandlers (app) {
+    app.get('/all-players', function(request, response) {
+	//allPlayers(response);
+    });
+
+    app.get('/player', function(request, response) {
+	//playerInfo(response);
+    });
+
+    app.get('/add-player', function(request, response) {
+	addPlayerPage(response);
+    });
+
+    app.post('/add-player', function(request, response) {
+	util.readPostData(request, insertPlayerInDB);
+	addPlayerPage(response);
+    });
 }
