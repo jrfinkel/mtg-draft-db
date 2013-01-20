@@ -1,7 +1,6 @@
 var express = require('express');
 
-var facts = require('./facts');
-var admin = require('./admin');
+var players = require('./players');
 
 console.log('Starting server.');
 
@@ -12,7 +11,6 @@ app.listen(port, function() {
   console.log("Listening on " + port);
 });
 
-facts.setup(app);
-admin.setup(app);
+players.setup(app);
 
 console.log('Finished loading server');
