@@ -33,7 +33,7 @@ var addPlayerForm = '<t1>Add Player</t1>\n' +
     'Draft Losses: <input type="text" name="draft_losses" value="0"><br>\n' +
     'Money Won/Lost: <input type="text" name="money" value="0"><br>\n' +
     '<input type="submit" name="Create Player"><input type="reset" name="Clear">' +
-    '</form>' +
+    '</form>';
 
 function addPlayerPage (response) {
 
