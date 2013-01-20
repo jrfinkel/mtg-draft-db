@@ -116,7 +116,7 @@ exports.setup = function setupHandlers (app) {
     app.post('/add-player', function(request, response) {
 	util.readPostData(request, function(body) { 
 	    insertPlayerInDB(body); 
-	    addPlayerPage('<h3> Added player row for '+body['name']+'.<a href="./all-players">All Players</a></h3>', 
+	    addPlayerPage('<h3> Added player row for '+body['name']+'. <a href="./all-players">All Players</a></h3>', 
 			  response);
 	});
     });
