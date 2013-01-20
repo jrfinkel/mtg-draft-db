@@ -21,8 +21,8 @@ function insertPlayerInDB(body) {
 	var q = 'INSERT INTO players (name, set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money) VALUES (\''+ name +'\', '+ set_credit +', '+ rating +', '+ ind_wins + ', ' + ind_losses + ', ' + draft_wins + ', ' + draft_ties + ', ' + draft_losses + ', ' + money +');';
 	console.log('About to query: ' + q);
 	var query = client.query(q);	
-	query.on('row', function(row) { console.log('Recording vote from '+ip+' at '+ts+'. winner: '+win_id+'; loser: '+lose_id+'. Row returned: '+row); });
-	query.on('end', function(row) { console.log('Recorded vote from '+ip+' at '+ts+'. winner: '+win_id+'; loser: '+lose_id); });
+	query.on('row', function(row) { console.log('Added new player: '+row); });
+	query.on('end', function(row) { console.log('Finished adding player: '+name); });
     });
 }
 
