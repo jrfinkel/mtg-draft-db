@@ -26,7 +26,7 @@ function insertPlayerInDB(body) {
     });
 }
 
-var addPlayerForm = '<t1>Add Player</t1>\n' +
+var addPlayerForm = '<h2>Add Player</h2>\n' +
     '<form name="the-form" action="/add-player" method="post">\n' +
     'Name: <input type="text" name="name" value="Loser McLoserstein"><br>\n' +
     'Set Credit: <input type="text" name="set_credit" value="-1"><br>\n' +
