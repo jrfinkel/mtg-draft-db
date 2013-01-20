@@ -11,7 +11,7 @@ function insertPlayerInDB(body) {
     var draft_wins = parseInt(body['draft_wins']);
     var draft_ties = parseInt(body['draft_ties']);
     var draft_losses = parseInt(body['draft_losses']);
-    var money = parseDouble(body['money']);
+    var money = parseFloat(body['money']);
 
     parseInt(body['win_pos']);
 
