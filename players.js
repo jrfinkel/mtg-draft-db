@@ -39,7 +39,7 @@ function addPlayer (response) {
 	'Draft Losses: <input type="text" name="draft_losses" value="0"><br>\n' +
 	'Money Won/Lost: <input type="text" name="money" value="0"><br>\n' +
 	'</form>' +
-	'</body></html>
+	'</body></html>';
 	
 
     response.writeHead(200, {"Content-Type": "text/html"});
