@@ -58,14 +58,14 @@ function allPlayers (response) {
     var body = '<html><head>\n'+
 	'<title>All Players</title>\n' +
     	'</head><body>\n' +
-	compareTableHeader();
+	playerTableHeader();
 
     response.writeHead(200, {"Content-Type": "text/html"});
 
     processQueryResults('SELECT * FROM players ORDER BY id DESC;', 
 			function rowFn (row) {
 			    console.log('hi there');
-			    body += compareRowFn(row); },
+			    body += playerRowFn(row); },
 			function endFn () { 
 			    console.log('good-bye');
 			    body += '</table></body></html>\n';	
