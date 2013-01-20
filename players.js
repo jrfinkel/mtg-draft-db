@@ -16,7 +16,7 @@ function insertPlayerInDB(body) {
     parseInt(body['win_pos']);
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
-	var q = 'INSERT INTO players (name, set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money) VALUES ('+ name +', '+ ind_wins + ', \'' + ind_losses + '\', ' + draft_wins + '\', ' + draft_ties + '\', ' + draft_losses + '\', ' + money +');';
+	var q = 'INSERT INTO players (name, set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money) VALUES (\''+ name +'\', '+ ind_wins + ', ' + ind_losses + ', ' + draft_wins + ', ' + draft_ties + ', ' + draft_losses + ', ' + money +');';
 	console.log('About to query: ' + q);
 	var query = client.query(q);	
 	query.on('row', function(row) { console.log('Recording vote from '+ip+' at '+ts+'. winner: '+win_id+'; loser: '+lose_id+'. Row returned: '+row); });
