@@ -40,10 +40,11 @@ var addPlayerForm = '<t1>Add Player</t1>\n' +
     '<input type="submit" name="Create Player"><input type="reset" name="Clear">' +
     '</form>';
 
-function addPlayerPage (response) {
+function addPlayerPage (header, response) {
 
     var body = '<html><head><title>Add Player</title>\n' +
     	'</head><body>' +
+	header +
 	addPlayerForm +
 	'</body></html>';
 	
@@ -63,11 +64,14 @@ exports.setup = function setupHandlers (app) {
     });
 
     app.get('/add-player', function(request, response) {
-	addPlayerPage(response);
+	addPlayerPage('', response);
     });
 
     app.post('/add-player', function(request, response) {
-	util.readPostData(request, insertPlayerInDB);
-	addPlayerPage(response);
+	util.readPostData(request, function(body) { 
+	    insertPlayerInDB(body); 
+	    addPlayerPage('<h3> Added Player: '+JSON.stringify(body)+'</h3>', 
+			  response);
+	});
     });
 }
