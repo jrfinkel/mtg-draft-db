@@ -77,7 +77,7 @@ function startDraftPage (response) {
 
     var body = '<html><head><title>Start a New Draft</title>\n' +
     	'</head><body><form>' +
-	playerDropdown('player', allPlayers) +
+	//playerDropdown('player', allPlayers) +
         formatDropdown() +
 	'</form></body></html>';	
 
