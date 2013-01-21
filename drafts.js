@@ -30,6 +30,8 @@ function syncQuery(psql_query) {
     var res = new Array();
     var done = false;
 
+    console.log('About to query123: ' + psql_query);
+
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	console.log('About to query: ' + psql_query);
 	var query = client.query(psql_query);	
