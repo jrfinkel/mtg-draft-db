@@ -72,7 +72,7 @@ function startDraftPage (response) {
 
     var body = '<html><head><title>Start a New Draft</title>\n' +
     	'</head><body><h1>New Draft</h1>' + 
-	'<form name="the-form" action="/first-line-up" method="post">\n';
+	'<form name="the-form" action="/first-lineup" method="post">\n';
 
     listFormats(function(formats) {
         body += 'Format: ' + formatDropdown(formats) + '<br>\n';
@@ -93,7 +93,7 @@ function startDraftPage (response) {
 		'Player: ' + playerDropdown('team2_player4', players) + '<br>\n' +
 		'Player: ' + playerDropdown('team2_player5', players) + '<br>\n';
 
-	    body += '<br><input type=submit value="First Line-up ---&gt;&gt;"></form></body></html>';	
+	    body += '<br><input type=submit value="First Lineup ---&gt;&gt;"></form></body></html>';	
 	    response.writeHead(200, {"Content-Type": "text/html"});
 	    response.write(body);
 	    response.end();
