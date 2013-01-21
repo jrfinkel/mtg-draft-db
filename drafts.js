@@ -60,7 +60,7 @@ function dropdown(name, data, idFn, valFn) {
 }
 
 function playerDropdown(name, players) {
-    return dropdown(name, players, function(row) { return row['id']; }, function(row) { return row['name'] + '(' + row['id'] + ')'; });
+    return dropdown(name, players, function(row) { return row['id']; }, function(row) { return row['name'] + ' (' + row['id'] + ')'; });
 }
 
 function formatDropdown(formats) {
@@ -71,11 +71,12 @@ function startDraftPage (response) {
     console.log('starting startDraftPge');
 
     var body = '<html><head><title>Start a New Draft</title>\n' +
-    	'</head><body><marquee>New Draft</marquee><form>';
+    	'</head><body><h1>New Draft</h1><form>';
 
     listFormats(function(formats) {
         body += 'Format: ' + formatDropdown(formats) + '<br>\n';
 	listPlayers(function(players) {
+	    players.unshift({'name':'No Player', 'id':-1});
 
 	    body += '<h2>Team #1</h2>\n' +
 		'Player: ' + playerDropdown('team1_player1', players) + '<br>\n' +
