@@ -105,7 +105,25 @@ function startDraftPage (response) {
 }
 
 function firstLineup (body, response) {
-    var body = JSON.stringify(body);
+    var team1Players = new Array();
+    var team2Players = new Array();
+
+    if (body['team1_player1'] != -1) { team1Players.push(body['team1_player1']); }
+    if (body['team1_player2'] != -1) { team1Players.push(body['team1_player2']); }
+    if (body['team1_player3'] != -1) { team1Players.push(body['team1_player3']); }
+    if (body['team1_player4'] != -1) { team1Players.push(body['team1_player4']); }
+    if (body['team1_player5'] != -1) { team1Players.push(body['team1_player5']); }
+
+    if (body['team2_player1'] != -1) { team2Players.push(body['team2_player1']); }
+    if (body['team2_player2'] != -1) { team2Players.push(body['team2_player2']); }
+    if (body['team2_player3'] != -1) { team2Players.push(body['team2_player3']); }
+    if (body['team2_player4'] != -1) { team2Players.push(body['team2_player4']); }
+    if (body['team2_player5'] != -1) { team2Players.push(body['team2_player5']); }
+
+    var body = 'SELECT * from players where id IN (';
+    var first = true;
+    team1Players.forEach(function (id) { if (!first) { body += ', '; } first = false; body += id; });
+    body += ');';
 
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(body);
