@@ -1,5 +1,4 @@
 var pg = require('pg');
-
 var util = require('./util');
 
 function insertPlayerInDB(body) {
@@ -30,9 +29,9 @@ var addPlayerForm = '<h2>Add New Player:</h2>\n' +
     '<form name="the-form" action="/add-player" method="post">\n' +
     'Name: <input type="text" name="name" value="Loser McLoserstein"><br>\n' +
     'Set Credit: <input type="text" name="set_credit" value="-1"><br>\n' +
-    'Rating: <input type="text" name="rating" value="0"><br>\n' +
-    'Personal Wins: <input type="text" name="ind_wins" value="0"><br>\n' +
-    'Personal Losses: <input type="text" name="ind_losses" value="0"><br>\n' +
+    'Rating: <input type="text" name="rating" value="1600"><br>\n' +
+    'Individual Wins: <input type="text" name="ind_wins" value="0"><br>\n' +
+    'Individual Losses: <input type="text" name="ind_losses" value="0"><br>\n' +
     'Draft Wins: <input type="text" name="draft_wins" value="0"><br>\n' +
     'Draft Ties: <input type="text" name="draft_ties" value="0"><br>\n' +
     'Draft Losses: <input type="text" name="draft_losses" value="0"><br>\n' +
@@ -62,7 +61,7 @@ function allPlayers (response) {
 
     response.writeHead(200, {"Content-Type": "text/html"});
 
-    processQueryResults('SELECT * FROM players ORDER BY id DESC;', 
+    displayPlayers('SELECT * FROM players ORDER BY id DESC;', 
 			function rowFn (row) {
 			    console.log('hi there');
 			    body += playerRowFn(row); },
@@ -88,10 +87,10 @@ function playerRowFn(row) {
 }
 
 function playerTableHeader() {
-    return '<table cellpadding="5" cellspacing="0" border="5"><tr><th>Name<th>Set Credit<th>Rating<th>Personal Wins<th>Personal Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money</tr>' ;
+    return '<table cellpadding="5" cellspacing="0" border="5"><tr><th>Name<th>Set Credit<th>Rating<th>Individual Wins<th>Individual Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money</tr>' ;
 }
 
-function processQueryResults(querySQL, rowCallback, endCallback) {
+function displayPlayers(querySQL, rowCallback, endCallback) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	var query = client.query(querySQL);
 	query.on('row', function(row) { console.log(row); rowCallback(row); });
