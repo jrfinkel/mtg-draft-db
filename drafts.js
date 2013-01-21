@@ -73,6 +73,8 @@ function formatDropdown() {
 
 function startDraftPage (response) {
 
+    console.log('starting startDraftPge');
+
     var allPlayers = listPlayers();
 
     var body = '<html><head><title>Start a New Draft</title>\n' +
@@ -89,6 +91,7 @@ function startDraftPage (response) {
 exports.setup = function setupHandlers (app) {
 
     app.get('/start-draft', function(request, response) {
+	console.log('start-draft');
 	startDraftPage(response);
     });
 }
