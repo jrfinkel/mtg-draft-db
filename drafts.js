@@ -140,13 +140,13 @@ function firstLineup (body, response) {
 	    players2.unshift({'name':'No Player', 'id':-1});
 	    
 	    var b = '<html><head><title>First Lineup</title>\n' +
-    		'</head><body><h1>Firest Lineup</h1>' + 
+    		'</head><body><h1>First Lineup</h1>' + 
 		'<form name="the-form" action="/second-lineup" method="post">\n' +
-		'1. ' + playerDropdown('player11', players1) + '  ' + playerDropdown('player12', players2) + '<br>/n' +
-		'2. ' + playerDropdown('player21', players1) + '  ' + playerDropdown('player22', players2) + '<br>/n' +
-		'3. ' + playerDropdown('player31', players1) + '  ' + playerDropdown('player32', players2) + '<br>/n' +
-		'4. ' + playerDropdown('player41', players1) + '  ' + playerDropdown('player42', players2) + '<br>/n' +
-		'5. ' + playerDropdown('player51', players1) + '  ' + playerDropdown('player52', players2) + '<br>/n' +
+		'1. ' + playerDropdown('player11', players1) + '  ' + playerDropdown('player12', players2) + '<br>\n' +
+		'2. ' + playerDropdown('player21', players1) + '  ' + playerDropdown('player22', players2) + '<br>\n' +
+		'3. ' + playerDropdown('player31', players1) + '  ' + playerDropdown('player32', players2) + '<br>\n' +
+		'4. ' + playerDropdown('player41', players1) + '  ' + playerDropdown('player42', players2) + '<br>\n' +
+		'5. ' + playerDropdown('player51', players1) + '  ' + playerDropdown('player52', players2) + '<br>\n' +
 		'<br><input type=submit value="Second Lineup ---&gt;&gt;"></form></body></html>';	
 
 	    response.writeHead(200, {"Content-Type": "text/html"});
