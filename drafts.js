@@ -26,9 +26,8 @@ function insertPlayerInDB(body) {
     });
 }
 
-function syncQuery(psql_query) {
+function syncQuery(psql_query, callback) {
     var res = new Array();
-    var done = false;
 
     console.log('About to query123 : ' + psql_query);
 
@@ -36,21 +35,18 @@ function syncQuery(psql_query) {
 	console.log('About to query: ' + psql_query);
 	var query = client.query(psql_query);	
 	query.on('row', function(row) { console.log('reading row'); res.add(row); });
-	query.on('end', function(row) { console.log('finished query'); done = true; });
+	query.on('end', function(row) { callback(res); });
     });
 
     console.log('trying ... ' + psql_query);
-    while (!done) { console.log('log: '+done); }
-    console.log('finished ... ' + psql_query);
-    return res;
 }
 
-function listPlayers() {
-    return syncQuery('SELECT * FROM players;');
+function listPlayers(callback) {
+    return syncQuery('SELECT * FROM players;', callback);
 }
 
-function listFormats() {
-    return syncQuery('SELECT * FROM formats ORDER BY id DESC;');
+function listFormats(callback) {
+    return syncQuery('SELECT * FROM formats ORDER BY id DESC;', callback);
 }
 
 
@@ -63,27 +59,28 @@ function dropdown(name, data, valFn, idFn) {
     return body;
 }
 
-function playerDropdown(name, players) {
-    return dropdown(name, players, function(row) { return row['id']; }, function(row) { return row['name'] + '(' + row['id'] + ')'; });
+function playerDropdown(name, players, callback) {
+    return dropdown(name, players, function(row) { return row['id']; }, function(row) { return row['name'] + '(' + row['id'] + ')'; }, callback);
 }
 
-function formatDropdown() {
-    return dropdown('format', listFormats(), function(row) { return row['id']; }, function(row) { return row['format'] + '(' + row['id'] + ')'; });
+function formatDropdown(formats, callback) {
+    return dropdown('format', formats, function(row) { return row['id']; }, function(row) { return row['format'] + '(' + row['id'] + ')'; }, callback);
 }
 
 function startDraftPage (response) {
-
     console.log('starting startDraftPge');
 
     var body = '<html><head><title>Start a New Draft</title>\n' +
-    	'</head><body><blink>New Draft</blink><form>' +
-	//playerDropdown('player', allPlayers) +
-        formatDropdown() +
+    	'</head><body><blink>New Draft</blink><form>';
+
+    listFormats(function(formats) {
+        body += formatDropdown(formats) +
 	'</form></body></html>';	
 
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(body);
-    response.end();
+	response.writeHead(200, {"Content-Type": "text/html"});
+	response.write(body);
+	response.end();
+    });
 }
 
 exports.setup = function setupHandlers (app) {
