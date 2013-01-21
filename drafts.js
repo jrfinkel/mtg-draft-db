@@ -59,27 +59,44 @@ function dropdown(name, data, idFn, valFn) {
     return body;
 }
 
-function playerDropdown(name, players, callback) {
-    return dropdown(name, players, function(row) { return row['id']; }, function(row) { return row['name'] + '(' + row['id'] + ')'; }, callback);
+function playerDropdown(name, players) {
+    return dropdown(name, players, function(row) { return row['id']; }, function(row) { return row['name'] + '(' + row['id'] + ')'; });
 }
 
-function formatDropdown(formats, callback) {
-    return dropdown('format', formats, function(row) { return row['id']; }, function(row) { return row['format'] + '(' + row['id'] + ')'; }, callback);
+function formatDropdown(formats) {
+    return dropdown('format', formats, function(row) { return row['id']; }, function(row) { return row['format'] + ' (' + row['id'] + ')'; });
 }
 
 function startDraftPage (response) {
     console.log('starting startDraftPge');
 
     var body = '<html><head><title>Start a New Draft</title>\n' +
-    	'</head><body><blink>New Draft</blink><form>';
+    	'</head><body><marquee>New Draft</marquee><form>';
 
     listFormats(function(formats) {
-        body += formatDropdown(formats) +
-	'</form></body></html>';	
+        body += 'Format: ' + formatDropdown(formats) + '<br>\n';
+	listPlayers(function(players) {
 
-	response.writeHead(200, {"Content-Type": "text/html"});
-	response.write(body);
-	response.end();
+	    body += '<h2>Team #1</h2>\n' +
+		'Player: ' + playerDropdown('team1_player1', players) + '<br>\n' +
+		'Player: ' + playerDropdown('team1_player2', players) + '<br>\n' +
+		'Player: ' + playerDropdown('team1_player3', players) + '<br>\n' +
+		'Player: ' + playerDropdown('team1_player4', players) + '<br>\n' +
+		'Player: ' + playerDropdown('team1_player5', players) + '<br>\n';
+
+	    body += '<h2>Team #2</h2>\n' +
+		'Player: ' + playerDropdown('team2_player1', players) + '<br>\n' +
+		'Player: ' + playerDropdown('team2_player2', players) + '<br>\n' +
+		'Player: ' + playerDropdown('team2_player3', players) + '<br>\n' +
+		'Player: ' + playerDropdown('team2_player4', players) + '<br>\n' +
+		'Player: ' + playerDropdown('team2_player5', players) + '<br>\n';
+
+	    body += '<input type=submit></form></body></html>';	
+	    response.writeHead(200, {"Content-Type": "text/html"});
+	    response.write(body);
+	    response.end();
+
+	});
     });
 }
 
