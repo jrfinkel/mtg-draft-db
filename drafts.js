@@ -120,14 +120,42 @@ function firstLineup (body, response) {
     if (body['team2_player4'] != -1) { team2Players.push(body['team2_player4']); }
     if (body['team2_player5'] != -1) { team2Players.push(body['team2_player5']); }
 
-    var body = 'SELECT * from players where id IN (';
+    var psql1 = 'SELECT * FROM players WHERE id IN (';
     var first = true;
-    team1Players.forEach(function (id) { if (!first) { body += ', '; } first = false; body += id; });
-    body += ');';
+    team1Players.forEach(function (id) { if (!first) { psql1 += ', '; } 
+					 first = false; 
+					 psql1 += id; });
+    psql1 += ');';
 
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(body);
-    response.end();    
+    var psql2 = 'SELECT * FROM players WHERE id IN (';
+    first = true;
+    team2Players.forEach(function (id) { if (!first) { psql2 += ', '; } 
+					 first = false; 
+					 psql2 += id; });
+    psql2 += ');';
+
+    syncQuery(psql1, function(players1) {
+	players1.unshift({'name':'No Player', 'id':-1});
+	syncQuery(psql2, function(players2) {
+	    players2.unshift({'name':'No Player', 'id':-1});
+	    
+	    var b = '<html><head><title>First Lineup</title>\n' +
+    		'</head><body><h1>Firest Lineup</h1>' + 
+		'<form name="the-form" action="/second-lineup" method="post">\n' +
+		'1. ' + playerDropdown('player11', players1) + '  ' + playerDropdown('player12', players2) + '<br>/n' +
+		'2. ' + playerDropdown('player21', players1) + '  ' + playerDropdown('player22', players2) + '<br>/n' +
+		'3. ' + playerDropdown('player31', players1) + '  ' + playerDropdown('player32', players2) + '<br>/n' +
+		'4. ' + playerDropdown('player41', players1) + '  ' + playerDropdown('player42', players2) + '<br>/n' +
+		'5. ' + playerDropdown('player51', players1) + '  ' + playerDropdown('player52', players2) + '<br>/n' +
+		'<br><input type=submit value="Second Lineup ---&gt;&gt;"></form></body></html>';	
+
+	    response.writeHead(200, {"Content-Type": "text/html"});
+	    response.write(b);
+	    response.end();    
+	});
+    });
+
+ 
 }
 
 exports.setup = function setupHandlers (app) {
