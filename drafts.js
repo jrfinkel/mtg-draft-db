@@ -108,7 +108,8 @@ function displayLineup(players1, players2) {
     players1.unshift({'name':'No Player', 'id':-1});
     players2.unshift({'name':'No Player', 'id':-1});
 	    
-    var b = '1. ' + playerDropdown('player11', players1) + ' <input type="radio" name="win1" value="team1" checked="checked"> vs <input type="radio" name="win1" value="team2"> ' + playerDropdown('player12', players2) + '<br>\n' +
+    var b = '<h3>Please select the competitors and the winner of each match.</h3>' +
+	'1. ' + playerDropdown('player11', players1) + ' <input type="radio" name="win1" value="team1" checked="checked"> vs <input type="radio" name="win1" value="team2"> ' + playerDropdown('player12', players2) + '<br>\n' +
 	'2. ' + playerDropdown('player21', players1) + ' <input type="radio" name="win2" value="team1" checked="checked"> vs <input type="radio" name="win2" value="team2"> ' + playerDropdown('player22', players2) + '<br>\n' +
 	'3. ' + playerDropdown('player31', players1) + ' <input type="radio" name="win3" value="team1" checked="checked"> vs <input type="radio" name="win3" value="team2"> ' + playerDropdown('player32', players2) + '<br>\n' +
 	'4. ' + playerDropdown('player41', players1) + ' <input type="radio" name="win4" value="team1" checked="checked"> vs <input type="radio" name="win4" value="team2"> ' + playerDropdown('player42', players2) + '<br>\n' +
