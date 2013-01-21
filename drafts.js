@@ -50,7 +50,7 @@ function listFormats(callback) {
 }
 
 
-function dropdown(name, data, valFn, idFn) {
+function dropdown(name, data, idFn, valFn) {
     var body = '<select name="' + name + '">';
     data.forEach(function (row) {
 	body += '<option value="'+idFn(row)+'">'+valFn(row)+'</optiion>'
