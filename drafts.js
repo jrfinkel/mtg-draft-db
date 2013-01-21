@@ -37,8 +37,9 @@ function syncQuery(psql_query) {
 	query.on('end', function(row) { done = true; });
     });
 
+    console.log('trying ... ' + psql_query);
     while (!done) {}
-    
+    console.log('finished ... ' + psql_query);
     return res;
 }
 
