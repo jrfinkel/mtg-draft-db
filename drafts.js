@@ -68,10 +68,11 @@ function formatDropdown(formats) {
 }
 
 function startDraftPage (response) {
-    console.log('starting startDraftPge');
+    console.log('starting startDraftPage');
 
     var body = '<html><head><title>Start a New Draft</title>\n' +
-    	'</head><body><h1>New Draft</h1><form>';
+    	'</head><body><h1>New Draft</h1>' + 
+	'<form name="the-form" action="/first-line-up" method="post">\n';
 
     listFormats(function(formats) {
         body += 'Format: ' + formatDropdown(formats) + '<br>\n';
@@ -101,10 +102,25 @@ function startDraftPage (response) {
     });
 }
 
+function firstLineup (body, response) {
+    var body = JSON.stringify(body);
+
+    response.writeHead(200, {"Content-Type": "text/html"});
+    response.write(body);
+    response.end();    
+}
+
 exports.setup = function setupHandlers (app) {
 
     app.get('/start-draft', function(request, response) {
-	console.log('start-draft');
+	console.log('GET: start-draft');
 	startDraftPage(response);
+    });
+
+    app.post('/first-lineup', function(request, response) {
+	console.log('POST: first-lineup');
+	util.readPostData(request, function(body) { 
+	    firstLineup(body, response);
+	});
     });
 }
