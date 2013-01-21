@@ -40,7 +40,7 @@ function syncQuery(psql_query) {
     });
 
     console.log('trying ... ' + psql_query);
-    while (!done) {}
+    while (!done) { console.log('log: '+done); }
     console.log('finished ... ' + psql_query);
     return res;
 }
