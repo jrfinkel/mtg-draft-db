@@ -160,7 +160,7 @@ function firstLineup (body, response) {
     });
 }
 
-function firstLineup (body, response) {
+function secondLineup (body, response) {
     var team1Players = readTeam(body '1');
     var team2Players = readTeam(body '2');
 
