@@ -28,16 +28,16 @@ function insertPlayerInDB(body) {
 
 function syncQuery(psql_query) {
     var res = new Array();
-    var done1 = false;
+    var done = false;
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	console.log('About to query: ' + psql_query);
 	var query = client.query(psql_query);	
-	query.on('row', function(row) { res.add(row); }
-	query.on('end', function(row) { done1 = true; });
+	query.on('row', function(row) { res.add(row); });
+	query.on('end', function(row) { done = true; });
     });
 
-    while (!done1) {}
+    while (!done) {}
     
     return res;
 }
