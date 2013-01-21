@@ -1,6 +1,6 @@
 var express = require('express');
-
 var players = require('./players');
+var drafts = require('./drafts');
 
 console.log('Starting server.');
 
@@ -12,5 +12,6 @@ app.listen(port, function() {
 });
 
 players.setup(app);
+drafts.setup(app);
 
 console.log('Finished loading server');
