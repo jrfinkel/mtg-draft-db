@@ -34,7 +34,7 @@ function syncQuery(psql_query, callback) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	console.log('About to query: ' + psql_query);
 	var query = client.query(psql_query);	
-	query.on('row', function(row) { console.log('reading row'); res.add(row); });
+	query.on('row', function(row) { console.log('reading row'); res.push(row); });
 	query.on('end', function(row) { callback(res); });
     });
 
