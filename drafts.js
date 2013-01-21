@@ -131,21 +131,19 @@ function playerQuery(ids) {
     return psql;
 }
 
+function readTeam(body, team) {
+    var teamPlayers = new Array();
+
+    [1 2 3 4 5].forEach(function(p) {
+	if (body['team'+team+'_player'+p] != -1) { teamPlayers.push(body['team'+team+'_player'+p]); }
+    });
+
+    return teamPlayers;
+}
+
 function firstLineup (body, response) {
-    var team1Players = new Array();
-    var team2Players = new Array();
-
-    if (body['team1_player1'] != -1) { team1Players.push(body['team1_player1']); }
-    if (body['team1_player2'] != -1) { team1Players.push(body['team1_player2']); }
-    if (body['team1_player3'] != -1) { team1Players.push(body['team1_player3']); }
-    if (body['team1_player4'] != -1) { team1Players.push(body['team1_player4']); }
-    if (body['team1_player5'] != -1) { team1Players.push(body['team1_player5']); }
-
-    if (body['team2_player1'] != -1) { team2Players.push(body['team2_player1']); }
-    if (body['team2_player2'] != -1) { team2Players.push(body['team2_player2']); }
-    if (body['team2_player3'] != -1) { team2Players.push(body['team2_player3']); }
-    if (body['team2_player4'] != -1) { team2Players.push(body['team2_player4']); }
-    if (body['team2_player5'] != -1) { team2Players.push(body['team2_player5']); }
+    var team1Players = readTeam(body '1');
+    var team2Players = readTeam(body '2');
 
     syncQuery(playerQuery(team1Players), function(players1) {
 	syncQuery(playerQuery(team2Players), function(players2) {
@@ -175,6 +173,13 @@ exports.setup = function setupHandlers (app) {
 	console.log('POST: first-lineup');
 	util.readPostData(request, function(body) { 
 	    firstLineup(body, response);
+	});
+    });
+
+    app.post('/second-lineup', function(request, response) {
+	console.log('POST: second-lineup');
+	util.readPostData(request, function(body) { 
+	    secondLineup(body, response);
 	});
     });
 }
