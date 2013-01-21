@@ -92,7 +92,7 @@ function startDraftPage (response) {
 		'Player: ' + playerDropdown('team2_player4', players) + '<br>\n' +
 		'Player: ' + playerDropdown('team2_player5', players) + '<br>\n';
 
-	    body += '<br><input type=submit value="First Line-up --->>"></form></body></html>';	
+	    body += '<br><input type=submit value="First Line-up ---&gt;&gt;"></form></body></html>';	
 	    response.writeHead(200, {"Content-Type": "text/html"});
 	    response.write(body);
 	    response.end();
