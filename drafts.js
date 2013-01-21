@@ -158,9 +158,27 @@ function firstLineup (body, response) {
 	    response.end();    
 	});
     });
-
- 
 }
+
+function firstLineup (body, response) {
+    var team1Players = readTeam(body '1');
+    var team2Players = readTeam(body '2');
+
+    syncQuery(playerQuery(team1Players), function(players1) {
+	syncQuery(playerQuery(team2Players), function(players2) {
+	    var b = '<html><head><title>First Lineup</title>\n' +
+    		'</head><body><h1>First Lineup</h1>' + 
+		'<form name="the-form" action="/second-lineup" method="post">\n' +
+		displayLineup(players1, players2) +
+		'<br><input type=submit value="Second Lineup ---&gt;&gt;"></form></body></html>';	
+
+	    response.writeHead(200, {"Content-Type": "text/html"});
+	    response.write(b);
+	    response.end();    
+	});
+    });
+}
+
 
 exports.setup = function setupHandlers (app) {
 
