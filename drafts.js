@@ -59,13 +59,13 @@ function startDraftPage (response) {
 	listPlayers(function(players) {
 	    players.unshift({'name':'No Player', 'id':-1});
 
-	    body += '<table><tr><td colspan=3><h3>Team #1</h3><td colspan=3><h3>Team #2</h3>\n' +
-		'<tr><td>Set Credit<td>Money<td>Player<td>Set Credit<td>Money<td>Player';
-	    for (var i=1; i<=5; i++) {
+	    body += '<table><tr><td colspan=2><h3>Team #1</h3><td colspan=2><h3>Team #2</h3>\n' +
+		'<tr><td>Set Credit<td>Player<td>Set Credit<td>Player';
+	    for (var i=1; i<6; i++) {
 		body += '<tr>';
 		for (var j=1; j<3; j++) {
-		    body += '<td><input type="text" name="team'+j+'_player1_set_credit" value="-1">' +
-			'<td><Player: ' + playerDropdown('team'+j+'_player'+i, players) + '<br>\n';
+		    body += '<td><input type="text" name="team'+j+'_player'+i+'_set_credit" value="-1">' +
+			'<td>' + playerDropdown('team'+j+'_player'+i, players) + '<br>\n';
 		}
 	    }
 	    body += '<br><input type=submit value="First Lineup ---&gt;&gt;"></form></body></html>';	
