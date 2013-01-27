@@ -59,7 +59,7 @@ function startDraftPage (response) {
 	listPlayers(function(players) {
 	    players.unshift({'name':'No Player', 'id':-1});
 
-	    body += '<table><tr><th colspan=2><h3>Team #1</h3><th colspan=2><h3>Team #2</h3>' +
+	    body += '<br><br><table><tr><th colspan=2>Team #1<th colspan=2>Team #2' +
 		'<tr><th>Set Credit<th>Player<th>Set Credit<th>Player';
 	    for (var i=1; i<6; i++) {
 		body += '<tr>';
@@ -68,7 +68,7 @@ function startDraftPage (response) {
 			'<td>' + playerDropdown('team'+j+'_player'+i, players) + '<br>\n';
 		}
 	    }
-	    body += '</table><br><input type=submit value="First Lineup ---&gt;&gt;"></form></body></html>';	
+	    body += '</table><br><input type=submit value="First Round ---&gt;&gt;"></form></body></html>';	
 	    response.writeHead(200, {"Content-Type": "text/html"});
 	    response.write(body);
 	    response.end();
@@ -123,13 +123,13 @@ function firstLineup (body, response) {
 
     syncQuery(playerQuery(team1Players), function(players1) {
 	syncQuery(playerQuery(team2Players), function(players2) {
-	    var b = '<html><head><title>First Lineup</title>\n' +
-    		'</head><body><h1>First Lineup</h1>' + 
+	    var b = '<html><head><title>First Round</title>\n' +
+    		'</head><body><h1>First Round</h1>' + 
 		'<form name="the-form" action="/second-lineup" method="post">\n' +
 		'<input type=hidden name="team1" value="'+ escape(JSON.stringify(team1Players)) +'">' +
 		'<input type=hidden name="team2" value="'+ escape(JSON.stringify(team2Players)) +'">' +
 		displayLineup(players1, players2) +
-		'<br><input type=submit value="Second Lineup ---&gt;&gt;"></form></body></html>';	
+		'<br><input type=submit value="Second Round ---&gt;&gt;"></form></body></html>';	
 
 	    response.writeHead(200, {"Content-Type": "text/html"});
 	    response.write(b);
@@ -144,8 +144,8 @@ function secondLineup (body, response) {
 
     syncQuery(playerQuery(team1Players), function(players1) {
 	syncQuery(playerQuery(team2Players), function(players2) {
-	    var b = '<html><head><title>Second Lineup</title>\n' +
-    		'</head><body><h1>Second Lineup</h1>' + 
+	    var b = '<html><head><title>Second Round</title>\n' +
+    		'</head><body><h1>Second Round</h1>' + 
 		'<form name="the-form" action="/final-step" method="post">\n' +
 		'<input type=hidden name="lineup1Body" value="'+ escape(JSON.stringify(body)) +'">' +
 		
