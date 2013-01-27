@@ -130,8 +130,8 @@ function firstLineup (body, response) {
 	    var b = '<html><head><title>First Lineup</title>\n' +
     		'</head><body><h1>First Lineup</h1>' + 
 		'<form name="the-form" action="/second-lineup" method="post">\n' +
-		'<input type=hidden name="team1" value="'+ util.htmlEncode(JSON.stringify(team1Players)) +'">' +
-		'<input type=hidden name="team2" value="'+ util.htmlEncode(JSON.stringify(team2Players)) +'">' +
+		'<input type=hidden name="team1" value="'+ escape(JSON.stringify(team1Players)) +'">' +
+		'<input type=hidden name="team2" value="'+ escape(JSON.stringify(team2Players)) +'">' +
 		displayLineup(players1, players2) +
 		'<br><input type=submit value="Second Lineup ---&gt;&gt;"></form></body></html>';	
 
@@ -143,8 +143,8 @@ function firstLineup (body, response) {
 }
 
 function secondLineup (body, response) {
-    var team1Players = JSON.parse(util.htmlDecode(body['team1']));
-    var team2Players = JSON.parse(util.htmlDecode(body['team2']));
+    var team1Players = unescape(util.htmlDecode(body['team1']));
+    var team2Players = unescape(util.htmlDecode(body['team2']));
 
     syncQuery(playerQuery(team1Players), function(players1) {
 	syncQuery(playerQuery(team2Players), function(players2) {
