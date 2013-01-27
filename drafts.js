@@ -112,7 +112,7 @@ function playerQuery(ids) {
 function readTeam(body, team) {
     var teamPlayers = new Array();
 
-    [1 2 3 4 5].forEach(function(p) {
+    [1, 2, 3, 4, 5].forEach(function(p) {
 	if (body['team'+team+'_player'+p] != -1) { teamPlayers.push(body['team'+team+'_player'+p]); }
     });
 
@@ -120,8 +120,8 @@ function readTeam(body, team) {
 }
 
 function firstLineup (body, response) {
-    var team1Players = readTeam(body '1');
-    var team2Players = readTeam(body '2');
+    var team1Players = readTeam(body, '1');
+    var team2Players = readTeam(body, '2');
 
     syncQuery(playerQuery(team1Players), function(players1) {
 	syncQuery(playerQuery(team2Players), function(players2) {
