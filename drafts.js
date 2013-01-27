@@ -60,7 +60,7 @@ function startDraftPage (response) {
 	    players.unshift({'name':'No Player', 'id':-1});
 
 	    body += '<table><tr><td colspan=2><h3>Team #1</h3><td colspan=2><h3>Team #2</h3>\n' +
-		'<tr><td>Set Credit<td>Player<td>Set Credit<td>Player';
+		'<tr><th>Set Credit<th>Player<th>Set Credit<th>Player';
 	    for (var i=1; i<6; i++) {
 		body += '<tr>';
 		for (var j=1; j<3; j++) {
