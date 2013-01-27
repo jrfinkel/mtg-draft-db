@@ -68,7 +68,7 @@ function startDraftPage (response) {
 			'<td>' + playerDropdown('team'+j+'_player'+i, players) + '<br>\n';
 		}
 	    }
-	    body += '<br><input type=submit value="First Lineup ---&gt;&gt;"></form></body></html>';	
+	    body += '</table><br><input type=submit value="First Lineup ---&gt;&gt;"></form></body></html>';	
 	    response.writeHead(200, {"Content-Type": "text/html"});
 	    response.write(body);
 	    response.end();
