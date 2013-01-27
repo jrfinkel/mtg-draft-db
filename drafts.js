@@ -64,7 +64,7 @@ function startDraftPage (response) {
 	    for (var i=1; i<6; i++) {
 		body += '<tr>';
 		for (var j=1; j<3; j++) {
-		    body += '<td><input type="text" name="team'+j+'_player'+i+'_set_credit" value="-1">' +
+		    body += '<td><input type="text" size="3" name="team'+j+'_player'+i+'_set_credit" value="-1">' +
 			'<td>' + playerDropdown('team'+j+'_player'+i, players) + '<br>\n';
 		}
 	    }
