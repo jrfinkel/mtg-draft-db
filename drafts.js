@@ -143,8 +143,8 @@ function firstLineup (body, response) {
 }
 
 function secondLineup (body, response) {
-    var team1Players = unescape(util.htmlDecode(body['team1']));
-    var team2Players = unescape(util.htmlDecode(body['team2']));
+    var team1Players = JSON.parse(unescape(body['team1']));
+    var team2Players = JSON.parse(unescape(body['team2']));
 
     syncQuery(playerQuery(team1Players), function(players1) {
 	syncQuery(playerQuery(team2Players), function(players2) {
