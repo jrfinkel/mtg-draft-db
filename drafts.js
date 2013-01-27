@@ -2,29 +2,7 @@ var pg = require('pg');
 var util = require('./util');
 
 
-function insertPlayerInDB(body) {
-    console.log('adding player to db');
 
-    var name = body['name'];
-    var set_credit = parseInt(body['set_credit']);
-    var rating = parseInt(body['rating']);
-    var ind_wins = parseInt(body['ind_wins']);
-    var ind_losses = parseInt(body['ind_losses']);
-    var draft_wins = parseInt(body['draft_wins']);
-    var draft_ties = parseInt(body['draft_ties']);
-    var draft_losses = parseInt(body['draft_losses']);
-    var money = parseFloat(body['money']);
-
-    parseInt(body['win_pos']);
-
-    pg.connect(process.env.DATABASE_URL, function(err, client) {
-	var q = 'INSERT INTO players (name, set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money) VALUES (\''+ name +'\', '+ set_credit +', '+ rating +', '+ ind_wins + ', ' + ind_losses + ', ' + draft_wins + ', ' + draft_ties + ', ' + draft_losses + ', ' + money +');';
-	console.log('About to query: ' + q);
-	var query = client.query(q);	
-	query.on('row', function(row) { console.log('Added new player: '+row); });
-	query.on('end', function(row) { console.log('Finished adding player: '+name); });
-    });
-}
 
 function syncQuery(psql_query, callback) {
     var res = new Array();
@@ -150,6 +128,8 @@ function firstLineup (body, response) {
 	    var b = '<html><head><title>First Lineup</title>\n' +
     		'</head><body><h1>First Lineup</h1>' + 
 		'<form name="the-form" action="/second-lineup" method="post">\n' +
+		'<input type=hidden name="team1" value="'+ JSON.stringify(team1Players) +'">' +
+		'<input type=hidden name="team2" value="'+ JSON.stringify(team2Players) +'">' +
 		displayLineup(players1, players2) +
 		'<br><input type=submit value="Second Lineup ---&gt;&gt;"></form></body></html>';	
 
@@ -161,16 +141,16 @@ function firstLineup (body, response) {
 }
 
 function secondLineup (body, response) {
-    var team1Players = readTeam(body '1');
-    var team2Players = readTeam(body '2');
+    var team1Players = JSON.parse(body['team1']);
+    var team2Players = JSON.parse(body['team2']);
 
     syncQuery(playerQuery(team1Players), function(players1) {
 	syncQuery(playerQuery(team2Players), function(players2) {
-	    var b = '<html><head><title>First Lineup</title>\n' +
-    		'</head><body><h1>First Lineup</h1>' + 
-		'<form name="the-form" action="/second-lineup" method="post">\n' +
+	    var b = '<html><head><title>Second Lineup</title>\n' +
+    		'</head><body><h1>Second Lineup</h1>' + 
+		'<form name="the-form" action="/final-step" method="post">\n' +
 		displayLineup(players1, players2) +
-		'<br><input type=submit value="Second Lineup ---&gt;&gt;"></form></body></html>';	
+		'<br><input type=submit value="Confirmation ---&gt;&gt;"></form></body></html>';	
 
 	    response.writeHead(200, {"Content-Type": "text/html"});
 	    response.write(b);
