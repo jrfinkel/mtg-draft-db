@@ -88,14 +88,13 @@ function displayLineup(players1, players2) {
     players1.unshift({'name':'No Player', 'id':-1});
     players2.unshift({'name':'No Player', 'id':-1});
 	    
-    var b = '<h3>Please select the competitors and the winner of each match.</h3>' +
-	'<table><tr><th><th>Team 1<th><th>Team 2<th>';
+    var b = '<h3>Please select the competitors and the winner of each match.</h3>\n<table><tr><th><th>Team 1<th><th>Team 2<th>\n';
 
-    for (var i=0; i < numLineups; i++) {
+    for (var match = 0; match < numLineups; match++) {
 	b += '<tr><td>'+ match +'. <td>' + playerDropdown('player'+match+'1', players1) + ' <td><input type="radio" name="win'+match+'" value="team1" checked="checked"> vs <input type="radio" name="win'+match+'" value="team2"> <td>' + playerDropdown('player'+match+'2', players2) + '\n';
     }
 
-    b += '</table>';
+    b += '</table></body></html>';
 
     players1.shift();
     players2.shift();
