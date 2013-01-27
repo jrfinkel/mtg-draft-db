@@ -83,17 +83,19 @@ function startDraftPage (response) {
 }
 
 function displayLineup(players1, players2) {
+    var numLineups = Math.max(players1.length, players2.length);
+
     players1.unshift({'name':'No Player', 'id':-1});
     players2.unshift({'name':'No Player', 'id':-1});
 	    
     var b = '<h3>Please select the competitors and the winner of each match.</h3>' +
-	'<table><tr><th><th>Team 1<th><th>Team 2<th>' +
-	'<tr><td>1. <td>' + playerDropdown('player11', players1) + ' <td><input type="radio" name="win1" value="team1" checked="checked"> vs <input type="radio" name="win1" value="team2"> <td>' + playerDropdown('player12', players2) + '\n' +
-	'<tr><td>2. <td>' + playerDropdown('player21', players1) + ' <td><input type="radio" name="win2" value="team1" checked="checked"> vs <input type="radio" name="win2" value="team2"> <td>' + playerDropdown('player22', players2) + '\n' +
-	'<tr><td>3. <td>' + playerDropdown('player31', players1) + ' <td><input type="radio" name="win3" value="team1" checked="checked"> vs <input type="radio" name="win3" value="team2"> <td>' + playerDropdown('player32', players2) + '\n' +
-	'<tr><td>4. <td>' + playerDropdown('player41', players1) + ' <td><input type="radio" name="win4" value="team1" checked="checked"> vs <input type="radio" name="win4" value="team2"> <td>' + playerDropdown('player42', players2) + '\n' +
-	'<tr><td>5. <td>' + playerDropdown('player51', players1) + ' <td><input type="radio" name="win5" value="team1" checked="checked"> vs <input type="radio" name="win5" value="team2"> <td>' + playerDropdown('player52', players2) + '\n' + 
-	'</table>';
+	'<table><tr><th><th>Team 1<th><th>Team 2<th>';
+
+    for (var i=0; i < numLineups; i++) {
+	b += '<tr><td>'+ match +'. <td>' + playerDropdown('player'+match+'1', players1) + ' <td><input type="radio" name="win'+match+'" value="team1" checked="checked"> vs <input type="radio" name="win'+match+'" value="team2"> <td>' + playerDropdown('player'+match+'2', players2) + '\n';
+    }
+
+    b += '</table>';
 
     players1.shift();
     players2.shift();
@@ -151,6 +153,8 @@ function secondLineup (body, response) {
 	    var b = '<html><head><title>Second Lineup</title>\n' +
     		'</head><body><h1>Second Lineup</h1>' + 
 		'<form name="the-form" action="/final-step" method="post">\n' +
+		'<input type=hidden name="lineup1Body" value="'+ escape(JSON.stringify(body)) +'">' +
+		
 		displayLineup(players1, players2) +
 		'<br><input type=submit value="Confirmation ---&gt;&gt;"></form></body></html>';	
 
@@ -160,7 +164,18 @@ function secondLineup (body, response) {
 	});
     });
 }
- 
+
+function finalStep (body, response) {
+
+    var b = '<html><head><title>Final Confirmation</title>\n' +
+    	'</head><body><h1>finalConfirmation</h1>' + 
+	unencode(body['lineup1Body']) + '<br>' +
+	JSON.stringify(body) + '<br></table></body></html>';
+    
+    response.writeHead(200, {"Content-Type": "text/html"});
+    response.write(b);
+    response.end();    
+} 
 
 exports.setup = function setupHandlers (app) {
 
@@ -180,6 +195,13 @@ exports.setup = function setupHandlers (app) {
 	console.log('POST: second-lineup');
 	util.readPostData(request, function(body) { 
 	    secondLineup(body, response);
+	});
+    });
+
+    app.post('/final-step', function(request, response) {
+	console.log('POST: final-step');
+	util.readPostData(request, function(body) { 
+	    finalStep(body, response);
 	});
     });
 }
