@@ -138,14 +138,14 @@ function readWinners (body) {
 
 function firstLineup (body, response) {
     var teams = readTeams(body);    
-/**
+
     b = '<html><body>'+JSON.stringify(teams[0])+'<BR><BR>'+JSON.stringify(teams[0].keys)+'</body></html>';
 
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
     response.end();    
-*/
 
+/**
    syncQuery(playerQuery(keys(teams[0])), function(players0) {
 	syncQuery(playerQuery(keys(teams[1])), function(players1) {
 	    ts = [players0, players1];
@@ -161,7 +161,7 @@ function firstLineup (body, response) {
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
     response.end();    
-
+*/
 //	    displayLineup(teams, {"teams":teams}, 'First', 'Second Round', response);
 	});
     }); 
