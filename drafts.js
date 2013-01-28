@@ -91,7 +91,7 @@ function displayLineup(teams, data, round, nextStep, response) {
 	'<input type=hidden name="data" value="'+ dataStr +'">\n' +
 	'<h3>Please select the competitors and the winner of each match.</h3>\n<table><tr><th><th>Team 1<th><th>Team 2<th>\n';
 
-    for (var i = 0; i < numLineups; i++) {
+    for (var i = 0; i < 5; i++) {
 	b += '<tr><td>'+ i +'. <td>' + playerDropdown('player'+i+'0', teams[0]) + ' <td><input type="radio" name="win'+i+'" value="team0" checked="checked"> vs <input type="radio" name="win'+i+'" value="team1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
     }
 
