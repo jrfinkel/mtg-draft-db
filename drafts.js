@@ -27,11 +27,10 @@ function listFormats(callback) {
     return syncQuery('SELECT * FROM formats ORDER BY id DESC;', callback);
 }
 
-
 function dropdown(name, data, idFn, valFn) {
     var body = '<select name="' + name + '">';
     data.forEach(function (row) {
-	body += '<option value="'+idFn(row)+'">'+valFn(row)+'</optiion>'
+	body += '<option value="'+idFn(row)+'">'+valFn(row)+'</option>'
     });
     body += '</select>';
     return body;
@@ -61,9 +60,9 @@ function startDraftPage (response) {
 
 	    body += '<br><br><table><tr><th colspan=2>Team #1<th colspan=2>Team #2' +
 		'<tr><th>Set Credit<th>Player<th>Set Credit<th>Player';
-	    for (var i=1; i<6; i++) {
+	    for (var i=0; i<5; i++) {
 		body += '<tr>';
-		for (var j=1; j<3; j++) {
+		for (var j=0; j<2; j++) {
 		    body += '<td align="center"><input type="text" size="3" name="team'+j+'_player'+i+'_set_credit" value="-1">' +
 			'<td>' + playerDropdown('team'+j+'_player'+i, players) + '<br>\n';
 		}
@@ -77,24 +76,34 @@ function startDraftPage (response) {
     });
 }
 
-function displayLineup(players1, players2) {
-    var numLineups = Math.max(players1.length, players2.length);
+function displayLineup(teams, data, round, nextStep, response) {
+    var numLineups = Math.max(teams[0].length, teams[1].length);
 
-    players1.unshift({'name':'No Player', 'id':-1});
-    players2.unshift({'name':'No Player', 'id':-1});
-	    
-    var b = '<h3>Please select the competitors and the winner of each match.</h3>\n<table><tr><th><th>Team 1<th><th>Team 2<th>\n';
+    var dataStr = escape(JSON.stringify(data));
 
-    for (var match = 0; match < numLineups; match++) {
-	b += '<tr><td>'+ match +'. <td>' + playerDropdown('player'+match+'1', players1) + ' <td><input type="radio" name="win'+match+'" value="team1" checked="checked"> vs <input type="radio" name="win'+match+'" value="team2"> <td>' + playerDropdown('player'+match+'2', players2) + '\n';
+    for (var i=0; i<2; i++) {
+	teams[i].unshift({'name':'No Player', 'id':-1});
+    }	 
+
+    var b = '<html><head><title>'+round+' Round</title>\n' +
+    	'</head><body><h1>'+round+' Round</h1>' + 
+	'<form name="the-form" action="/second-lineup" method="post">\n' +
+	'<input type=hidden name="data" value="'+ dataStr +'">\n' +
+	'<h3>Please select the competitors and the winner of each match.</h3>\n<table><tr><th><th>Team 1<th><th>Team 2<th>\n';
+
+    for (var i = 0; i < numLineups; i++) {
+	b += '<tr><td>'+ i +'. <td>' + playerDropdown('player'+i+'0', teams[0]) + ' <td><input type="radio" name="win'+i+'" value="team0" checked="checked"> vs <input type="radio" name="win'+i+'" value="team1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
     }
 
-    b += '</table></body></html>';
+    b += '</table><br><input type=submit value="'+nextStep+' ---&gt;&gt;"></form></body></html>';	
 
-    players1.shift();
-    players2.shift();
+    for (var i=0; i<2; i++) {
+	teams[i].shift();
+    }
 
-    return b;
+    response.writeHead(200, {"Content-Type": "text/html"});
+    response.write(b);
+    response.end();    
 }
 
 function playerQuery(ids) {
@@ -107,63 +116,68 @@ function playerQuery(ids) {
     return psql;
 }
 
-function readTeam(body, team) {
-    var teamPlayers = new Array();
+function readTeams(body) {
+    var teams = new Array();
 
-    [1, 2, 3, 4, 5].forEach(function(p) {
-	if (body['team'+team+'_player'+p] != -1) { teamPlayers.push(body['team'+team+'_player'+p]); }
-    });
+    for (int team=0; team<2; team++) {
+	var teamPlayers = new Array();
+	for (int p=0; p<5; p++) {
+	    var playerId = body['team'+team+'_player'+p];
+	    var playerSetCredit = body['team'+team+'_player'+p+'_set_credit'];
+	    if (playerId != -1) { teamPlayers[id] = playerSetCredit; }
+	}
+	teams.add(teamPlayers);
+    }
 
-    return teamPlayers;
+    return teams;
+}
+
+function readWinners (body) {
+    return {'winners':'blarg'};
 }
 
 function firstLineup (body, response) {
-    var team1Players = readTeam(body, '1');
-    var team2Players = readTeam(body, '2');
+    var teams = readTeams(body);    
 
-    syncQuery(playerQuery(team1Players), function(players1) {
-	syncQuery(playerQuery(team2Players), function(players2) {
-	    var b = '<html><head><title>First Round</title>\n' +
-    		'</head><body><h1>First Round</h1>' + 
-		'<form name="the-form" action="/second-lineup" method="post">\n' +
-		'<input type=hidden name="team1" value="'+ escape(JSON.stringify(team1Players)) +'">' +
-		'<input type=hidden name="team2" value="'+ escape(JSON.stringify(team2Players)) +'">' +
-		displayLineup(players1, players2) +
-		'<br><input type=submit value="Second Round ---&gt;&gt;"></form></body></html>';	
-
-	    response.writeHead(200, {"Content-Type": "text/html"});
-	    response.write(b);
-	    response.end();    
+    syncQuery(playerQuery(teams[0].keys), function(players0) {
+	syncQuery(playerQuery(teams[1].keys), function(players1) {
+	    ts = [players0, players1];
+	    for (var t=0; t<2; t++) {
+		players = ts[t];
+		players.forEach(function (p) {
+		    var setCredit = teams[t][p['id']];
+		    p['id']['draft_set_credit'] = setCredit;
+		    teams[t]['id'] = p;
+		});}
+	    fullLineup(teams, {"teams":teams}, 'First', 'Second Round', response);
 	});
     });
 }
 
 function secondLineup (body, response) {
-    var team1Players = JSON.parse(unescape(body['team1']));
-    var team2Players = JSON.parse(unescape(body['team2']));
+    var data = JSON.parse(unescape(body['data']));
+    var winners = readWinners(body);
+    data['rounds'][0] = winners;
 
-    syncQuery(playerQuery(team1Players), function(players1) {
-	syncQuery(playerQuery(team2Players), function(players2) {
-	    var b = '<html><head><title>Second Round</title>\n' +
-    		'</head><body><h1>Second Round</h1>' + 
-		'<form name="the-form" action="/final-step" method="post">\n' +
-		'<input type=hidden name="lineup1Body" value="'+ escape(JSON.stringify(body)) +'">' +
-		
-		displayLineup(players1, players2) +
-		'<br><input type=submit value="Confirmation ---&gt;&gt;"></form></body></html>';	
+    fullLineup(data['teams'], data, 'Second', 'Third Round', response);
+}
 
-	    response.writeHead(200, {"Content-Type": "text/html"});
-	    response.write(b);
-	    response.end();    
-	});
-    });
+function secondLineup (body, response) {
+    var data = JSON.parse(unescape(body['data']));
+    var winners = readWinners(body);
+    data['rounds'][1] = winners;
+
+    fullLineup(data['teams'], data, 'Second', 'Third Round', response);
 }
 
 function finalStep (body, response) {
 
+    var data = JSON.parse(unescape(body['data']));
+    var winners = readWinners(body);
+    data['rounds'][1] = winners;
+
     var b = '<html><head><title>Final Confirmation</title>\n' +
     	'</head><body><h1>finalConfirmation</h1>' + 
-	unescape(body['lineup1Body']) + '<br>' +
 	JSON.stringify(body) + '<br></table></body></html>';
     
     response.writeHead(200, {"Content-Type": "text/html"});
