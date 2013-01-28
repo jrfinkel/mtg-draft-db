@@ -152,9 +152,10 @@ function firstLineup (body, response) {
 	    for (var t=0; t<2; t++) {
 		players = ts[t];
 		players.forEach(function (p) {
-		    var setCredit = teams[t][p['id']];
-		    p['id']['draft_set_credit'] = setCredit;
-		    teams[t]['id'] = p;
+		    var pid = p['id'];
+		    var setCredit = teams[t][pid];
+		    p['draft_set_credit'] = setCredit;
+		    teams[t][pid] = p;
 		});}
     var b = '<html><body>'+JSON.stringify(teams[0])+'<BR><BR>'+JSON.stringify(teams[1])+'</body></html>';
 
