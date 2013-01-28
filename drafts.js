@@ -156,7 +156,9 @@ function firstLineup (body, response) {
 		    var setCredit = teams[t][pid];
 		    p['draft_set_credit'] = setCredit;
 		    teams[t][pid] = p;
-		});}
+		});
+		teams[t] = Object.values(teams[t]);
+	    }
 	    displayLineup(teams, {"teams":teams}, 'First', 'Second Round', response);
 	});
     }); 
