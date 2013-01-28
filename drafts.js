@@ -146,8 +146,8 @@ function firstLineup (body, response) {
     response.end();    
 */
 
-   syncQuery(playerQuery(teams[0].keys), function(players0) {
-	syncQuery(playerQuery(teams[1].keys), function(players1) {
+   syncQuery(playerQuery(keys(teams[0])), function(players0) {
+	syncQuery(playerQuery(keys(teams[1])), function(players1) {
 	    ts = [players0, players1];
 	    for (var t=0; t<2; t++) {
 		players = ts[t];
