@@ -29,16 +29,16 @@ function listFormats(callback) {
 
 function dropdown(name, data, idFn, valFn) {
     var body = '<select name="' + name + '">';
-    for (row in data) {
+    data.forEach(function (row) {
 	body += '<option value="'+idFn(row)+'">'+valFn(row)+'</option>'
-    }
+    });
     body += '</select>';
     return body;
 }
 
 function playerDropdown(name, players) {
-    return JSON.stringify(players) + ' ' + players[0]['id'] + ' '+ players[0]['name'];
-//    return dropdown(name, players, function(row) { return row['id']; }, function(row) { /** return JSON.stringify(row); });*/ row['name'] /**+ ' (' + row['id'] + ')'*/ ; });
+//    return JSON.stringify(players) + ' ' + players[1]['id'] + ' '+ players[1]['name'];
+    return dropdown(name, players, function(row) { return row['id']; }, function(row) { /** return JSON.stringify(row); });*/ row['name'] /**+ ' (' + row['id'] + ')'*/ ; });
 }
 
 function formatDropdown(formats) {
