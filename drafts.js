@@ -119,9 +119,9 @@ function playerQuery(ids) {
 function readTeams(body) {
     var teams = new Array();
 
-    for (int team=0; team<2; team++) {
+    for (var team=0; team<2; team++) {
 	var teamPlayers = new Array();
-	for (int p=0; p<5; p++) {
+	for (var p=0; p<5; p++) {
 	    var playerId = body['team'+team+'_player'+p];
 	    var playerSetCredit = body['team'+team+'_player'+p+'_set_credit'];
 	    if (playerId != -1) { teamPlayers[id] = playerSetCredit; }
