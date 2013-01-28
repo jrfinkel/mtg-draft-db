@@ -117,10 +117,10 @@ function playerQuery(ids) {
 }
 
 function readTeams(body) {
-    var teams = new Array();
+    var teams = [];
 
     for (var team=0; team<2; team++) {
-	var teamPlayers = new Array();
+	var teamPlayers = {};
 	for (var p=0; p<5; p++) {
 	    var playerId = body['team'+team+'_player'+p];
 	    var playerSetCredit = body['team'+team+'_player'+p+'_set_credit'];
