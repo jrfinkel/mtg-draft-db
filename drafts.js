@@ -161,10 +161,11 @@ function firstLineup (body, response) {
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
     response.end();    
-*/
+
 //	    displayLineup(teams, {"teams":teams}, 'First', 'Second Round', response);
 	});
     }); 
+*/
 }
 
 function secondLineup (body, response) {
