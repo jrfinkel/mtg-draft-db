@@ -76,7 +76,7 @@ function startDraftPage (response) {
     });
 }
 
-function displayLineup(teams, data, round, nextStep, response) {
+function displayLineup(teams, data, round, nextStep, action, response) {
     var numLineups = Math.max(Object.keys(teams[0]).length, Object.keys(teams[1]).length);
 
     var dataStr = escape(JSON.stringify(data));
@@ -87,7 +87,7 @@ function displayLineup(teams, data, round, nextStep, response) {
 
     var b = '<html><head><title>'+round+' Round</title>\n' +
     	'</head><body><h1>'+round+' Round</h1>' + 
-	'<form name="the-form" action="/second-lineup" method="post">\n' +
+	'<form name="the-form" action="/'+action+'" method="post">\n' +
 	'<input type=hidden name="data" value="'+ dataStr +'">\n' +
 	'<h3>Please select the competitors and the winner of each match.</h3>\n<table><tr><th><th>Team 1<th><th>Team 2<th>\n';
 
@@ -154,15 +154,7 @@ function firstLineup (body, response) {
 		});
 		t++;
 	    });
-/**
-    b = '<html><body>'+JSON.stringify(outTeams[0])+'<BR><BR>'+JSON.stringify(Object.keys(outTeams[1]))+'</body></html>';
-
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(b);
-    response.end();    
-
-*/
-	    displayLineup(outTeams, {"teams":outTeams}, 'First', 'Second Round', response);
+	    displayLineup(outTeams, {"teams":outTeams}, 'First', 'Second Round', 'second-lineup', response);
 	});
     }); 
 
@@ -173,15 +165,15 @@ function secondLineup (body, response) {
     var winners = readWinners(body);
     data['rounds'][0] = winners;
 
-    displayLineup(data['teams'], data, 'Second', 'Third Round', response);
+    displayLineup(data['teams'], data, 'Second', 'Third Round', 'third-lineup', response);
 }
 
-function secondLineup (body, response) {
+function thirdLineup (body, response) {
     var data = JSON.parse(unescape(body['data']));
     var winners = readWinners(body);
     data['rounds'] = [winners];
 
-    displayLineup(data['teams'], data, 'Second', 'Third Round', response);
+    displayLineup(data['teams'], data, 'Second', 'Third Round', 'final-step', response);
 }
 
 function finalStep (body, response) {
