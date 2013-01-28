@@ -139,7 +139,7 @@ function readWinners (body) {
 function firstLineup (body, response) {
     var teams = readTeams(body);    
 
-    b = '<html><body>'+JSON.stringify(teams[0])+'<BR><BR>'+JSON.stringify(keys(teams[0]))+'</body></html>';
+    b = '<html><body>'+JSON.stringify(teams[0])+'<BR><BR>'+JSON.stringify(Object.keys(teams[0]))+'</body></html>';
 
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
