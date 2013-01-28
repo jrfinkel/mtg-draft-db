@@ -101,6 +101,8 @@ function displayLineup(teams, data, round, nextStep, response) {
 	teams[i].shift();
     }
 
+    b = '<html><body>' + JSON.stringify(teams[0]) + '<BR><BR>' + JSON.stringify(teams[1]) + '</body></html>';
+
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
     response.end();    
