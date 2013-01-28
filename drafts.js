@@ -151,7 +151,7 @@ function firstLineup (body, response) {
 		    var pid = p['id'];
 		    var setCredit = teams[t][pid];
 		    p['draft_set_credit'] = setCredit;
-		    outTeams.push(p);
+		    outTeams[t].push(p);
 		});
 	    }
 
