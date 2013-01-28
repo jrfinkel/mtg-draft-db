@@ -138,14 +138,15 @@ function readWinners (body) {
 
 function firstLineup (body, response) {
     var teams = readTeams(body);    
-
+/**
     b = '<html><body>'+JSON.stringify(teams[0])+'<BR><BR>'+JSON.stringify(teams[0].keys)+'</body></html>';
 
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
     response.end();    
+*/
 
- /**   syncQuery(playerQuery(teams[0].keys), function(players0) {
+   syncQuery(playerQuery(teams[0].keys), function(players0) {
 	syncQuery(playerQuery(teams[1].keys), function(players1) {
 	    ts = [players0, players1];
 	    for (var t=0; t<2; t++) {
@@ -155,9 +156,15 @@ function firstLineup (body, response) {
 		    p['id']['draft_set_credit'] = setCredit;
 		    teams[t]['id'] = p;
 		});}
-	    displayLineup(teams, {"teams":teams}, 'First', 'Second Round', response);
+    var b = '<html><body>'+JSON.stringify(teams[0])+'<BR><BR>'+JSON.stringify(teams[1])+'</body></html>';
+
+    response.writeHead(200, {"Content-Type": "text/html"});
+    response.write(b);
+    response.end();    
+
+//	    displayLineup(teams, {"teams":teams}, 'First', 'Second Round', response);
 	});
-    }); */
+    }); 
 }
 
 function secondLineup (body, response) {
