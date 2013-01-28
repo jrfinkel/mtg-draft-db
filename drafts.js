@@ -212,6 +212,13 @@ exports.setup = function setupHandlers (app) {
 	});
     });
 
+    app.post('/third-lineup', function(request, response) {
+	console.log('POST: third-lineup');
+	util.readPostData(request, function(body) { 
+	    thirdLineup(body, response);
+	});
+    });
+
     app.post('/final-step', function(request, response) {
 	console.log('POST: final-step');
 	util.readPostData(request, function(body) { 
