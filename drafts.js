@@ -148,6 +148,7 @@ function firstLineup (body, response) {
 
    syncQuery(playerQuery(Object.keys(teams[0])), function(players0) {
 	syncQuery(playerQuery(Object.keys(teams[1])), function(players1) {
+	    var outTeams = [];
 	    var ts = [players0, players1];
 	    for (var t=0; t<2; t++) {
 		players = ts[t];
@@ -155,11 +156,10 @@ function firstLineup (body, response) {
 		    var pid = p['id'];
 		    var setCredit = teams[t][pid];
 		    p['draft_set_credit'] = setCredit;
-		    teams[t][pid] = p;
+		    outTeams.push(p);
 		});
-		teams[t] = Object.values(teams[t]);
 	    }
-	    displayLineup(teams, {"teams":teams}, 'First', 'Second Round', response);
+	    displayLineup(outTeams, {"teams":outTeams}, 'First', 'Second Round', response);
 	});
     }); 
 
