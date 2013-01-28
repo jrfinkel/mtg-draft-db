@@ -37,7 +37,7 @@ function dropdown(name, data, idFn, valFn) {
 }
 
 function playerDropdown(name, players) {
-    return dropdown(name, players, function(row) { return row['id']; }, function(row) { /** return JSON.stringify(row); });*/ row['name'] + ' (' + row['id'] + ')'; });
+    return dropdown(name, players, function(row) { return row['id']; }, function(row) { /** return JSON.stringify(row); });*/ row['name'] /**+ ' (' + row['id'] + ')'*/ ; });
 }
 
 function formatDropdown(formats) {
