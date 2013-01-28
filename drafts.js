@@ -126,7 +126,7 @@ function readTeams(body) {
 	    var playerSetCredit = body['team'+team+'_player'+p+'_set_credit'];
 	    if (playerId != -1) { teamPlayers[playerId] = playerSetCredit; }
 	}
-	teams.add(teamPlayers);
+	teams.push(teamPlayers);
     }
 
     return teams;
