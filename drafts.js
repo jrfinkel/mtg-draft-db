@@ -138,8 +138,6 @@ function readWinners (body) {
 
 function firstLineup (body, response) {
     var teams = readTeams(body);    
-/**
-*/
 
    syncQuery(playerQuery(Object.keys(teams[0])), function(players0) {
 	syncQuery(playerQuery(Object.keys(teams[1])), function(players1) {
@@ -154,15 +152,15 @@ function firstLineup (body, response) {
 		});
 		t++;
 	    });
-
+/**
     b = '<html><body>'+JSON.stringify(outTeams[0])+'<BR><BR>'+JSON.stringify(Object.keys(outTeams[1]))+'</body></html>';
 
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
     response.end();    
 
-
-//	    displayLineup(outTeams, {"teams":outTeams}, 'First', 'Second Round', response);
+*/
+	    displayLineup(outTeams, {"teams":outTeams}, 'First', 'Second Round', response);
 	});
     }); 
 
