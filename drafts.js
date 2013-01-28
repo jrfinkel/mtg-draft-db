@@ -163,7 +163,7 @@ function firstLineup (body, response) {
 function secondLineup (body, response) {
     var data = JSON.parse(unescape(body['data']));
     var winners = readWinners(body);
-    data['rounds'][0] = winners;
+    data['rounds'] = [winners];
 
     displayLineup(data['teams'], data, 'Second', 'Third Round', 'third-lineup', response);
 }
