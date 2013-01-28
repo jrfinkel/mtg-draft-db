@@ -30,15 +30,14 @@ function listFormats(callback) {
 function dropdown(name, data, idFn, valFn) {
     var body = '<select name="' + name + '">';
     data.forEach(function (row) {
-	body += '<option value="'+idFn(row)+'">'+JSON.stringify(row)+'</option>'
+	body += '<option value="'+idFn(row)+'">'+valFn(row)+'</option>'
     });
     body += '</select>';
     return body;
 }
 
 function playerDropdown(name, players) {
-//    return JSON.stringify(players) + ' ' + players[1]['id'] + ' '+ players[1]['name'];
-    return dropdown(name, players, function(row) { return row['id']; }, function(row) { /** return JSON.stringify(row); });*/ row['name'] /**+ ' (' + row['id'] + ')'*/ ; });
+    return dropdown(name, players, function(row) { return row['id']; }, function(row) { return row['name'] + ' (' + row['id'] + ')' ; });
 }
 
 function formatDropdown(formats) {
