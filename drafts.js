@@ -82,7 +82,7 @@ function displayLineup(teams, data, round, nextStep, response) {
     var dataStr = escape(JSON.stringify(data));
 
     for (var i=0; i<2; i++) {
-	teams[i][-1]({'name':'No Player', 'id':-1});
+	teams[i][-1] = {'name':'No Player', 'id':-1};
     }	 
 
     var b = '<html><head><title>'+round+' Round</title>\n' +
@@ -98,7 +98,7 @@ function displayLineup(teams, data, round, nextStep, response) {
     b += '</table><br><input type=submit value="'+nextStep+' ---&gt;&gt;"></form></body></html>';	
 
     for (var i=0; i<2; i++) {
-	teams[i].remove(-1);
+	delete teams[i][-1];
     }
 
     response.writeHead(200, {"Content-Type": "text/html"});
