@@ -157,13 +157,7 @@ function firstLineup (body, response) {
 		    p['draft_set_credit'] = setCredit;
 		    teams[t][pid] = p;
 		});}
-    var b = '<html><body>'+JSON.stringify(teams[0])+'<BR><BR>'+JSON.stringify(teams[1])+'</body></html>';
-
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(b);
-    response.end();    
-
-//	    displayLineup(teams, {"teams":teams}, 'First', 'Second Round', response);
+	    displayLineup(teams, {"teams":teams}, 'First', 'Second Round', response);
 	});
     }); 
 
