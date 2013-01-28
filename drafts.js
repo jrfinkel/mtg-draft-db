@@ -29,9 +29,9 @@ function listFormats(callback) {
 
 function dropdown(name, data, idFn, valFn) {
     var body = '<select name="' + name + '">';
-    data.forEach(function (row) {
+    for (row in data) {
 	body += '<option value="'+idFn(row)+'">'+valFn(row)+'</option>'
-    });
+    }
     body += '</select>';
     return body;
 }
@@ -139,11 +139,6 @@ function readWinners (body) {
 function firstLineup (body, response) {
     var teams = readTeams(body);    
 /**
-    b = '<html><body>'+JSON.stringify(teams[0])+'<BR><BR>'+JSON.stringify(Object.keys(teams[0]))+'</body></html>';
-
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(b);
-    response.end();    
 */
 
    syncQuery(playerQuery(Object.keys(teams[0])), function(players0) {
@@ -159,7 +154,15 @@ function firstLineup (body, response) {
 		    outTeams.push(p);
 		});
 	    }
-	    displayLineup(outTeams, {"teams":outTeams}, 'First', 'Second Round', response);
+
+    b = '<html><body>'+JSON.stringify(outTeams[0])+'<BR><BR>'+JSON.stringify(Object.keys(outTeams[1]))+'</body></html>';
+
+    response.writeHead(200, {"Content-Type": "text/html"});
+    response.write(b);
+    response.end();    
+
+
+//	    displayLineup(outTeams, {"teams":outTeams}, 'First', 'Second Round', response);
 	});
     }); 
 
