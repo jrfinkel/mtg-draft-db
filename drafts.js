@@ -124,7 +124,7 @@ function readTeams(body) {
 	for (var p=0; p<5; p++) {
 	    var playerId = body['team'+team+'_player'+p];
 	    var playerSetCredit = body['team'+team+'_player'+p+'_set_credit'];
-	    if (playerId != -1) { teamPlayers[id] = playerSetCredit; }
+	    if (playerId != -1) { teamPlayers[playerId] = playerSetCredit; }
 	}
 	teams.add(teamPlayers);
     }
