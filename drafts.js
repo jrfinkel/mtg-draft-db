@@ -37,7 +37,8 @@ function dropdown(name, data, idFn, valFn) {
 }
 
 function playerDropdown(name, players) {
-    return dropdown(name, players, function(row) { return row['id']; }, function(row) { /** return JSON.stringify(row); });*/ row['name'] /**+ ' (' + row['id'] + ')'*/ ; });
+    return JSON.stringify(players) + ' ' + players[0]['id'] + ' '+ players[0]['name'];
+//    return dropdown(name, players, function(row) { return row['id']; }, function(row) { /** return JSON.stringify(row); });*/ row['name'] /**+ ' (' + row['id'] + ')'*/ ; });
 }
 
 function formatDropdown(formats) {
@@ -101,7 +102,7 @@ function displayLineup(teams, data, round, nextStep, response) {
 	teams[i].shift();
     }
 
-    b = '<html><body>' + JSON.stringify(teams[0]) + '<BR><BR>' + JSON.stringify(teams[1]) + '</body></html>';
+//    b = '<html><body>' + JSON.stringify(teams[0]) + '<BR><BR>' + JSON.stringify(teams[1]) + '</body></html>';
 
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
