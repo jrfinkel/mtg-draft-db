@@ -143,17 +143,17 @@ function firstLineup (body, response) {
 
    syncQuery(playerQuery(Object.keys(teams[0])), function(players0) {
 	syncQuery(playerQuery(Object.keys(teams[1])), function(players1) {
-	    var outTeams = [];
-	    var ts = [players0, players1];
-	    for (var t=0; t<2; t++) {
-		players = ts[t];
-		players.forEach(function (p) {
+	    var outTeams = [[], []];
+	    var t = 0;
+	    [players0, players1].forEach(function(team) {
+		team.forEach(function (p) {
 		    var pid = p['id'];
 		    var setCredit = teams[t][pid];
 		    p['draft_set_credit'] = setCredit;
 		    outTeams[t].push(p);
 		});
-	    }
+		t++;
+	    });
 
     b = '<html><body>'+JSON.stringify(outTeams[0])+'<BR><BR>'+JSON.stringify(Object.keys(outTeams[1]))+'</body></html>';
 
