@@ -93,7 +93,7 @@ function displayLineup(teams, data, round, nextStep, action, response) {
 	'<h3>Please select the competitors and the winner of each match.</h3>\n<table><tr><th><th>Team 1<th><th>Team 2<th>\n';
 
     for (var i = 0; i < numLineups; i++) {
-	b += '<tr><td>'+ i +'. <td>' + playerDropdown('player'+i+'0', teams[0]) + ' <td><input type="radio" name="win'+i+'" value="team0" checked="checked"> vs <input type="radio" name="win'+i+'" value="team1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
+	b += '<tr><td>'+ i +'. <td>' + playerDropdown('player'+i+'0', teams[0]) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
     }
 
     b += '</table><br><input type=submit value="'+nextStep+' ---&gt;&gt;"></form></body></html>';	
@@ -144,7 +144,7 @@ function readWinners (body) {
 	team1Player = body['player'+i+'1'];
 	if (team0Player != -1 && team1Player != -1) {
 	    winningTeam = body['win'+i];
-	    console.log("WINNING TEAM "+winningTeam);
+	    console.log("WINNING TEAM "i + " " +winningTeam);
 	    teamResult[winningTeam] = teamResult[winningTeam] + 1;
 	    if (winningTeam == 0) {
 		playerResults.push([team0Player, team1Player]);
