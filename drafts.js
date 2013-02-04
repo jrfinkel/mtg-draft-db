@@ -143,7 +143,7 @@ function readWinners (body, result) {
 	if (team0Player && team1Player && team0Player != -1 && team1Player != -1) {
 	    winningTeam = body['win'+i];
 	    console.log("WINNING TEAM "+ i + " " +winningTeam);
-	    result['teamResult'][winningTeam] = teamResult[winningTeam] + 1;
+	    result['teamResult'][winningTeam]++; // = teamResult[winningTeam] + 1;
 	    if (winningTeam == 0) {
 		result['playerResults'].push([team0Player, team1Player]);
 	    } else {
