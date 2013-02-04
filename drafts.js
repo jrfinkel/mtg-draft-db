@@ -183,10 +183,12 @@ function finalStep (body, response) {
     var winners = readWinners(body);
     data['rounds'][1] = winners;
 
-    var b = '<html><head><title>Final Confirmation</title>\n' +
-    	'</head><body><h1>finalConfirmation</h1>' + 
-	unescape(JSON.stringify(body)) + '<br></table></body></html>';
-    
+//    var b = '<html><head><title>Final Confirmation</title>\n' +
+//    	'</head><body><h1>finalConfirmation</h1>' + 
+//	unescape(JSON.stringify(body)) + '<br></table></body></html>';
+  
+    var b = JSON.stringify(body);
+  
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
     response.end();    
