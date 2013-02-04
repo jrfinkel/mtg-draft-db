@@ -135,9 +135,7 @@ function readTeams(body) {
     return teams;
 }
 
-function readWinners (body) {
-    var teamResult = [0, 0];
-    var playerResults = [];
+function readWinners (body, result) {
 
     for (var i=0; i<5; i++) {
 	team0Player = body['player'+i+'0'];
@@ -145,11 +143,11 @@ function readWinners (body) {
 	if (team0Player && team1Player && team0Player != -1 && team1Player != -1) {
 	    winningTeam = body['win'+i];
 	    console.log("WINNING TEAM "+ i + " " +winningTeam);
-	    teamResult[winningTeam] = teamResult[winningTeam] + 1;
+	    result['teamResult'][winningTeam] = teamResult[winningTeam] + 1;
 	    if (winningTeam == 0) {
-		playerResults.push([team0Player, team1Player]);
+		result['playerResults'].push([team0Player, team1Player]);
 	    } else {
-		playerResults.push([team1Player, team0Player]);
+		result['playersResult'].push([team1Player, team0Player]);
 	    }
 	}
     }
@@ -181,7 +179,10 @@ function firstLineup (body, response) {
 
 function secondLineup (body, response) {
     var data = JSON.parse(unescape(body['data']));
-    var winners = readWinners(body);
+    data['results'] = {'teamResult' : [0, 0],
+		       'playerResults' : {}};
+
+    data['results'] = readWinners(body, data['results']);
     data['rounds'] = [];
     data['rounds'].push(winners);
 
@@ -191,7 +192,8 @@ function secondLineup (body, response) {
 function thirdLineup (body, response) {
     var data = JSON.parse(unescape(body['data']));
     var winners = readWinners(body);
-    data['rounds'].push(winners);
+
+    data['results'] = readWinners(body, data['results']);
 
     displayLineup(data['teams'], data, 'Third', 'Draft Summary', 'final-step', response);
 }
@@ -199,8 +201,7 @@ function thirdLineup (body, response) {
 function finalStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
-    var winners = readWinners(body);
-    data['rounds'].push(winners);
+    data['results'] = readWinners(body, data['results']);
 
 //    var b = '<html><head><title>Final Confirmation</title>\n' +
 //    	'</head><body><h1>finalConfirmation</h1>' + 
