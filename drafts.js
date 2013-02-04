@@ -33,6 +33,7 @@ function dropdown(name, data, idFn, valFn) {
 	body += '<option value="'+idFn(row)+'">'+valFn(row)+'</option>'
     });
     body += '</select>';
+
     return body;
 }
 
