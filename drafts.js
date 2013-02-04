@@ -136,7 +136,24 @@ function readTeams(body) {
 }
 
 function readWinners (body) {
-    return {'winners':'blarg'};
+    var teamResult = [0, 0];
+    var playerResults = [];
+
+    for (var i=0; i<5; i++) {
+	team0Player = body['player'+i+'0'];
+	team1Player = body['player'+i+'1'];
+	if (team1Player != -1 && team2Player != -1) {
+	    winningTeam = body['win'+i];
+	    teamResult[winningTeam]++;
+	    if (winningTeam == 0) {
+		playerResults.push([team0Player, team1Player]);
+	    } else {
+		playerResults.push([team1Player, team0Player]);
+	    }
+	}
+    }
+
+    return {'teamResults': teamResult, 'playerResults': playerResults};
 }
 
 function firstLineup (body, response) {
@@ -164,7 +181,8 @@ function firstLineup (body, response) {
 function secondLineup (body, response) {
     var data = JSON.parse(unescape(body['data']));
     var winners = readWinners(body);
-    data['rounds'] = [winners];
+    data['rounds'] = [];
+    data['rounds'].push(winners);
 
     displayLineup(data['teams'], data, 'Second', 'Third Round', 'third-lineup', response);
 }
