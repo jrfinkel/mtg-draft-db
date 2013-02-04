@@ -152,7 +152,7 @@ function readWinners (body, result) {
 	}
     }
 
-    return {'teamResults': teamResult, 'playerResults': playerResults};
+    return result;
 }
 
 function firstLineup (body, response) {
@@ -179,8 +179,9 @@ function firstLineup (body, response) {
 
 function secondLineup (body, response) {
     var data = JSON.parse(unescape(body['data']));
-    data['results'] = {'teamResult' : [0, 0],
-		       'playerResults' : {}};
+    data['results'] = {};
+    data['results']['teamResult'] = [0, 0];
+    data['results']['playerResults'] = {};
 
     data['results'] = readWinners(body, data['results']);
     data['rounds'] = [];
