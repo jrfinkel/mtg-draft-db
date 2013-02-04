@@ -143,8 +143,8 @@ function readWinners (body) {
 	team0Player = body['player'+i+'0'];
 	team1Player = body['player'+i+'1'];
 	if (team0Player != -1 && team1Player != -1) {
-	    winningTeam = body['win'+i];
-	    teamResult[winningTeam]++;
+	    winningTeam = parseInt(body['win'+i]);
+	    teamResult[winningTeam] = teamResults[winningTeam] + 1;
 	    if (winningTeam == 0) {
 		playerResults.push([team0Player, team1Player]);
 	    } else {
