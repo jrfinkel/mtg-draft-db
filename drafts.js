@@ -174,7 +174,7 @@ function thirdLineup (body, response) {
     var winners = readWinners(body);
     data['rounds'] = [winners];
 
-    displayLineup(data['teams'], data, 'Second', 'Third Round', 'final-step', response);
+    displayLineup(data['teams'], data, 'Third', 'Draft Summary', 'final-step', response);
 }
 
 function finalStep (body, response) {
@@ -185,7 +185,7 @@ function finalStep (body, response) {
 
     var b = '<html><head><title>Final Confirmation</title>\n' +
     	'</head><body><h1>finalConfirmation</h1>' + 
-	JSON.stringify(body) + '<br></table></body></html>';
+	unescape(JSON.stringify(body)) + '<br></table></body></html>';
     
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
