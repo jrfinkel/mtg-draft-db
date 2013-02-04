@@ -87,7 +87,7 @@ function displayLineup(teams, data, round, nextStep, action, response) {
     }	 
 
     var b = '<html><head><title>'+round+' Round</title>\n' +
-    	'</head><body><h1>'+round+' Round</h1>' + 
+    	'</head><body><h1>'+round+' Round </h1>' + 
 	'<form name="the-form" action="/'+action+'" method="post">\n' +
 	'<input type=hidden name="data" value="'+ dataStr +'">\n' +
 	'<h3>Please select the competitors and the winner of each match.</h3>\n<table><tr><th><th>Team 1<th><th>Team 2<th>\n';
