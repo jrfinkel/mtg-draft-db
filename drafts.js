@@ -187,7 +187,7 @@ function finalStep (body, response) {
 //    	'</head><body><h1>finalConfirmation</h1>' + 
 //	unescape(JSON.stringify(body)) + '<br></table></body></html>';
   
-    body['data'] = unescape(body['data']);
+    body['data'] = JSON.parse(unescape(body['data']));
     var b = JSON.stringify(body);
   
     response.writeHead(200, {"Content-Type": "text/html"});
