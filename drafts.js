@@ -212,7 +212,7 @@ function makeTeamEntry (client, draft_id, team_id, team) {
     });
 }
 
-function makeDraftEntries (format, teams) {
+function makeDraftEntries (format, teams, callback) {
 
     var ts = util.getTS();
 
@@ -237,6 +237,8 @@ function makeDraftEntries (format, teams) {
 	console.log("NEW TEAMS: "+JSON.stringify(teams));
     });
     console.log("OUTSIDE QUERY: "+JSON.stringify(entry));
+    entry.teams = teams;
+    callback(entry);
 
     //return entry;
 }
@@ -265,7 +267,7 @@ function finalStep (body, response) {
     }
 
     //var draftEntry = 
-    makeDraftEntries(data['format'], data['teams']);
+    makeDraftEntries(data['format'], data['teams'], function(draftEntry) {
     //console.log("DRAFT ENTRY: "+JSON.stringify(draftEntry));
 
 //    var b = '<html><head><title>Final Confirmation</title>\n' +
@@ -273,11 +275,13 @@ function finalStep (body, response) {
 //	unescape(JSON.stringify(body)) + '<br></table></body></html>';
   
 //    body['data'] = JSON.parse(data);
-    var b = JSON.stringify(data);
+	data.teams = entry.teams;
+	var b = JSON.stringify(data);
   
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(b);
-    response.end();    
+	response.writeHead(200, {"Content-Type": "text/html"});
+	response.write(b);
+	response.end();    
+    });
 } 
 
 exports.setup = function setupHandlers (app) {
