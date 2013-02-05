@@ -224,7 +224,10 @@ function makeDraftEntries (format, teams) {
 	entry = row;
     });
 
-    console.log('ENTRY: '+JSON.stringify(entry)); 
+    query.on('end', function() { 
+	console.log('ENTRY: '+JSON.stringify(entry)); 
+	client.end();
+    });
 
     // pg.connect(process.env.DATABASE_URL, function(err, client) {
     // 	var q = 'INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');';
