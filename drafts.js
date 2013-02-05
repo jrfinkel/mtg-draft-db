@@ -241,12 +241,6 @@ function makeDraftEntries (format, teams, callback) {
     });
 }
 
-function processMatch (winningPlayer, losingPlayer) {
-    var newRatings = newRatings(winningPlayer.rating, losingPlayer.rating);
-    winningPlayer.rating = newRatings[0];
-    losingPlayer.rating = newRatings[1];
-}
-
 function finalStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
@@ -309,10 +303,17 @@ function finalStep (body, response) {
     });
 } 
 
+function processMatch (winningPlayer, losingPlayer) {
+    var newRatings = newRatings(winningPlayer.rating, losingPlayer.rating);
+    winningPlayer.rating = newRatings[0];
+    losingPlayer.rating = newRatings[1];
+}
 
 function confirmedStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
+
+    var b = '<html><body>';
 
     for (var i=0; i<10; i++) {
 	if (body['player'+i]) {
@@ -326,11 +327,23 @@ function confirmedStep (body, response) {
 	    break;
 	}
     }
+
+    data.results.team.forEach(function(p) {
+	var winner = p[0];
+	var loser = p[1];
+
+	b += JSON.stringify(data.players[winner])+'<BR>';
+	b += JSON.stringify(data.players[loser])+'<BR>';
+	processMatch(data.players[winner], data.players[loser]);
+	b += JSON.stringify(data.players[winner])+'<BR>';
+	b += JSON.stringify(data.players[loser])+'<BR><BR><HR><BR>';
+	
+    });
     
-    body.data = data;
+    b += '</body></html>';
 
     response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(JSON.stringify(body));
+    response.write(b);
     response.end();    
 }
 
