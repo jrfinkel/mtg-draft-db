@@ -268,7 +268,7 @@ function finalStep (body, response) {
     makeDraftEntries(data['format'], data['teams'], function(draftEntry) {
 	data.teams = draftEntry.teams;
 
-	var b = '<html><head>Final Confirmation</head><body><form name="the-form" action="confirm" method="post">\n';
+	var b = '<html><head><title>Final Confirmation</title></head><body><form name="the-form" action="confirm" method="post">\n';
 	b += '<h1>'+winnerString+'</h1>';
 
 	for (var i=0; i<2; i++) {
@@ -294,7 +294,7 @@ function finalStep (body, response) {
 	}
 
 //	b += JSON.stringify(data);
-	b += '</form></body></html>';
+	b += '<input type=submit value="Confirm"></form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
 	response.write(b);
