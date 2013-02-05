@@ -27,18 +27,22 @@ function listFormats(callback) {
     return syncQuery('SELECT * FROM formats ORDER BY id DESC;', callback);
 }
 
-function dropdown(name, data, idFn, valFn) {
+function dropdown(name, data, idFn, valFn, selectIdx) {
     var body = '<select name="' + name + '">';
+    var i = 0;
     data.forEach(function (row) {
-	body += '<option value="'+idFn(row)+'">'+valFn(row)+'</option>'
+	body += '<option value="'+idFn(row)+;
+	if (i == selectIdx) { body += ' selected'; }
+	body +='">'+valFn(row)+'</option>';
+	i++;
     });
     body += '</select>';
 
     return body;
 }
 
-function playerDropdown(name, players) {
-    return dropdown(name, players, function(row) { return row['id']; }, function(row) { return row['name'] + ' (' + row['id'] + ')' ; });
+function playerDropdown(name, players, selectIdx) {
+    return dropdown(name, players, function(row) { return row['id']; }, function(row) { return row['name'] + ' (' + row['id'] + ')' ; }, selectIdx);
 }
 
 function formatDropdown(formats) {
@@ -92,7 +96,7 @@ function displayLineup(teams, data, round, nextStep, action, response) {
 
 
     for (var i = 0; i < numLineups; i++) {
-	b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0]) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
+	b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0], i) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
     }
 
     b += '<tr><td colspan=3 align=center><BR><input type=submit value="'+nextStep+' ---&gt;&gt;"><BR></table></form></body></html>';	
@@ -303,7 +307,7 @@ function finalStep (body, response) {
 		       'draft_id':draftEntry.id}
 
 	b += '<tr><td align=center colspan=3><input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
-	b += '<br><input type=submit value="Confirm"></table></form></body></html>';
+	b += '<br><input type=submit value="Confirm &amp; Save"></table></form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
 	response.write(b);
