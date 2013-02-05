@@ -95,7 +95,7 @@ function displayLineup(teams, data, round, nextStep, action, response) {
 	b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0]) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
     }
 
-    b += '<tr><td colspan=3><BR><input type=submit value="'+nextStep+' ---&gt;&gt;"><BR></table></form></body></html>';	
+    b += '<tr><td colspan=3 align=center><BR><input type=submit value="'+nextStep+' ---&gt;&gt;"><BR></table></form></body></html>';	
 
     for (var i=0; i<2; i++) {
 	teams[i].shift();
