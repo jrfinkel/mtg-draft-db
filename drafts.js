@@ -250,16 +250,6 @@ function processMatch (winningPlayer, losingPlayer) {
 function finalStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
-    body.data = data;
-
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(JSON.stringify(body));
-    response.end();    
-}
-
-function finalStep (body, response) {
-
-    var data = JSON.parse(unescape(body['data']));
     var results = readWinners(body, data['results']);
 
     var winnerString = '';
@@ -312,6 +302,18 @@ function finalStep (body, response) {
 	response.end();    
     });
 } 
+
+
+function confirmedStep (body, response) {
+
+    var data = JSON.parse(unescape(body['data']));
+    body.data = data;
+
+    response.writeHead(200, {"Content-Type": "text/html"});
+    response.write(JSON.stringify(body));
+    response.end();    
+}
+
 
 exports.setup = function setupHandlers (app) {
 
