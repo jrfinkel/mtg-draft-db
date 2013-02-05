@@ -8,7 +8,7 @@ exports.randomStyle = function randomStyle() {
 		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/melvin.jpg',
 		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/melvin1.jpg',
  		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/dinner.jpg',
- 		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/noam.jpg',
+ 		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/noam.jpg'
 		 ];
 
     var image = images[Math.floor(Math.random() * (images.length + 1))];
