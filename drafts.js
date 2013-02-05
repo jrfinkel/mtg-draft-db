@@ -271,6 +271,8 @@ function finalStep (body, response) {
 	var b = '<html><head><title>Final Confirmation</title></head><body><form name="the-form" action="/confirm" method="post">\n';
 	b += '<h1>'+winnerString+'</h1>';
 
+	var playerMap = {};
+
 	for (var i=0; i<2; i++) {
 	    var money = 20;
 	    if (winner == i) {
@@ -286,19 +288,19 @@ function finalStep (body, response) {
 	    b += '\n<table><tr><th>id<th>name<th>money won/lost\n';
 
 	    var playerNum = 0;
-	    var teamMaps = {};
 	    data.teams[i].forEach(function(player) {
 		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+i+''+playerNum+'" value="'+player.id+'"><input type="text" name="money'+i+''+playerNum+'" value="'+money+'" size="3">';
 		playerNum++;
 
-		teamMaps[player.id] = player;
+		playerMap[player.id] = player;
 	    });
-	    data.teams[i] = teamMaps;
 	    b += '</table>';
 	}
 
+	
+
 //	b += JSON.stringify(data);
-	b += '<input type="hidden" name="data" value="'+escape(JSON.stringify(data))+'">';
+	b += '<input type="hidden" name="data" value="'+escape(JSON.stringify({'results':data['results'], 'players':playerMap}))+'">';
 	b += '<br><input type=submit value="Confirm"></form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
