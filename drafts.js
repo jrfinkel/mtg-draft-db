@@ -224,8 +224,8 @@ function makeDraftEntries (format, teams) {
     var query = client.query('SELECT * FROM drafts ORDER BY id DESC LIMIT 1', function(err, result) {
 	entry = result.rows[0];
 	console.log("INSIDE QUERY: "+JSON.stringify(entry));
-	makeTeamEntry(client, result.rows[0].draft_id, result.rows[0].team0_id, teams[0]);
-	makeTeamEntry(client, result.rows[0].draft_id, result.rows[0].team1_id, teams[1]);
+	makeTeamEntry(client, result.rows[0].id, result.rows[0].team0_id, teams[0]);
+	makeTeamEntry(client, result.rows[0].id, result.rows[0].team1_id, teams[1]);
 	var teamIds = [result.rows[0].team0_id, result.rows[0].team1_id]
 
 	for (var i=0; i<2; i++) {
