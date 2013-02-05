@@ -2,18 +2,17 @@ var qs = require('querystring');
 var url = require('url');
 
 exports.randomStyle = function randomStyle() {
-    var imagesAndColors = {'http://i2.kym-cdn.com/photos/images/newsfeed/000/406/325/b31.jpg': 'red',
-		  'http://www.roflcat.com/images/cats/270911970_db35fdd4ca.jpg': 'orange',
-		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/elsie.jpg': 'pink', 
-		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/harry.jpg': 'purple',
-		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/melvin.jpg': 'blue',
-		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/melvin1.jpg': 'green',
- 		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/dinner.jpg': 'yellow'
-		 };
+    var images = ['https://raw.github.com/jrfinkel/fact-images/master/magic-images/grumpy.jpg',
+		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/elsie.jpg',
+		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/harry.jpg',
+		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/melvin.jpg',
+		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/melvin1.jpg',
+ 		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/dinner.jpg',
+ 		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/noam.jpg',
+		 ];
 
-    var images = Object.keys(imagesAndColors);
     var image = images[Math.floor(Math.random() * (images.length + 1))];
-    var color = imagesAndColors[image];
+    var color = 'red';
     
     var style = '<style type="text/css">\n' +
 	'body     { background-image:url('+image+'); color: '+color+' }' +
