@@ -282,7 +282,7 @@ function finalStep (body, response) {
 		loseDiff++;
 	    }
 	    
-	    b += '\n<tr><th>Name<th>Money<BR>Won/Lost<th>Set<BR>Credit\n';
+	    b += '\n<tr><th>Name<th>$$<th>SC\n';
 	    data.teams[i].forEach(function(player) {
 		b += '<tr><td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value='+player.id+'><input type="text" name="money'+playerNum+'" value="'+money+'" size="3"><td><input type="text" name="set_credit'+playerNum+'" value="-1" size="3">';
 		playerNum++;
