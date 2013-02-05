@@ -143,11 +143,11 @@ function readWinners (body, result) {
 	if (team0Player && team1Player && team0Player != -1 && team1Player != -1) {
 	    winningTeam = body['win'+i];
 	    console.log("WINNING TEAM "+ i + " " +winningTeam);
-	    result['teamResults'][winningTeam]++; // = teamResult[winningTeam] + 1;
+	    result['team'][winningTeam]++; // = teamResult[winningTeam] + 1;
 	    if (winningTeam == 0) {
-		result['playerResults'].push([team0Player, team1Player]);
+		result['player'].push([team0Player, team1Player]);
 	    } else {
-		result['playerResults'].push([team1Player, team0Player]);
+		result['player'].push([team1Player, team0Player]);
 	    }
 	}
     }
@@ -180,12 +180,10 @@ function firstLineup (body, response) {
 function secondLineup (body, response) {
     var data = JSON.parse(unescape(body['data']));
     data['results'] = {};
-    data['results']['teamResults'] = [0, 0];
-    data['results']['playerResults'] = [];
+    data['results']['team'] = [0, 0];
+    data['results']['player'] = [];
 
     data['results'] = readWinners(body, data['results']);
-    data['rounds'] = [];
-    data['rounds'].push(winners);
 
     displayLineup(data['teams'], data, 'Second', 'Third Round', 'third-lineup', response);
 }
