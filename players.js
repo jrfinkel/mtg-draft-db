@@ -16,12 +16,13 @@ function insertPlayerInDB(body) {
 
     parseInt(body['win_pos']);
 
-    pg.connect(process.env.DATABASE_URL, function(err, client) {
-	var q = 'INSERT INTO players (name, set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money) VALUES (\''+ name +'\', '+ set_credit +', '+ rating +', '+ ind_wins + ', ' + ind_losses + ', ' + draft_wins + ', ' + draft_ties + ', ' + draft_losses + ', ' + money +');';
-	console.log('About to query: ' + q);
-	var query = client.query(q);	
-	query.on('row', function(row) { console.log('Added new player: '+row); });
-	query.on('end', function(row) { console.log('Finished adding player: '+name); });
+    var client = new pg.Client(process.env.DATABASE_URL);
+    client.connect();
+    client.query('INSERT INTO players_init (name, set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money) VALUES (\''+ name +'\', '+ set_credit +', '+ rating +', '+ ind_wins + ', ' + ind_losses + ', ' + draft_wins + ', ' + draft_ties + ', ' + draft_losses + ', ' + money +');');
+    var query = client.query('INSERT INTO players SELECT * FROM init_players ORDER BY id DESC LIMIT 1;');
+
+    query.on('end', function() { 
+	client.end();
     });
 }
 

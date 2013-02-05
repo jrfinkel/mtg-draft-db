@@ -354,6 +354,8 @@ function confirmedStep (body, response) {
 	
     });
     
+    
+
     b += '</body></html>';
 
     response.writeHead(200, {"Content-Type": "text/html"});
