@@ -245,18 +245,12 @@ function finalStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
     var results = readWinners(body, data['results']);
-
-    var winnerString = '';
     var winner = -1;
+
     if (results['team'][0] > results['team'][1]) {
-	winnerString = "Winner is Team 1!";
 	winner = 0;
     } else if (results['team'][0] < results['team'][1]) {
-	winnerString = "Winner is Team 2!";
 	winner = 1;
-    } else {
-	winnerString = "It's a tie!";
-	winner = -1;
     }
 
     makeDraftEntries(data['format'], data['teams'], function(draftEntry) {
@@ -266,7 +260,7 @@ function finalStep (body, response) {
 	    util.randomStyle() +    
 	    '</head><body><form name="the-form" action="/confirm" method="post"><center><table>\n';
 	if (winner == -1) {
-	    b += '<tr><td align=center colspan=3><h1>'+winnerString+'</h1>';
+	    b += '<tr><td align=center colspan=3><hr><h2>It\'s a tie!</h2></hr>';
 	}
 
 	var playerMap = {};
