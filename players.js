@@ -65,10 +65,8 @@ function allPlayers (response) {
 
     displayPlayers('SELECT * FROM players ORDER BY latest_timestamp DESC;', 
 			function rowFn (row) {
-			    console.log('hi there');
 			    body += playerRowFn(row); },
 			function endFn () { 
-			    console.log('good-bye');
 			    body += '</table></body></html>\n';	
 			    response.write(body);
 			    response.end(); });
@@ -98,8 +96,8 @@ function playerTableHeader() {
 function displayPlayers(querySQL, rowCallback, endCallback) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	var query = client.query(querySQL);
-	query.on('row', function(row) { console.log(row); rowCallback(row); });
-	query.on('end', function() { console.log("end"); endCallback(); });
+	query.on('row', function(row) { rowCallback(row); });
+	query.on('end', function() { endCallback(); });
     });
 }
 
