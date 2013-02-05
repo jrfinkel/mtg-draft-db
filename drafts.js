@@ -270,9 +270,6 @@ function finalStep (body, response) {
 	var b = '<html><head>Final Confirmation</head><body><form name="the-form" action="confirm" method="post">\n';
 	b += '<h1>'+winnerString+'</h1>';
 
-	var winningTeam - data.teams[winner];
-	var loserTeam - data.teams[1 - winner];
-
 	for (var i=0; i<2; i++) {
 	    var money = 20;
 	    if (winner == i) {
