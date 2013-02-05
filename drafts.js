@@ -250,6 +250,16 @@ function processMatch (winningPlayer, losingPlayer) {
 function finalStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
+    body.data = data;
+
+    response.writeHead(200, {"Content-Type": "text/html"});
+    response.write(JSON.stringify(body));
+    response.end();    
+}
+
+function finalStep (body, response) {
+
+    var data = JSON.parse(unescape(body['data']));
     var results = readWinners(body, data['results']);
 
     var winnerString = '';
@@ -268,7 +278,7 @@ function finalStep (body, response) {
     makeDraftEntries(data['format'], data['teams'], function(draftEntry) {
 	data.teams = draftEntry.teams;
 
-	var b = '<html><head><title>Final Confirmation</title></head><body><form name="the-form" action="confirm" method="post">\n';
+	var b = '<html><head><title>Final Confirmation</title></head><body><form name="the-form" action="/confirm" method="post">\n';
 	b += '<h1>'+winnerString+'</h1>';
 
 	for (var i=0; i<2; i++) {
@@ -294,7 +304,8 @@ function finalStep (body, response) {
 	}
 
 //	b += JSON.stringify(data);
-	b += '<input type=submit value="Confirm"></form></body></html>';
+	b += '<input type="hidden" name="data" value="'+escape(JSON.stringify(data))+'">';
+	b += '<br><input type=submit value="Confirm"></form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
 	response.write(b);
@@ -334,6 +345,13 @@ exports.setup = function setupHandlers (app) {
 	console.log('POST: final-step');
 	util.readPostData(request, function(body) { 
 	    finalStep(body, response);
+	});
+    });
+
+    app.post('/confirm', function(request, response) {
+	console.log('POST: final-step');
+	util.readPostData(request, function(body) { 
+	    confirmedStep(body, response);
 	});
     });
 }
