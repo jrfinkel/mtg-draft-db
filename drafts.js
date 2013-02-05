@@ -273,7 +273,7 @@ function finalStep (body, response) {
 //	unescape(JSON.stringify(body)) + '<br></table></body></html>';
   
 //    body['data'] = JSON.parse(data);
-	data.teams = entry.teams;
+	data.teams = draftEntry.teams;
 	var b = JSON.stringify(data);
   
 	response.writeHead(200, {"Content-Type": "text/html"});
