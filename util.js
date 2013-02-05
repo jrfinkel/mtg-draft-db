@@ -18,7 +18,7 @@ exports.randomStyle = function randomStyle() {
     var style = '<style type="text/css">\n' +
 	'h1       { text-align: center }' +
 	'body     { background-image:url('+image+'); color: '+color+' }' +
-	'th tr td { vertical-align: middle; text-align: center}' +
+	'th tr td { vertical-align: middle; text-align: center; align: center }' +
 	'table    { background-color: white; color: '+color+' }' +
 	'</style>';
 
