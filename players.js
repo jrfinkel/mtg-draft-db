@@ -106,8 +106,11 @@ function displayPlayers(querySQL, rowCallback, endCallback) {
 
 exports.setup = function setupHandlers (app) {
     app.get('/all-players', function(request, response) {
-	if (request.params.order_by) {
-	    allPlayers(response, unencode(request.params.order_by));
+	console.log("PARAMS: "+JSON.stringify(unencode(request.params)));
+	console.log("QUERY: "+JSON.stringify(unencode(request.query)));
+
+	if (request.query.order_by) {
+	    allPlayers(response, unencode(request.query.order_by));
 	} else {
 	    allPlayers(response, 'latest_timestamp DESC');
 	}
