@@ -205,6 +205,15 @@ function newRatings (winnerRating, loserRating) {
     return [winnerRank, loserRank];
 }
 
+function makeTeamEntry (client, draft_id, team_id, team) {
+    team.forEach(function(player) {
+	client.query('INSERT INTO draft_teams (draft_id, team_id, player_id) VALUES ('+draft_id+', '+team_id+', '+player.id+');',
+		    function(err, result) {
+			console.log("TEAM ENTRY: "+JSON.stringify(result));
+		    });
+    });
+}
+
 function makeDraftEntries (format, teams) {
 
     var ts = util.getTS();
@@ -217,6 +226,8 @@ function makeDraftEntries (format, teams) {
     var query = client.query('SELECT * FROM drafts ORDER BY id DESC LIMIT 1', function(err, result) {
 	entry = result.rows[0];
 	console.log("INSIDE QUERY: "+JSON.stringify(entry));
+	makeTeamEntry(client, result.rows[0].draft_id, result.rows[0].team0_id, teams[0]);
+	makeTeamEntry(client, result.rows[0].draft_id, result.rows[0].team1_id, teams[1]);
     });
     console.log("OUTSIDE QUERY: "+JSON.stringify(entry));
 
