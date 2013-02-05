@@ -46,7 +46,7 @@ function playerDropdown(name, players, selectIdx) {
 }
 
 function formatDropdown(formats) {
-    return dropdown('format', formats, function(row) { return row['id']; }, function(row) { return row['format'] + ' (' + row['id'] + ')'; });
+    return dropdown('format', formats, function(row) { return row['id']; }, function(row) { return row['format'] + ' (' + row['id'] + ')'; }, 0);
 }
 
 function startDraftPage (response) {
