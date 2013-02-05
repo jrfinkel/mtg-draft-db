@@ -304,8 +304,8 @@ function finalStep (body, response) {
 } 
 
 function processMatch (draft_id, winningPlayer, losingPlayer) {
-    console.log("RATING1 "+winningPlayer.rating);
-    console.log("RATING2 "+losingPlayer.rating);
+    console.log("RATING1 "+JSON.stringify(winningPlayer));
+    console.log("RATING2 "+JSON.stringify(losingPlayer));
 
     var r = newRatings(winningPlayer.rating, losingPlayer.rating);
     winningPlayer.rating = r[0];
