@@ -270,21 +270,21 @@ function finalStep (body, response) {
 	    var money = 20;
 	    var winDiff = 0, loseDiff = 0, tieDiff = 0;
 	    if (winner == i) {
-		b += '<h3>Winners</h3>';
+		b += '<h3>Winners</h3><hr>';
 		money = 20;
 		winDiff++;
 	    } else if (winner == -1) {
 		money = 0;
 		tieDiff++;
 	    } else {
-		b += '<h3>Losers</h3>';
+		b += '<h3>Losers</h3><hr>';
 		money = -20;
 		loseDiff++;
 	    }
 	    
 	    b += '\n<tr><th>Name<th>Money<BR>Won/Lost<th>Set<BR>Credit\n';
 	    data.teams[i].forEach(function(player) {
-		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value='+player.id+'><input type="text" name="money'+playerNum+'" value="'+money+'" size="3"><td><input type="text" name="set_credit'+playerNum+'" value="-1" size="3">';
+		b += '<tr><td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value='+player.id+'><input type="text" name="money'+playerNum+'" value="'+money+'" size="3"><td><input type="text" name="set_credit'+playerNum+'" value="-1" size="3">';
 		playerNum++;
 
 		player.draft_wins += winDiff;
