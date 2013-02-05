@@ -212,45 +212,15 @@ function makeDraftEntries (format, teams) {
     var client = new pg.Client(process.env.DATABASE_URL);
     client.connect();
     
-    var q = 'INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');';
-    console.log('About to query: ' + q);
-    client.query(q);	
-
-    q = 'SELECT * FROM drafts ORDER BY id DESC LIMIT 1';
-    console.log('About to query: ' + q);
-    var query = client.query(q);	
+    client.query('INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');');	
     var entry;
-    query.on('row', function(row) { 
-	console.log('LAST ROW: '+JSON.stringify(row)); 
-	entry = row;
+    var query = client.query('SELECT * FROM drafts ORDER BY id DESC LIMIT 1', function(err, result) {
+	entry = result.row[0];
+	console.log("INSIDE QUERY: "+JSON.stringify(entry));
     });
+    console.log("OUTSIDE QUERY: "+JSON.stringify(entry));
 
-    console.log('ENTRY1: '+JSON.stringify(entry));
-
-    query.on('end', function() { 
-	console.log('ENTRY2: '+JSON.stringify(entry));
-	client.end();
-    });
-
-    console.log('ENTRY3: '+JSON.stringify(entry));
-
-    // pg.connect(process.env.DATABASE_URL, function(err, client) {
-    // 	var q = 'INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');';
-    // 	console.log('About to query: ' + q);
-    // 	var query = client.query(q);	
-    // 	query.on('row', function(row) { console.log('ROW RESULT: '+JSON.stringify(row)); });
-    // 	query.on('end', function(row) 
-    // 		 { 
-    // 		     console.log('END RESULT: '+JSON.stringify(row)); 
-    // 		     pg.connect(process.env.DATABASE_URL, function(err, client) {     
-    // 			 var q = 'SELECT * FROM drafts ORDER BY id DESC LIMIT 1';
-    // 			 console.log('About to query: ' + q);
-    // 			 var query = client.query(q);	
-    // 			 query.on('row', function(row) { console.log('LAST ROW: '+JSON.stringify(row)); });
-    // 			 query.on('end', function(row) {});
-    // 		     });
-    // 		 });
-    // });
+    return entry;
 }
 
 function processMatch (winningPlayer, losingPlayer) {
@@ -276,7 +246,8 @@ function finalStep (body, response) {
 	winnerString = "It's a tie!";
     }
 
-    makeDraftEntries(data['format'], data['teams']);
+    var draftEntry = makeDraftEntries(data['format'], data['teams']);
+    console.log("DRAFT ENTRY: "+JSON.stringify(draftEntry);
 
 //    var b = '<html><head><title>Final Confirmation</title>\n' +
 //    	'</head><body><h1>finalConfirmation</h1>' + 
