@@ -54,7 +54,7 @@ function startDraftPage (response) {
 	'<table><tr><td colspan=2><h1>New Draft</h1>';
 
     listFormats(function(formats) {
-        body += formatDropdown(formats) + '<br>\n';
+        body += '<center>' + formatDropdown(formats) + '<br>\n';
 	listPlayers(function(players) {
 	    players.unshift({'name':'No Player', 'id':-1});
 
@@ -65,7 +65,7 @@ function startDraftPage (response) {
 		    body += '<td>' + playerDropdown('team'+j+'_player'+i, players) + '<br>\n';
 		}
 	    }
-	    body += '<tr><td colspan=2><br><input type=submit value="First Round ---&gt;&gt;"></table></form></body></html>';	
+	    body += '<tr><td colspan=2 align=center><br><input type=submit value="First Round ---&gt;&gt;"></table></form></body></html>';	
 	    response.writeHead(200, {"Content-Type": "text/html"});
 	    response.write(body);
 	    response.end();
