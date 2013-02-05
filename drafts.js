@@ -327,7 +327,7 @@ function confirmedStep (body, response) {
 
     console.log("P "+JSON.stringify(data));
 
-    data.results.team.forEach(function(p) {
+    data.results.player.forEach(function(p) {
 	var winner = p[0];
 	var loser = p[1];
 
