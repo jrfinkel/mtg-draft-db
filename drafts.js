@@ -190,8 +190,6 @@ function secondLineup (body, response) {
 
 function thirdLineup (body, response) {
     var data = JSON.parse(unescape(body['data']));
-    var winners = readWinners(body);
-
     data['results'] = readWinners(body, data['results']);
 
     displayLineup(data['teams'], data, 'Third', 'Draft Summary', 'final-step', response);
