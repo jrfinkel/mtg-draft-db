@@ -18,7 +18,7 @@ function insertPlayerInDB(body) {
 
     var client = new pg.Client(process.env.DATABASE_URL);
     client.connect();
-    client.query('INSERT INTO players_init (name, set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money) VALUES (\''+ name +'\', '+ set_credit +', '+ rating +', '+ ind_wins + ', ' + ind_losses + ', ' + draft_wins + ', ' + draft_ties + ', ' + draft_losses + ', ' + money +');');
+    client.query('INSERT INTO players_init (name, set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money, latest_timestamp) VALUES (\''+ name +'\', '+ set_credit +', '+ rating +', '+ ind_wins + ', ' + ind_losses + ', ' + draft_wins + ', ' + draft_ties + ', ' + draft_losses + ', ' + money +', '+util.getTS()');');
     var query = client.query('INSERT INTO players SELECT * FROM players_init ORDER BY id DESC LIMIT 1;');
 
     query.on('end', function() { 
@@ -62,7 +62,7 @@ function allPlayers (response) {
 
     response.writeHead(200, {"Content-Type": "text/html"});
 
-    displayPlayers('SELECT * FROM players ORDER BY id DESC;', 
+    displayPlayers('SELECT * FROM players ORDER BY latest_timestamp DESC;', 
 			function rowFn (row) {
 			    console.log('hi there');
 			    body += playerRowFn(row); },
@@ -75,7 +75,9 @@ function allPlayers (response) {
 
 
 function playerRowFn(row) {
-    return '<tr><td>'+row['name']+'</td>\n' +
+    return '<tr>'+
+	'<td>'+row['id']+'</td>\n' +
+	'<td>'+row['name']+'</td>\n' +
 	'<td>'+row['set_credit']+'</td>\n' +
 	'<td>'+row['rating']+'</td>\n' +
 	'<td>'+row['ind_wins']+'</td>\n' +
@@ -83,12 +85,13 @@ function playerRowFn(row) {
 	'<td>'+row['draft_wins']+'</td>\n' +
 	'<td>'+row['draft_ties']+'</td>\n' +
 	'<td>'+row['draft_losses']+'</td>\n' +
-	'<td>'+row['money']+'</td></tr>\n';
+	'<td>'+row['money']+'</td></tr>\n' +
+	'<td>'+row['latest_timestamp']+'</td></tr>\n';
 
 }
 
 function playerTableHeader() {
-    return '<table cellpadding="5" cellspacing="0" border="5"><tr><th>Name<th>Set Credit<th>Rating<th>Individual Wins<th>Individual Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money</tr>' ;
+    return '<table cellpadding="5" cellspacing="0" border="5"><tr><th>ID<th>Name<th>Set Credit<th>Rating<th>Individual Wins<th>Individual Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money<TH>Latest Timestamp</tr>' ;
 }
 
 function displayPlayers(querySQL, rowCallback, endCallback) {
