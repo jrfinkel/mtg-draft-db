@@ -225,7 +225,7 @@ function makeDraftEntries (format, teams) {
     });
 
     query.on('end', function() { 
-	console.log('ENTRY: '+JSON.stringify(entry)); 
+	console.log('ENTRY: '+JSON.stringify(entry));
 	client.end();
     });
 
