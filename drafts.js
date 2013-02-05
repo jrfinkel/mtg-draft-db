@@ -294,7 +294,7 @@ function finalStep (body, response) {
 	
 
 //	b += JSON.stringify(data);
-	b += '<input type="hidden" name="data" value="'+escape(JSON.stringify({'results':data['results'], 'players':playerMap}))+'">';
+	b += '<input type="hidden" name="data" value="'+escape(JSON.stringify({'results':data['results'], 'players':playerMap, 'draft_id':draftEntry.id}))+'">';
 	b += '<br><input type=submit value="Confirm"></form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
@@ -351,8 +351,7 @@ function confirmedStep (body, response) {
 
 	b += JSON.stringify(data.players[winner])+'<BR>';
 	b += JSON.stringify(data.players[loser])+'<BR>';
-	processMatch(data.players[winner], 
-		     data.players[loser]);
+	processMatch(data['draft_id'], data.players[winner], data.players[loser]);
 	b += JSON.stringify(data.players[winner])+'<BR>';
 	b += JSON.stringify(data.players[loser])+'<BR><BR><HR><BR>';
 	
