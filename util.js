@@ -11,12 +11,11 @@ exports.randomStyle = function randomStyle() {
  		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/noam.jpg'
 		 ];
 
-    var r = Math.floor(Math.random() * (images.length + 1));
+    var r = Math.floor(Math.random() * images.length);
     var image = images[r];
     var color = 'red';
     
     var style = '<style type="text/css">\n' +
-	'image'+r+' {}' +
 	'body     { background-image:url('+image+'); color: '+color+' }' +
 	'th tr td { vertical-align: middle; }' +
 	'table    { background-color: white; color: '+color+' }' +
