@@ -171,7 +171,7 @@ function firstLineup (body, response) {
 		});
 		t++;
 	    });
-	    displayLineup(outTeams, {"teams":outTeams}, 'First', 'Second Round', 'second-lineup', response);
+	    displayLineup(outTeams, {'teams':outTeams, 'format':body['format']}, 'First', 'Second Round', 'second-lineup', response);
 	});
     }); 
 
@@ -195,19 +195,34 @@ function thirdLineup (body, response) {
     displayLineup(data['teams'], data, 'Third', 'Draft Summary', 'final-step', response);
 }
 
-function newRankings (winnerRank, loserRank) {
+function newRatings (winnerRating, loserRating) {
     var k = 20;
     
-    var winnerOdds = 1 / (1 + Math.pow(10, ((winnerRank - loserRank) / 400)))
-    var loserOdds = 1 / (1 + Math.pow(10, ((loserRank - winnerRank) / 400)))
-    
-    console.log("WINNER ODDS "+winnerOdds);
-    console.log("LOSER ODDS "+loserOdds);
+    var winnerOdds = 1 / (1 + Math.pow(10, ((winnerRating - loserRating) / 400)))
 
     winnerRank += k * winnerOdds;
-    loserRank -= k * loserOdds;
+    loserRank -= k * winnerOdds;
 
     return [winnerRank, loserRank];
+}
+
+function makeDraftEntries (format, teams) {
+
+    var ts = getTS();
+
+    pg.connect(process.env.DATABASE_URL, function(err, client) {
+	var q = 'INSERT INTO drafts (format, timestamp) VALUES (' + ts + ', ' + format +');';
+	console.log('About to query: ' + q);
+	var query = client.query(q);	
+	query.on('row', function(row) { console.log('ROW RESULT: '+row); });
+	query.on('end', function(row) { console.log('END RESULT: '+row); });
+    });
+}
+
+function processMatch (winningPlayer, losingPlayer) {
+    var newRatings = newRatings(winningPlayer.rating, losingPlayer.rating);
+    winningPlayer.rating = newRatings[0];
+    losingPlayer.rating = newRatings[1];
 }
 
 function finalStep (body, response) {
