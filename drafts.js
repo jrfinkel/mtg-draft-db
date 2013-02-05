@@ -325,11 +325,13 @@ function confirmedStep (body, response) {
 	}
     }
 
+    console.log("P "+JSON.stringify(data));
+
     data.results.team.forEach(function(p) {
 	var winner = p[0];
 	var loser = p[1];
 
-	console.log("P "+JSON.stringify(data.results));
+	console.log("P "+JSON.stringify(p));
 	console.log("WINNER1 "+winner);
 	console.log("WINNER2 "+data.players[winner]);
 	console.log("LOSER1 "+loser);
