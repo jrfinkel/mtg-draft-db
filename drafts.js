@@ -307,9 +307,9 @@ function processMatch (winningPlayer, losingPlayer) {
     console.log("RATING1 "+winningPlayer.rating);
     console.log("RATING2 "+losingPlayer.rating);
 
-    var newRatings = newRatings(winningPlayer.rating, losingPlayer.rating);
-    winningPlayer.rating = newRatings[0];
-    losingPlayer.rating = newRatings[1];
+    var r = newRatings(winningPlayer.rating, losingPlayer.rating);
+    winningPlayer.rating = r[0];
+    losingPlayer.rating = r[1];
 }
 
 function confirmedStep (body, response) {
