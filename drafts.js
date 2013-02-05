@@ -49,7 +49,7 @@ function startDraftPage (response) {
     console.log('starting startDraftPage');
     
     var body = '<html><head><title>Start a New Draft</title>\n' +
-    	'</head><body background="http://i2.kym-cdn.com/photos/images/newsfeed/000/406/325/b31.jpg"><font color="red"><h1>New Draft</h1>' + 
+    	'</head><body background="http://i2.kym-cdn.com/photos/images/newsfeed/000/406/325/b31.jpg"><font color="red"><center><h1>New Draft</h1>' + 
 	'<form name="the-form" action="/first-lineup" method="post">\n';
 
     listFormats(function(formats) {
@@ -57,7 +57,7 @@ function startDraftPage (response) {
 	listPlayers(function(players) {
 	    players.unshift({'name':'No Player', 'id':-1});
 
-	    body += '<br><br><table><tr><th colspan=2><font color="red">Team #1<th colspan=2><font color="red">Team #2';
+	    body += '<br><br><table><tr><th colspan=2><h2><font color="red">Team #1<th colspan=2><h2><font color="red">Team #2';
 	    for (var i=0; i<5; i++) {
 		body += '<tr>';
 		for (var j=0; j<2; j++) {
