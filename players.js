@@ -55,7 +55,7 @@ function addPlayerPage (header, response) {
     response.end();
 }
 
-function allPlayers (response) {
+function allPlayers (response, order_by) {
     var body = '<html><head>\n'+
 	'<title>All Players</title>\n' +
     	'</head><body>\n' +
@@ -63,7 +63,7 @@ function allPlayers (response) {
 
     response.writeHead(200, {"Content-Type": "text/html"});
 
-    displayPlayers('SELECT * FROM players ORDER BY latest_timestamp DESC;', 
+    displayPlayers('SELECT * FROM players ORDER BY '+order_by+';',
 			function rowFn (row) {
 			    body += playerRowFn(row); },
 			function endFn () { 
@@ -104,10 +104,8 @@ function displayPlayers(querySQL, rowCallback, endCallback) {
 
 exports.setup = function setupHandlers (app) {
     app.get('/all-players', function(request, response) {
-	console.log("PARAMS: "+JSON.stringify(request.params));
 	console.log("QUERY: "+JSON.stringify(request.query));
-	console.log("ORDER_BY1: "+JSON.stringify(request.query.order_by));
-	console.log("ORDER_BY2: "+JSON.stringify(request.query['order_by']));
+	console.log("ORDER_BY1: "+JSON.stringify(unescape(request.query.order_by)));
 
 	if (request.query.order_by) {
 	    allPlayers(response, unescape(request.query.order_by));
