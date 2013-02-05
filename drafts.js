@@ -207,10 +207,8 @@ function newRatings (winnerRating, loserRating) {
 
 function makeTeamEntry (client, draft_id, team_id, team) {
     team.forEach(function(player) {
-	client.query('INSERT INTO draft_teams (draft_id, team_id, player_id) VALUES ('+draft_id+', '+team_id+', '+player.id+');',
-		    function(err, result) {
-			console.log("TEAM ENTRY: "+draft_id+" "+team_id+" "+player.id);
-		    });
+	console.log("TEAM ENTRY: "+draft_id+" "+team_id+" "+player.id);
+	client.query('INSERT INTO draft_teams (draft_id, team_id, player_id) VALUES ('+draft_id+', '+team_id+', '+player.id+');');
     });
 }
 
