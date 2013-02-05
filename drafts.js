@@ -261,7 +261,7 @@ function finalStep (body, response) {
 	var b = '<html><head><title>Final Confirmation</title>' +
 	    util.randomStyle() +    
 	    '</head><body><form name="the-form" action="/confirm" method="post"><center><table>\n';
-	b += '<tr><td align=center colspan=3><h1>'+winnerString+'</h1><br><tr><td align=center colspan=3>';
+	b += '<tr><td align=center colspan=3><h1>'+winnerString+'</h1><br>';
 
 	var playerMap = {};
 	var playerNum = 0;
@@ -270,14 +270,14 @@ function finalStep (body, response) {
 	    var money = 20;
 	    var winDiff = 0, loseDiff = 0, tieDiff = 0;
 	    if (winner == i) {
-		b += '<h3>Winners</h3><hr>';
+		b += '<tr><td align=center colspan=3><h3>Winners</h3><hr>';
 		money = 20;
 		winDiff++;
 	    } else if (winner == -1) {
 		money = 0;
 		tieDiff++;
 	    } else {
-		b += '<h3>Losers</h3><hr>';
+		b += '<tr><td align=center colspan=3><h3>Losers</h3><hr>';
 		money = -20;
 		loseDiff++;
 	    }
