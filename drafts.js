@@ -220,7 +220,7 @@ function makeDraftEntries (format, teams) {
     });
     console.log("OUTSIDE QUERY: "+JSON.stringify(entry));
 
-    return entry;
+    //return entry;
 }
 
 function processMatch (winningPlayer, losingPlayer) {
@@ -246,8 +246,9 @@ function finalStep (body, response) {
 	winnerString = "It's a tie!";
     }
 
-    var draftEntry = makeDraftEntries(data['format'], data['teams']);
-    console.log("DRAFT ENTRY: "+JSON.stringify(draftEntry));
+    //var draftEntry = 
+    makeDraftEntries(data['format'], data['teams']);
+    //console.log("DRAFT ENTRY: "+JSON.stringify(draftEntry));
 
 //    var b = '<html><head><title>Final Confirmation</title>\n' +
 //    	'</head><body><h1>finalConfirmation</h1>' + 
