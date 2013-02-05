@@ -289,7 +289,7 @@ function finalStep (body, response) {
 	    b += '\n<table><tr><th>id<th>name<th>money won/lost\n';
 
 	    data.teams[i].forEach(function(player) {
-		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value="'+player.id+'"><input type="text" name="money'+playerNum+'" value="'+money+'" size="3">';
+		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value='+player.id+'><input type="text" name="money'+playerNum+'" value="'+money+'" size="3">';
 		playerNum++;
 
 		playerMap[player.id] = player;
