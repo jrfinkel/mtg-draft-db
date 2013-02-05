@@ -210,7 +210,7 @@ function makeDraftEntries (format, teams) {
     var ts = util.getTS();
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
-	var q = 'INSERT INTO drafts (format, timestamp) VALUES (' + ts + ', ' + format +');';
+	var q = 'INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');';
 	console.log('About to query: ' + q);
 	var query = client.query(q);	
 	query.on('row', function(row) { console.log('ROW RESULT: '+row); });
