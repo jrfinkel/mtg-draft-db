@@ -195,10 +195,37 @@ function thirdLineup (body, response) {
     displayLineup(data['teams'], data, 'Third', 'Draft Summary', 'final-step', response);
 }
 
+function newRankings (winnerRank, loserRank) {
+    var k = 20;
+    
+    var winnerOdds = 1 / (1 + Math.pow(10, ((winnerRank - loserRank) / 400)))
+    var loserOdds = 1 / (1 + Math.pow(10, ((loserRank - winnerRank) / 400)))
+    
+    console.log("WINNER ODDS "+winnerOdds);
+    console.log("LOSER ODDS "+loserOdds);
+
+    winnerRank += k * winnerOdds;
+    loserRank -= k * loserOdds;
+
+    return [winnerRank, loserRank];
+}
+
 function finalStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
-    data['results'] = readWinners(body, data['results']);
+    var results = readWinners(body, data['results']);
+
+    var winnerString = '';
+    var winner = -1;
+    if (results['team'][0] > results['team'][1]) {
+	winnerString = "Winner is Team 1!";
+	winner = 0;
+    } else if (results['team'][0] < results['team'][1]) {
+	winnerString = "Winner is Team 2!";
+	winner = 1;
+    } else {
+	winnerString = "It's a tie!";
+    }
 
 //    var b = '<html><head><title>Final Confirmation</title>\n' +
 //    	'</head><body><h1>finalConfirmation</h1>' + 
