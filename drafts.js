@@ -283,6 +283,7 @@ function finalStep (body, response) {
 		b += '<tr><td>'+player.id+'<td>'+player.name+'<td><input type="hidden" name="player'+i+''+playerNum+'><input type="text" name="money'+i+''+playerNum+'" value="'+money+'">';
 		playerNum++;
 	    });
+	    b += '</table>';
 	}
 
 	b += JSON.stringify(data);
