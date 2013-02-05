@@ -316,7 +316,9 @@ function processMatch (draft_id, winningPlayer, losingPlayer) {
 
     var r = newRatings(winningPlayer.rating, losingPlayer.rating);
     winningPlayer.rating = r[0];
+    winningPlayer.ind_wins++;
     losingPlayer.rating = r[1];
+    losingPlayer.ind_losses++;
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	var q = 'INSERT INTO matches (timestamp, draft_id, winner_id, winner_team_id, winner_end_rating, loser_id, loser_team_id, loser_end_rating) VALUES ('+util.getTS()+', '+draft_id+', '+winningPlayer.id+', '+winningPlayer.team_id+', '+r[0]+', '+losingPlayer.id+', '+losingPlayer.team_id+', '+r[1]+');';
