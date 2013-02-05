@@ -274,15 +274,17 @@ function finalStep (body, response) {
 	for (var i=0; i<2; i++) {
 	    var money = 20;
 	    if (winner == i) {
-		b += '<h2>Winning Team</h2><table>';
+		b += '<h2>Winning Team</h2>';
 		money = 20;
 	    } else if (winner == -1) {
-		b += '<h2>Tied Team</h2><table>';
+		b += '<h2>Tied Team</h2>';
 		money = 0;
 	    } else {
-		b += '<h2>Losing Team</h2><table>';
+		b += '<h2>Losing Team</h2>';
 		money = -20;
 	    }
+	    b += '\n<table><tr><th>id<th>name<th>money won/lost\n';
+
 	    var playerNum = 0;
 	    data.teams[i].forEach(function(player) {
 		b += '<tr><td>'+player.id+'<td>'+player.name+'<td><input type="hidden" name="player'+i+''+playerNum+'"><input type="text" name="money'+i+''+playerNum+'" value="'+money+'">';
@@ -291,7 +293,7 @@ function finalStep (body, response) {
 	    b += '</table>';
 	}
 
-	b += JSON.stringify(data);
+//	b += JSON.stringify(data);
 	b += '</form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
