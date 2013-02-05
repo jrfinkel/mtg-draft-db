@@ -261,7 +261,9 @@ function finalStep (body, response) {
 	var b = '<html><head><title>Final Confirmation</title>' +
 	    util.randomStyle() +    
 	    '</head><body><form name="the-form" action="/confirm" method="post"><center><table>\n';
-	b += '<tr><td align=center colspan=3><h1>'+winnerString+'</h1><br>';
+	if (winner == -1) {
+	    b += '<tr><td align=center colspan=3><h1>'+winnerString+'</h1>';
+	}
 
 	var playerMap = {};
 	var playerNum = 0;
