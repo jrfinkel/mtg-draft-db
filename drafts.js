@@ -355,20 +355,20 @@ function confirmedStep (body, response) {
     });
 
 
-    var client = new pg.Client(process.env.DATABASE_URL);
-    client.connect();
+//    var client = new pg.Client(process.env.DATABASE_URL);
+//    client.connect();
     var query;
     Object.keys(data.players).forEach(function(id) {
 	var player = data.players[id];
 	console.log('PLAYER: ' + JSON.stringify(player));
 	var q = 'UPDATE players SET (rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money) = (\''+ player.rating +', '+ player.ind_wins + ', ' + player.ind_losses + ', ' + player.draft_wins + ', ' + player.draft_ties + ', ' + player.draft_losses + ', ' + player.money +') WHERE id = '+id+';';
 	console.log('About to query: ' + q);
-	query = client.query(q);
+//	query = client.query(q);
     }
 
-    query.on('end', function() { 
-	client.end();
-    });
+    // query.on('end', function() { 
+    // 	client.end();
+    // });
 
     b += '</body></html>';
 
