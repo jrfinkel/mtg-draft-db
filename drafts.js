@@ -351,7 +351,8 @@ function confirmedStep (body, response) {
 
 	b += JSON.stringify(data.players[winner])+'<BR>';
 	b += JSON.stringify(data.players[loser])+'<BR>';
-	processMatch(data.players[winner], data.players[loser]);
+	processMatch(data.players[winner], 
+		     data.players[loser]);
 	b += JSON.stringify(data.players[winner])+'<BR>';
 	b += JSON.stringify(data.players[loser])+'<BR><BR><HR><BR>';
 	
