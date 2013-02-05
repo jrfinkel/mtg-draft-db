@@ -242,6 +242,8 @@ function finalStep (body, response) {
 	winnerString = "It's a tie!";
     }
 
+    makeDraftEntries(data['format'], data['teams']);
+
 //    var b = '<html><head><title>Final Confirmation</title>\n' +
 //    	'</head><body><h1>finalConfirmation</h1>' + 
 //	unescape(JSON.stringify(body)) + '<br></table></body></html>';
