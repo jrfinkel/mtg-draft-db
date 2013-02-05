@@ -106,7 +106,11 @@ function displayPlayers(querySQL, rowCallback, endCallback) {
 
 exports.setup = function setupHandlers (app) {
     app.get('/all-players', function(request, response) {
-	allPlayers(response);
+	if (request.params.order_by) {
+	    allPlayers(response, unencode(request.params.order_by));
+	} else {
+	    allPlayers(response, 'latest_timestamp DESC');
+	}
     });
 
     app.get('/player', function(request, response) {
