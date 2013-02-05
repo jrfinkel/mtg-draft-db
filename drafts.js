@@ -260,8 +260,8 @@ function finalStep (body, response) {
 
 	var b = '<html><head><title>Final Confirmation</title>' +
 	    util.randomStyle() +    
-	    '</head><body><form name="the-form" action="/confirm" method="post">\n';
-	b += '<h1>'+winnerString+'</h1>';
+	    '</head><body><form name="the-form" action="/confirm" method="post"><center><table>\n';
+	b += '<tr><td align=center colspan=3><h1>'+winnerString+'</h1><br><tr><td align=center colspan=3>';
 
 	var playerMap = {};
 	var playerNum = 0;
@@ -270,20 +270,19 @@ function finalStep (body, response) {
 	    var money = 20;
 	    var winDiff = 0, loseDiff = 0, tieDiff = 0;
 	    if (winner == i) {
-		b += '<h2>Winning Team</h2>';
+		b += '<h3>Winners</h3>';
 		money = 20;
 		winDiff++;
 	    } else if (winner == -1) {
-		b += '<h2>Tied Team</h2>';
 		money = 0;
 		tieDiff++;
 	    } else {
-		b += '<h2>Losing Team</h2>';
+		b += '<h3>Losers</h3>';
 		money = -20;
 		loseDiff++;
 	    }
-	    b += '\n<table><tr><th>ID<th>Name<th>Money<BR>Won/Lost<th>Set<BR>Credit\n';
-
+	    
+	    b += '\n<tr><th>Name<th>Money<BR>Won/Lost<th>Set<BR>Credit\n';
 	    data.teams[i].forEach(function(player) {
 		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value='+player.id+'><input type="text" name="money'+playerNum+'" value="'+money+'" size="3"><td><input type="text" name="set_credit'+playerNum+'" value="-1" size="3">';
 		playerNum++;
@@ -294,7 +293,6 @@ function finalStep (body, response) {
 
 		playerMap[player.id] = player;
 	    });
-	    b += '</table>';
 	}
 
 	
@@ -302,8 +300,8 @@ function finalStep (body, response) {
 		       'players':playerMap, 
 		       'draft_id':draftEntry.id}
 
-	b += '<input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
-	b += '<br><input type=submit value="Confirm"></form></body></html>';
+	b += '<tr><td align=center colspan=3><input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
+	b += '<br><input type=submit value="Confirm"></table></form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
 	response.write(b);
