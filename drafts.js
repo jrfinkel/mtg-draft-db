@@ -48,11 +48,10 @@ function formatDropdown(formats) {
 function startDraftPage (response) {
     console.log('starting startDraftPage');
     
-    var ts = util.getTS();
     var body = '<html><head><title>Start a New Draft</title>\n' +
     	'</head><body><h1>New Draft</h1>' + 
 	'<form name="the-form" action="/first-lineup" method="post">\n' +
-	'<input type=hidden name="timestamp" value="'+ ts +'">Timestamp: '+ ts +'<br>\n';
+	'<input type=hidden name="timestamp" value="'+ ts +'">\n';
 
     listFormats(function(formats) {
         body += 'Format: ' + formatDropdown(formats) + '<br>\n';
@@ -208,7 +207,7 @@ function newRatings (winnerRating, loserRating) {
 
 function makeDraftEntries (format, teams) {
 
-    var ts = getTS();
+    var ts = util.getTS();
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	var q = 'INSERT INTO drafts (format, timestamp) VALUES (' + ts + ', ' + format +');';
