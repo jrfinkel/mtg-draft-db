@@ -54,7 +54,7 @@ function startDraftPage (response) {
 	'<form name="the-form" action="/first-lineup" method="post">\n';
 
     listFormats(function(formats) {
-        body += 'Format: ' + formatDropdown(formats) + '<br>\n';
+        body += formatDropdown(formats) + '<br>\n';
 	listPlayers(function(players) {
 	    players.unshift({'name':'No Player', 'id':-1});
 

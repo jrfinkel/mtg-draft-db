@@ -16,8 +16,8 @@ exports.randomStyle = function randomStyle() {
     var color = imagesAndColors[image];
     
     var style = '<style type="text/css">\n' +
-	'body {\n' +
-	'background-image:url('+image+')}' +
+	'body { background-image:url('+image+'); color: '+color+' }' +
+	'th { background-color: white; color: '+color+' }' +
 	'</style>';
 
     return style
