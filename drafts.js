@@ -213,8 +213,18 @@ function makeDraftEntries (format, teams) {
 	var q = 'INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');';
 	console.log('About to query: ' + q);
 	var query = client.query(q);	
-	query.on('row', function(row) { console.log('ROW RESULT: '+row); });
-	query.on('end', function(row) { console.log('END RESULT: '+row); });
+	query.on('row', function(row) { console.log('ROW RESULT: '+JSON.stringify(row)); });
+	query.on('end', function(row) 
+		 { 
+		     console.log('END RESULT: '+JSON.stringify(row)); 
+		     pg.connect(process.env.DATABASE_URL, function(err, client) {     
+			 var q = 'SELECT * FROM drafts ORDER BY id DESC LIMIT 1';
+			 console.log('About to query: ' + q);
+			 var query = client.query(q);	
+			 query.on('row', function(row) { console.log('LAST ROW: '+JSON.stringify(row)); });
+			 query.on('end', function(row) {});
+		     });
+		 });
     });
 }
 
