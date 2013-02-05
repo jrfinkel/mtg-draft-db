@@ -318,7 +318,10 @@ function confirmedStep (body, response) {
 	if (data['player'+i]) {
 	    var player_id = parseInt(data['player'+i]);
 	    var money = data['money'+i];
+	    console.log("START "+player_id);
+	    console.log("MONEY BEFORE "+data.players[player_id].money);
 	    data.players[player_id].money += money;
+	    console.log("MONEY AFTER "+data.players[player_id].money);
 	} else {
 	    break;
 	}
