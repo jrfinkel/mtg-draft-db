@@ -272,6 +272,7 @@ function finalStep (body, response) {
 	b += '<h1>'+winnerString+'</h1>';
 
 	var playerMap = {};
+	var playerNum = 0;
 
 	for (var i=0; i<2; i++) {
 	    var money = 20;
@@ -287,9 +288,8 @@ function finalStep (body, response) {
 	    }
 	    b += '\n<table><tr><th>id<th>name<th>money won/lost\n';
 
-	    var playerNum = 0;
 	    data.teams[i].forEach(function(player) {
-		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+i+''+playerNum+'" value="'+player.id+'"><input type="text" name="money'+i+''+playerNum+'" value="'+money+'" size="3">';
+		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value="'+player.id+'"><input type="text" name="money'+playerNum+'" value="'+money+'" size="3">';
 		playerNum++;
 
 		playerMap[player.id] = player;
