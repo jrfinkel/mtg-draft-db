@@ -332,6 +332,11 @@ function confirmedStep (body, response) {
 	var winner = p[0];
 	var loser = p[1];
 
+	console.log("WINNER1 "+winner);
+	console.log("WINNER2 "+data.players[winner]);
+	console.log("LOSER1 "+loser);
+	console.log("LOSER2 "+data.players[loser]);
+
 	b += JSON.stringify(data.players[winner])+'<BR>';
 	b += JSON.stringify(data.players[loser])+'<BR>';
 	processMatch(data.players[winner], data.players[loser]);
