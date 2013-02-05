@@ -29,7 +29,7 @@ function insertPlayerInDB(body) {
 var addPlayerForm = '<h2>Add New Player:</h2>\n' +
     '<form name="the-form" action="/add-player" method="post">\n' +
     'Name: <input type="text" name="name" value="Loser McLoserstein"><br>\n' +
-    'Set Credit: <input type="text" name="set_credit" value="-1"><br>\n' +
+    'Set Credit: <input type="text" name="set_credit" value="0"><br>\n' +
     'Rating: <input type="text" name="rating" value="1600"><br>\n' +
     'Individual Wins: <input type="text" name="ind_wins" value="0"><br>\n' +
     'Individual Losses: <input type="text" name="ind_losses" value="0"><br>\n' +
