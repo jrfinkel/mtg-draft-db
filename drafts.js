@@ -333,9 +333,9 @@ function confirmedStep (body, response) {
 
 	console.log("P "+JSON.stringify(p));
 	console.log("WINNER1 "+winner);
-	console.log("WINNER2 "+data.players[winner]);
+	console.log("WINNER2 "+JSON.stringify(data.players[winner]));
 	console.log("LOSER1 "+loser);
-	console.log("LOSER2 "+data.players[loser]);
+	console.log("LOSER2 "+JSON.stringify(data.players[loser]));
 
 	b += JSON.stringify(data.players[winner])+'<BR>';
 	b += JSON.stringify(data.players[loser])+'<BR>';
