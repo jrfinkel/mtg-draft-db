@@ -247,7 +247,7 @@ function finalStep (body, response) {
     }
 
     var draftEntry = makeDraftEntries(data['format'], data['teams']);
-    console.log("DRAFT ENTRY: "+JSON.stringify(draftEntry);
+    console.log("DRAFT ENTRY: "+JSON.stringify(draftEntry));
 
 //    var b = '<html><head><title>Final Confirmation</title>\n' +
 //    	'</head><body><h1>finalConfirmation</h1>' + 
