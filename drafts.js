@@ -234,13 +234,11 @@ function makeDraftEntries (format, teams, callback) {
 	    });
 	}
 
+	entry.teams = teams;
+	callback(entry);
+
 	console.log("NEW TEAMS: "+JSON.stringify(teams));
     });
-    console.log("OUTSIDE QUERY: "+JSON.stringify(entry));
-    entry.teams = teams;
-    callback(entry);
-
-    //return entry;
 }
 
 function processMatch (winningPlayer, losingPlayer) {
