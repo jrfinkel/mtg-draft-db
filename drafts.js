@@ -51,7 +51,7 @@ function startDraftPage (response) {
     var body = '<html><head><title>Start a New Draft</title>\n' +
 	util.randomStyle() +
     	'</head><body><form name="the-form" action="/first-lineup" method="post">\n' +
-	'<table align=center><tr><td colspan=2 align=center><BR><h1>New Draft</h1>';
+	'<table align=center><tr><td colspan=2 align=center><h1>New Draft</h1>';
 
     listFormats(function(formats) {
         body += formatDropdown(formats) + '\n';
@@ -85,16 +85,17 @@ function displayLineup(teams, data, round, nextStep, action, response) {
 
     var b = '<html><head><title>'+round+' Round</title>\n' +
 	util.randomStyle() +
-    	'</head><body><h1>'+round+' Round </h1>' + 
-	'<form name="the-form" action="/'+action+'" method="post">\n' +
+    	'</head><body>'+
+	'<form name="the-form" action="/'+action+'" method="post"><center><table>\n' +	
+	'<tr><td align=center colspan=3><h1>'+round+' Round </h1>' + 
 	'<input type=hidden name="data" value="'+ dataStr +'">\n' +
-	'<h3>Please select the competitors and the winner of each match.</h3>\n<table><tr><th><th>Team 1<th><th>Team 2<th>\n';
+	'<tr><th>Team 1<th><th>Team 2<th>\n';
 
     for (var i = 0; i < numLineups; i++) {
-	b += '<tr><td>'+ i +'. <td>' + playerDropdown('player'+i+'0', teams[0]) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
+	b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0]) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
     }
 
-    b += '</table><br><input type=submit value="'+nextStep+' ---&gt;&gt;"></form></body></html>';	
+    b += '<tr><td colspan=3><input type=submit value="'+nextStep+' ---&gt;&gt;"></table></form></body></html>';	
 
     for (var i=0; i<2; i++) {
 	teams[i].shift();
