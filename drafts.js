@@ -215,7 +215,7 @@ function makeDraftEntries (format, teams) {
     client.query('INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');');	
     var entry;
     var query = client.query('SELECT * FROM drafts ORDER BY id DESC LIMIT 1', function(err, result) {
-	entry = result.row[0];
+	entry = result.rows[0];
 	console.log("INSIDE QUERY: "+JSON.stringify(entry));
     });
     console.log("OUTSIDE QUERY: "+JSON.stringify(entry));
