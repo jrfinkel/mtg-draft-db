@@ -287,7 +287,7 @@ function finalStep (body, response) {
 
 	    var playerNum = 0;
 	    data.teams[i].forEach(function(player) {
-		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+i+''+playerNum+'"><input type="text" name="money'+i+''+playerNum+'" value="'+money+'" size="3">';
+		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+i+''+playerNum+'" value="'+player.id+'"><input type="text" name="money'+i+''+playerNum+'" value="'+money+'" size="3">';
 		playerNum++;
 	    });
 	    b += '</table>';
