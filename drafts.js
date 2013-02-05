@@ -49,7 +49,7 @@ function startDraftPage (response) {
     console.log('starting startDraftPage');
     
     var body = '<html><head><title>Start a New Draft</title>\n' +
-    	'</head><body><h1>New Draft</h1>' + 
+    	'</head><body background="http://i2.kym-cdn.com/photos/images/newsfeed/000/406/325/b31.jpg"><h1>New Draft</h1>' + 
 	'<form name="the-form" action="/first-lineup" method="post">\n';
 
     listFormats(function(formats) {
