@@ -264,17 +264,32 @@ function finalStep (body, response) {
 	winnerString = "It's a tie!";
     }
 
-    //var draftEntry = 
     makeDraftEntries(data['format'], data['teams'], function(draftEntry) {
-    //console.log("DRAFT ENTRY: "+JSON.stringify(draftEntry));
-
-//    var b = '<html><head><title>Final Confirmation</title>\n' +
-//    	'</head><body><h1>finalConfirmation</h1>' + 
-//	unescape(JSON.stringify(body)) + '<br></table></body></html>';
-  
-//    body['data'] = JSON.parse(data);
 	data.teams = draftEntry.teams;
-	var b = JSON.stringify(data);
+
+	var b = '<html><head>Final Confirmation</head><body><form name="the-form" action="confirm" method="post">\n';
+	b += '<h1>'+winnerString+'</h1>';
+
+	var winningTeam - data.teams[winner];
+	var loserTeam - data.teams[1 - winner];
+
+	for (var i=0; i<2; i++) {
+	    var money = 20;
+	    if (winner == i) {
+		b += '<h2>Winning Team</h2><table>';
+	    } else {
+		b += '<h2>Losing Team</h2><table>';
+		money = -20;
+	    }
+	    var playerNum = 0;
+	    data.teams[i].forEach(function(player) {
+		b += '<tr><td>'+player.id+'<td>'+player.name+'<td><input type="hidden" name="player'+i+''+playerNum+'><input type="text" name="money'+i+''+playerNum+'" value="'+money+'">';
+		playerNum++;
+	    });
+	}
+
+	b += JSON.stringify(data);
+	b += '</form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
 	response.write(b);
