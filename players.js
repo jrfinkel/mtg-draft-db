@@ -85,7 +85,7 @@ function playerRowFn(row) {
 	'<td>'+row['draft_wins']+'</td>\n' +
 	'<td>'+row['draft_ties']+'</td>\n' +
 	'<td>'+row['draft_losses']+'</td>\n' +
-	'<td>'+row['money']+'</td></tr>\n' +
+	'<td>'+row['money']+'</td>\n' +
 	'<td>'+row['latest_timestamp']+'</td></tr>\n';
 
 }
