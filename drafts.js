@@ -31,7 +31,7 @@ function dropdown(name, data, idFn, valFn, selectIdx) {
     var body = '<select name="' + name + '">';
     var i = 0;
     data.forEach(function (row) {
-	body += '<option value="'+idFn(row)+;
+	body += '<option value="'+idFn(row);
 	if (i == selectIdx) { body += ' selected'; }
 	body +='">'+valFn(row)+'</option>';
 	i++;
