@@ -106,6 +106,8 @@ exports.setup = function setupHandlers (app) {
     app.get('/all-players', function(request, response) {
 	console.log("PARAMS: "+JSON.stringify(request.params));
 	console.log("QUERY: "+JSON.stringify(request.query));
+	console.log("ORDER_BY1: "+JSON.stringify(request.query.order_by));
+	console.log("ORDER_BY2: "+JSON.stringify(request.query['order_by']));
 
 	if (request.query.order_by) {
 	    allPlayers(response, unescape(request.query.order_by));
