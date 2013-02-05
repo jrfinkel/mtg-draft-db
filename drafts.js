@@ -57,7 +57,7 @@ function startDraftPage (response) {
 	listPlayers(function(players) {
 	    players.unshift({'name':'No Player', 'id':-1});
 
-	    body += '<br><br><table><tr><th colspan=2>Team #1<th colspan=2>Team #2';
+	    body += '<br><br><table><tr><th colspan=2><font color="red">Team #1<th colspan=2><font color="red">Team #2';
 	    for (var i=0; i<5; i++) {
 		body += '<tr>';
 		for (var j=0; j<2; j++) {
