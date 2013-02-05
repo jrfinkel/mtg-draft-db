@@ -209,23 +209,40 @@ function makeDraftEntries (format, teams) {
 
     var ts = util.getTS();
 
-    pg.connect(process.env.DATABASE_URL, function(err, client) {
-	var q = 'INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');';
-	console.log('About to query: ' + q);
-	var query = client.query(q);	
-	query.on('row', function(row) { console.log('ROW RESULT: '+JSON.stringify(row)); });
-	query.on('end', function(row) 
-		 { 
-		     console.log('END RESULT: '+JSON.stringify(row)); 
-		     pg.connect(process.env.DATABASE_URL, function(err, client) {     
-			 var q = 'SELECT * FROM drafts ORDER BY id DESC LIMIT 1';
-			 console.log('About to query: ' + q);
-			 var query = client.query(q);	
-			 query.on('row', function(row) { console.log('LAST ROW: '+JSON.stringify(row)); });
-			 query.on('end', function(row) {});
-		     });
-		 });
+    var client = new pg.Client(process.env.DATABASE_URL);
+    
+    var q = 'INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');';
+    console.log('About to query: ' + q);
+    client.query(q);	
+
+    q = 'SELECT * FROM drafts ORDER BY id DESC LIMIT 1';
+    console.log('About to query: ' + q);
+    var query = client.query(q);	
+    var entry;
+    query.on('row', function(row) { 
+	console.log('LAST ROW: '+JSON.stringify(row)); 
+	entry = row;
     });
+
+    console.log('ENTRY: '+JSON.stringify(entry)); 
+
+    // pg.connect(process.env.DATABASE_URL, function(err, client) {
+    // 	var q = 'INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');';
+    // 	console.log('About to query: ' + q);
+    // 	var query = client.query(q);	
+    // 	query.on('row', function(row) { console.log('ROW RESULT: '+JSON.stringify(row)); });
+    // 	query.on('end', function(row) 
+    // 		 { 
+    // 		     console.log('END RESULT: '+JSON.stringify(row)); 
+    // 		     pg.connect(process.env.DATABASE_URL, function(err, client) {     
+    // 			 var q = 'SELECT * FROM drafts ORDER BY id DESC LIMIT 1';
+    // 			 console.log('About to query: ' + q);
+    // 			 var query = client.query(q);	
+    // 			 query.on('row', function(row) { console.log('LAST ROW: '+JSON.stringify(row)); });
+    // 			 query.on('end', function(row) {});
+    // 		     });
+    // 		 });
+    // });
 }
 
 function processMatch (winningPlayer, losingPlayer) {
