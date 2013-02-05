@@ -51,21 +51,21 @@ function startDraftPage (response) {
     var body = '<html><head><title>Start a New Draft</title>\n' +
 	util.randomStyle() +
     	'</head><body><form name="the-form" action="/first-lineup" method="post">\n' +
-	'<table align=center><tr><td colspan=2 align=center><h1>New Draft</h1>';
+	'<table align=center><tr><td colspan=2 align=center><BR><h1>New Draft</h1>';
 
     listFormats(function(formats) {
-        body += formatDropdown(formats) + '<br>\n';
+        body += formatDropdown(formats) + '\n';
 	listPlayers(function(players) {
 	    players.unshift({'name':'No Player', 'id':-1});
 
-	    body += '<br><br><tr><th><h2><font color="red">Team #1<th><h2><font color="red">Team #2';
+	    body += '<br><br><tr><th><h2>Team #1<th><h2>Team #2';
 	    for (var i=0; i<5; i++) {
 		body += '<tr>';
 		for (var j=0; j<2; j++) {
 		    body += '<td>' + playerDropdown('team'+j+'_player'+i, players) + '<br>\n';
 		}
 	    }
-	    body += '<tr><td colspan=2 align=center><br><input type=submit value="First Round ---&gt;&gt;"></table></form></body></html>';	
+	    body += '<tr><td colspan=2 align=center><br><input type=submit value="First Round ---&gt;&gt;"><br></table></form></body></html>';	
 	    response.writeHead(200, {"Content-Type": "text/html"});
 	    response.write(body);
 	    response.end();
