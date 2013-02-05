@@ -269,15 +269,19 @@ function finalStep (body, response) {
 
 	for (var i=0; i<2; i++) {
 	    var money = 20;
+	    var winDiff = 0, loseDiff = 0, tieDiff = 0;
 	    if (winner == i) {
 		b += '<h2>Winning Team</h2>';
 		money = 20;
+		winDiff++;
 	    } else if (winner == -1) {
 		b += '<h2>Tied Team</h2>';
 		money = 0;
+		tieDiff++;
 	    } else {
 		b += '<h2>Losing Team</h2>';
 		money = -20;
+		loseDiff++;
 	    }
 	    b += '\n<table><tr><th>id<th>name<th>money won/lost\n';
 
@@ -285,15 +289,21 @@ function finalStep (body, response) {
 		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value='+player.id+'><input type="text" name="money'+playerNum+'" value="'+money+'" size="3">';
 		playerNum++;
 
+		player.draft_wins += winDiff;
+		player.draft_losses += loseDiff;
+		player.draft_ties += tieDiff;
+
 		playerMap[player.id] = player;
 	    });
 	    b += '</table>';
 	}
 
 	
+	var newData = {'results':data['results'], 
+		       'players':playerMap, 
+		       'draft_id':draftEntry.id}
 
-//	b += JSON.stringify(data);
-	b += '<input type="hidden" name="data" value="'+escape(JSON.stringify({'results':data['results'], 'players':playerMap, 'draft_id':draftEntry.id}))+'">';
+	b += '<input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
 	b += '<br><input type=submit value="Confirm"></form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
