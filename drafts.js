@@ -317,7 +317,7 @@ function confirmedStep (body, response) {
     for (var i=0; i<10; i++) {
 	if (body['player'+i]) {
 	    var player_id = parseInt(body['player'+i]);
-	    var money = body['money'+i];
+	    var money = parseFloat(body['money'+i]);
 	    console.log("START "+player_id);
 	    console.log("MONEY BEFORE "+data.players[player_id].money);
 	    data.players[player_id].money += money;
