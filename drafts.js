@@ -312,7 +312,7 @@ function processMatch (draft_id, winningPlayer, losingPlayer) {
     losingPlayer.rating = r[1];
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
-	var q = 'INSERT INTO matches (timestamp, draft_id, winner_id, winner_team_id, winner_end_rating, loser_id, loser_team_id, loser_end_rating) VALUES ('+util.getTS()+', '+draft_id+', '+winningPlayer.id+', '+winningPlayer.team_id+', '+winningPlayer.rating+', '+losingPlayer.id+', '+losingPlayer.team_id+', '+losingPlayer.rating');';
+	var q = 'INSERT INTO matches (timestamp, draft_id, winner_id, winner_team_id, winner_end_rating, loser_id, loser_team_id, loser_end_rating) VALUES ('+util.getTS()+', '+draft_id+', '+winningPlayer.id+', '+winningPlayer.team_id+', '+winningPlayer.rating+', '+losingPlayer.id+', '+losingPlayer.team_id+', '+losingPlayer.rating+');';
 	console.log('About to query: ' + q);
 	var query = client.query(q);	
 	query.on('row', function(row) { console.log('Added new match: '+JSON.stringify(row)); });
