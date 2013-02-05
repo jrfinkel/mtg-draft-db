@@ -325,7 +325,8 @@ function confirmedStep (body, response) {
 	    break;
 	}
     }
-
+    
+    body.data = data;
 
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(JSON.stringify(body));
