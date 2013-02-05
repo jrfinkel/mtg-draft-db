@@ -276,14 +276,14 @@ function finalStep (body, response) {
 	    var money = 20;
 	    var winDiff = 0, loseDiff = 0, tieDiff = 0;
 	    if (winner == i) {
-		b += '<tr><td align=center colspan=3><hr><h3><marquee>Winners</marquee></h3><hr>';
+		b += '<tr><td align=center colspan=3><hr><h2><marquee>Winners</marquee></h2><hr>';
 		money = 20;
 		winDiff++;
 	    } else if (winner == -1) {
 		money = 0;
 		tieDiff++;
 	    } else {
-		b += '<tr><td align=center colspan=3><hr><marquee><h3>Losers</h3></marquee><hr>';
+		b += '<tr><td align=center colspan=3><hr><marquee><h2>Losers</h2></marquee><hr>';
 		money = -20;
 		loseDiff++;
 	    }
