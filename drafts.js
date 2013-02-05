@@ -66,7 +66,7 @@ function startDraftPage (response) {
 	    for (var i=0; i<5; i++) {
 		body += '<tr>';
 		for (var j=0; j<2; j++) {
-		    body += '<td>' + playerDropdown('team'+j+'_player'+i, players) + '<br>\n';
+		    body += '<td>' + playerDropdown('team'+j+'_player'+i, players, 0) + '<br>\n';
 		}
 	    }
 	    body += '<tr><td colspan=2 align=center><br><input type=submit value="First Round ---&gt;&gt;"><br></table></form></body></html>';	
@@ -96,7 +96,7 @@ function displayLineup(teams, data, round, nextStep, action, response) {
 
 
     for (var i = 0; i < numLineups; i++) {
-	b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0], i) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
+	b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0], i+1) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1], 0) + '\n';
     }
 
     b += '<tr><td colspan=3 align=center><BR><input type=submit value="'+nextStep+' ---&gt;&gt;"><BR></table></form></body></html>';	
