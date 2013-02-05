@@ -286,10 +286,14 @@ function finalStep (body, response) {
 	    b += '\n<table><tr><th>id<th>name<th>money won/lost\n';
 
 	    var playerNum = 0;
+	    var teamMaps = {};
 	    data.teams[i].forEach(function(player) {
 		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+i+''+playerNum+'" value="'+player.id+'"><input type="text" name="money'+i+''+playerNum+'" value="'+money+'" size="3">';
 		playerNum++;
+
+		teamMaps[player.id] = player;
 	    });
+	    data.teams[i] = teamMaps;
 	    b += '</table>';
 	}
 
