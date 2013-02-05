@@ -262,6 +262,7 @@ function finalStep (body, response) {
 	winner = 1;
     } else {
 	winnerString = "It's a tie!";
+	winner = -1;
     }
 
     makeDraftEntries(data['format'], data['teams'], function(draftEntry) {
@@ -274,13 +275,17 @@ function finalStep (body, response) {
 	    var money = 20;
 	    if (winner == i) {
 		b += '<h2>Winning Team</h2><table>';
+		money = 20;
+	    } else if (winner == -1) {
+		b += '<h2>Tied Team</h2><table>';
+		money = 0;
 	    } else {
 		b += '<h2>Losing Team</h2><table>';
 		money = -20;
 	    }
 	    var playerNum = 0;
 	    data.teams[i].forEach(function(player) {
-		b += '<tr><td>'+player.id+'<td>'+player.name+'<td><input type="hidden" name="player'+i+''+playerNum+'><input type="text" name="money'+i+''+playerNum+'" value="'+money+'">';
+		b += '<tr><td>'+player.id+'<td>'+player.name+'<td><input type="hidden" name="player'+i+''+playerNum+'"><input type="text" name="money'+i+''+playerNum+'" value="'+money+'">';
 		playerNum++;
 	    });
 	    b += '</table>';
