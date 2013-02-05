@@ -303,8 +303,6 @@ function finalStep (body, response) {
 } 
 
 function processMatch (draft_id, winningPlayer, losingPlayer) {
-    console.log("RATING1 "+JSON.stringify(winningPlayer));
-    console.log("RATING2 "+JSON.stringify(losingPlayer));
 
     var r = newRatings(winningPlayer.rating, losingPlayer.rating);
     winningPlayer.rating = r[0];
@@ -313,9 +311,7 @@ function processMatch (draft_id, winningPlayer, losingPlayer) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	var q = 'INSERT INTO matches (timestamp, draft_id, winner_id, winner_team_id, winner_end_rating, loser_id, loser_team_id, loser_end_rating) VALUES ('+util.getTS()+', '+draft_id+', '+winningPlayer.id+', '+winningPlayer.team_id+', '+r[0]+', '+losingPlayer.id+', '+losingPlayer.team_id+', '+r[1]+');';
 	console.log('About to query: ' + q);
-	var query = client.query(q);	
-	query.on('row', function(row) { console.log('Added new match: '+JSON.stringify(row)); });
-	query.on('end', function(row) { console.log('Finished adding match: '+JSON.stringify(row)); });
+	client.query(q);	
     });
 
 }
@@ -336,17 +332,9 @@ function confirmedStep (body, response) {
 	}
     }
 
-    console.log("P "+JSON.stringify(data));
-
     data.results.player.forEach(function(p) {
 	var winner = p[0];
 	var loser = p[1];
-
-	console.log("P "+JSON.stringify(p));
-	console.log("WINNER1 "+winner);
-	console.log("WINNER2 "+JSON.stringify(data.players[winner]));
-	console.log("LOSER1 "+loser);
-	console.log("LOSER2 "+JSON.stringify(data.players[loser]));
 
 	b += JSON.stringify(data.players[winner])+'<BR>';
 	b += JSON.stringify(data.players[loser])+'<BR>';
@@ -400,7 +388,7 @@ exports.setup = function setupHandlers (app) {
     });
 
     app.post('/confirm', function(request, response) {
-	console.log('POST: final-step');
+	console.log('POST: confirm');
 	util.readPostData(request, function(body) { 
 	    confirmedStep(body, response);
 	});
