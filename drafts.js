@@ -209,7 +209,7 @@ function makeTeamEntry (client, draft_id, team_id, team) {
     team.forEach(function(player) {
 	client.query('INSERT INTO draft_teams (draft_id, team_id, player_id) VALUES ('+draft_id+', '+team_id+', '+player.id+');',
 		    function(err, result) {
-			console.log("TEAM ENTRY: "+JSON.stringify(result));
+			console.log("TEAM ENTRY: "+JSON.stringify(result.rows));
 		    });
     });
 }
@@ -228,6 +228,13 @@ function makeDraftEntries (format, teams) {
 	console.log("INSIDE QUERY: "+JSON.stringify(entry));
 	makeTeamEntry(client, result.rows[0].draft_id, result.rows[0].team0_id, teams[0]);
 	makeTeamEntry(client, result.rows[0].draft_id, result.rows[0].team1_id, teams[1]);
+	var teamIds = [result.rows[0].team0_id, result.rows[0].team1_id]
+
+	for (var i=0; i<2; i++) {
+	    teams[i].team_id = teamIds[i];
+	}
+
+	console.log("NEW TEAMS: "+JSON.stringify(teams));
     });
     console.log("OUTSIDE QUERY: "+JSON.stringify(entry));
 
