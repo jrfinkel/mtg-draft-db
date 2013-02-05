@@ -51,10 +51,10 @@ function startDraftPage (response) {
     var body = '<html><head><title>Start a New Draft</title>\n' +
 	util.randomStyle() +
     	'</head><body><form name="the-form" action="/first-lineup" method="post">\n' +
-	'<table><tr><td colspan=2><h1>New Draft</h1>';
+	'<table align=center><tr><td colspan=2 align=center><h1>New Draft</h1>';
 
     listFormats(function(formats) {
-        body += '<center>' + formatDropdown(formats) + '<br>\n';
+        body += formatDropdown(formats) + '<br>\n';
 	listPlayers(function(players) {
 	    players.unshift({'name':'No Player', 'id':-1});
 
