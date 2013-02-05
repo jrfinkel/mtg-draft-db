@@ -315,9 +315,9 @@ function confirmedStep (body, response) {
     var data = JSON.parse(unescape(body['data']));
 
     for (var i=0; i<10; i++) {
-	if (data['player'+i]) {
-	    var player_id = parseInt(data['player'+i]);
-	    var money = data['money'+i];
+	if (body['player'+i]) {
+	    var player_id = parseInt(body['player'+i]);
+	    var money = body['money'+i];
 	    console.log("START "+player_id);
 	    console.log("MONEY BEFORE "+data.players[player_id].money);
 	    data.players[player_id].money += money;
