@@ -62,7 +62,7 @@ function startDraftPage (response) {
 	    for (var i=0; i<5; i++) {
 		body += '<tr>';
 		for (var j=0; j<2; j++) {
-		    body += '<td align="center"><input type="text" size="3" name="team'+j+'_player'+i+'_set_credit" value="-1">' +
+		    body += '<td align="center">' +
 			'<td>' + playerDropdown('team'+j+'_player'+i, players) + '<br>\n';
 		}
 	    }
@@ -121,11 +121,10 @@ function readTeams(body) {
     var teams = [];
 
     for (var team=0; team<2; team++) {
-	var teamPlayers = {};
+	var teamPlayers = [];
 	for (var p=0; p<5; p++) {
 	    var playerId = body['team'+team+'_player'+p];
-	    var playerSetCredit = body['team'+team+'_player'+p+'_set_credit'];
-	    if (playerId != -1) { teamPlayers[playerId] = playerSetCredit; }
+	    if (playerId != -1) { teamPlayers.push(playerId); }
 	}
 	teams.push(teamPlayers);
     }
@@ -156,15 +155,12 @@ function readWinners (body, result) {
 function firstLineup (body, response) {
     var teams = readTeams(body);    
 
-   syncQuery(playerQuery(Object.keys(teams[0])), function(players0) {
-	syncQuery(playerQuery(Object.keys(teams[1])), function(players1) {
+   syncQuery(playerQuery(teams[0]), function(players0) {
+	syncQuery(playerQuery(teams[1]), function(players1) {
 	    var outTeams = [[], []];
 	    var t = 0;
 	    [players0, players1].forEach(function(team) {
 		team.forEach(function (p) {
-		    var pid = p['id'];
-		    var setCredit = teams[t][pid];
-		    p['draft_set_credit'] = setCredit;
 		    outTeams[t].push(p);
 		});
 		t++;
@@ -283,10 +279,10 @@ function finalStep (body, response) {
 		money = -20;
 		loseDiff++;
 	    }
-	    b += '\n<table><tr><th>id<th>name<th>money won/lost\n';
+	    b += '\n<table><tr><th>id<th>name<th>money won/lost<th>set credit\n';
 
 	    data.teams[i].forEach(function(player) {
-		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value='+player.id+'><input type="text" name="money'+playerNum+'" value="'+money+'" size="3">';
+		b += '<tr><td align="center">'+player.id+'<td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value='+player.id+'><input type="text" name="money'+playerNum+'" value="'+money+'" size="3"><input type="text" name="set_credit'+playerNum+'" value="-1" size="3">';
 		playerNum++;
 
 		player.draft_wins += winDiff;
@@ -337,8 +333,10 @@ function confirmedStep (body, response) {
      for (var i=0; i<10; i++) {
 	if (body['player'+i]) {
 	    var player_id = parseInt(body['player'+i]);
-	    var money = parseFloat(body['money'+i]);
-	    data.players[player_id].money += money;
+	    ['money', 'set_credit'].forEach(function(s) {
+		var v = parseFloat(body[s+i]);
+		data.players[player_id][s] += v;
+	    });
 	} else {
 	    break;
 	}
@@ -363,7 +361,7 @@ function confirmedStep (body, response) {
     Object.keys(data.players).forEach(function(id) {
 	var player = data.players[id];
 	console.log('PLAYER: ' + JSON.stringify(player));
-	var q = 'UPDATE players SET (rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money) = ('+ player.rating +', '+ player.ind_wins + ', ' + player.ind_losses + ', ' + player.draft_wins + ', ' + player.draft_ties + ', ' + player.draft_losses + ', ' + player.money +') WHERE id = '+id+';';
+	var q = 'UPDATE players SET (set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money) = ('+ player.set_credit+', '+player.rating +', '+ player.ind_wins + ', ' + player.ind_losses + ', ' + player.draft_wins + ', ' + player.draft_ties + ', ' + player.draft_losses + ', ' + player.money +') WHERE id = '+id+';';
 	console.log('About to query: ' + q);
 	query = client.query(q);
     });
