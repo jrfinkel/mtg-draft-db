@@ -260,7 +260,7 @@ function finalStep (body, response) {
 	    util.randomStyle() +    
 	    '</head><body><form name="the-form" action="/confirm" method="post"><center><table>\n';
 	if (winner == -1) {
-	    b += '<tr><td align=center colspan=3><hr><h2>It\'s a tie!</h2></hr>';
+	    b += '<tr><td align=center colspan=3><hr><marquee><h2>It\'s a tie!</h2><marquee></hr>';
 	}
 
 	var playerMap = {};
