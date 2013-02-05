@@ -313,14 +313,12 @@ function finalStep (body, response) {
 function confirmedStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
-    
-    var players = data.players;
 
     for (var i=0; i<10; i++) {
 	if (data['player'+i]) {
 	    var player_id = data['player'+i];
 	    var money = data['money'+i];
-	    players[player_id].money += money;
+	    data.players[player_id].money += money;
 	} else {
 	    break;
 	}
