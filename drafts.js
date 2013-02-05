@@ -143,11 +143,11 @@ function readWinners (body, result) {
 	if (team0Player && team1Player && team0Player != -1 && team1Player != -1) {
 	    winningTeam = body['win'+i];
 	    console.log("WINNING TEAM "+ i + " " +winningTeam);
-	    result['teamResult'][winningTeam]++; // = teamResult[winningTeam] + 1;
+	    result['teamResults'][winningTeam]++; // = teamResult[winningTeam] + 1;
 	    if (winningTeam == 0) {
 		result['playerResults'].push([team0Player, team1Player]);
 	    } else {
-		result['playersResult'].push([team1Player, team0Player]);
+		result['playerResults'].push([team1Player, team0Player]);
 	    }
 	}
     }
@@ -180,8 +180,8 @@ function firstLineup (body, response) {
 function secondLineup (body, response) {
     var data = JSON.parse(unescape(body['data']));
     data['results'] = {};
-    data['results']['teamResult'] = [0, 0];
-    data['results']['playersResult'] = [];
+    data['results']['teamResults'] = [0, 0];
+    data['results']['playerResults'] = [];
 
     data['results'] = readWinners(body, data['results']);
     data['rounds'] = [];
