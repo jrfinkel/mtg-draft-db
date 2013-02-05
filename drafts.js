@@ -49,7 +49,8 @@ function startDraftPage (response) {
     console.log('starting startDraftPage');
     
     var body = '<html><head><title>Start a New Draft</title>\n' +
-    	'</head><body background="http://i2.kym-cdn.com/photos/images/newsfeed/000/406/325/b31.jpg"><font color="red"><center><h1>New Draft</h1>' + 
+	util.randomStyle() +
+    	'</head><body><font color="red"><center><h1>New Draft</h1>' + 
 	'<form name="the-form" action="/first-lineup" method="post">\n';
 
     listFormats(function(formats) {
@@ -84,6 +85,7 @@ function displayLineup(teams, data, round, nextStep, action, response) {
     }	 
 
     var b = '<html><head><title>'+round+' Round</title>\n' +
+	util.randomStyle() +
     	'</head><body><h1>'+round+' Round </h1>' + 
 	'<form name="the-form" action="/'+action+'" method="post">\n' +
 	'<input type=hidden name="data" value="'+ dataStr +'">\n' +
@@ -256,7 +258,9 @@ function finalStep (body, response) {
     makeDraftEntries(data['format'], data['teams'], function(draftEntry) {
 	data.teams = draftEntry.teams;
 
-	var b = '<html><head><title>Final Confirmation</title></head><body><form name="the-form" action="/confirm" method="post">\n';
+	var b = '<html><head><title>Final Confirmation</title>' +
+	    util.randomStyle() +    
+	    '</head><body><form name="the-form" action="/confirm" method="post">\n';
 	b += '<h1>'+winnerString+'</h1>';
 
 	var playerMap = {};
@@ -327,7 +331,7 @@ function confirmedStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
 
-    var b = '<html><body>';
+    var b = '<html><head>'+util.randomStyle()+'</head><body>';
 
      for (var i=0; i<10; i++) {
 	if (body['player'+i]) {

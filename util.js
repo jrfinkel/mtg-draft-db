@@ -1,6 +1,29 @@
 var qs = require('querystring');
 var url = require('url');
 
+exports.randomStyle = function randomStyle() {
+    var imagesAndColors = {'http://i2.kym-cdn.com/photos/images/newsfeed/000/406/325/b31.jpg': 'red',
+		  'http://www.roflcat.com/images/cats/270911970_db35fdd4ca.jpg': 'orange',
+		  './images/elsie.jpg': 'pink', 
+		  './images/harry.jpg': 'purple',
+		  './images/melvin.jpg': 'blue',
+		  './images/melvin1.jpg': 'green',
+ 		  './images/dinner.jpg': 'yellow'
+		 };
+
+    var images = Object.keys(imagesAndColors);
+    var image = images[Math.floor(Math.random() * (images.length + 1))];
+    var color = imagesAndColors[image];
+    
+    var style = '<style type="text/css">\n' +
+	'body {\n' +
+	'background-image:url('+image+')}' +
+	'</style>';
+
+    return style
+
+}
+
 exports.getIP = function getIP(request) {
     var ip_address = null;
                  
