@@ -86,16 +86,16 @@ function displayLineup(teams, data, round, nextStep, action, response) {
     var b = '<html><head><title>'+round+' Round</title>\n' +
 	util.randomStyle() +
     	'</head><body>'+
-	'<form name="the-form" action="/'+action+'" method="post"><center><table>\n' +	
-	'<tr><td align=center colspan=3><h1>'+round+' Round </h1>' + 
-	'<input type=hidden name="data" value="'+ dataStr +'">\n' +
-	'<tr><th>Team 1<th><th>Team 2<th>\n';
+	'<form name="the-form" action="/'+action+'" method="post"><center>' +
+	'<input type=hidden name="data" value="'+ dataStr +'">\n<table>\n' +	
+	'<tr><td align=center colspan=3><h1>'+round+' Round </h1>\n'; 
+
 
     for (var i = 0; i < numLineups; i++) {
 	b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0]) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1]) + '\n';
     }
 
-    b += '<tr><td colspan=3><input type=submit value="'+nextStep+' ---&gt;&gt;"></table></form></body></html>';	
+    b += '<tr><td colspan=3><BR><input type=submit value="'+nextStep+' ---&gt;&gt;"><BR></table></form></body></html>';	
 
     for (var i=0; i<2; i++) {
 	teams[i].shift();
