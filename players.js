@@ -26,7 +26,7 @@ function insertPlayerInDB(body) {
     });
 }
 
-var addPlayerForm = '<h2>Add New Player:</h2>\n' +
+var addPlayerForm = '<center><div bgcolor=white><h2>Add New Player:</h2>\n' +
     '<form name="the-form" action="/add-player" method="post">\n' +
     'Name: <input type="text" name="name" value="Loser McLoserstein"><br>\n' +
     'Set Credit: <input type="text" name="set_credit" value="0"><br>\n' +
@@ -38,11 +38,12 @@ var addPlayerForm = '<h2>Add New Player:</h2>\n' +
     'Draft Losses: <input type="text" name="draft_losses" value="0"><br>\n' +
     'Money Won/Lost: <input type="text" name="money" value="0"><br>\n' +
     '<input type="submit" name="Create Player"><input type="reset" name="Clear">' +
-    '</form>';
+    '</form></div></center>';
 
 function addPlayerPage (header, response) {
 
     var body = '<html><head><title>Add Player</title>\n' +
+	util.randomStyle()+
     	'</head><body>' +
 	header +
 	addPlayerForm +
