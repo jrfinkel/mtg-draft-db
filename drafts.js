@@ -210,6 +210,7 @@ function makeDraftEntries (format, teams) {
     var ts = util.getTS();
 
     var client = new pg.Client(process.env.DATABASE_URL);
+    client.connect();
     
     var q = 'INSERT INTO drafts (timestamp, format) VALUES (' + ts + ', ' + format +');';
     console.log('About to query: ' + q);
