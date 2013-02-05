@@ -199,10 +199,10 @@ function newRatings (winnerRating, loserRating) {
     
     var winnerOdds = 1 / (1 + Math.pow(10, ((winnerRating - loserRating) / 400)))
 
-    winnerRank += k * winnerOdds;
-    loserRank -= k * winnerOdds;
+    winnerRating += k * winnerOdds;
+    loserRating -= k * winnerOdds;
 
-    return [winnerRank, loserRank];
+    return [winnerRating, loserRating];
 }
 
 function makeTeamEntry (client, draft_id, team_id, team) {
