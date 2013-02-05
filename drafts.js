@@ -319,10 +319,7 @@ function confirmedStep (body, response) {
 	if (body['player'+i]) {
 	    var player_id = parseInt(body['player'+i]);
 	    var money = parseFloat(body['money'+i]);
-	    console.log("START "+player_id);
-	    console.log("MONEY BEFORE "+data.players[player_id].money);
 	    data.players[player_id].money += money;
-	    console.log("MONEY AFTER "+data.players[player_id].money);
 	} else {
 	    break;
 	}
@@ -332,6 +329,7 @@ function confirmedStep (body, response) {
 	var winner = p[0];
 	var loser = p[1];
 
+	console.log("P "+JSON.stringify(p));
 	console.log("WINNER1 "+winner);
 	console.log("WINNER2 "+data.players[winner]);
 	console.log("LOSER1 "+loser);
