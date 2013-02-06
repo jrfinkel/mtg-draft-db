@@ -38,7 +38,7 @@ var addPlayerForm = '<center><table bgcolor=white><tr><td><hr><h2><marquee>New P
     'Draft Losses: <input type="text" name="draft_losses" value="0"><br>\n' +
     'Money Won/Lost: <input type="text" name="money" value="0"><br><br>\n' +
     '<input type="submit" name="Create Player"><input type="reset" name="Clear">' +
-    '</form></table></center>';
+    '</hr></form></table></center>';
 
 function addPlayerPage (header, response) {
 

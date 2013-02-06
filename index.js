@@ -31,7 +31,7 @@ app.get('/winners', function(request, response) {
 	'<a href="./all-players?order_by=draft_losses+DESC">Players (by Team Losses)</a><BR>' + 
 	'<a href="./add-player">All Matches</a><BR>' + 
 	'<a href="./add-player">All Drafts</a><BR>' + 
-	'</table></body></html>';
+	'<hr></table></body></html>';
 
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
