@@ -55,7 +55,7 @@ function startDraftPage (response) {
     var body = '<html><head><title>Start a New Draft</title>\n' +
 	util.randomStyle() +
     	'</head><body><form name="the-form" action="/first-lineup" method="post">\n' +
-	'<table align=center><tr><td colspan=2 align=center><h1>New Draft</h1>';
+	'<table align=center><tr><td colspan=2 align=center><hr><h1>New Draft</h1>';
 
     listFormats(function(formats) {
         body += formatDropdown(formats) + '\n';
@@ -69,7 +69,7 @@ function startDraftPage (response) {
 		    body += '<td>' + playerDropdown('team'+j+'_player'+i, players, 0) + '<br>\n';
 		}
 	    }
-	    body += '<tr><td colspan=2 align=center><br><input type=submit value="First Round ---&gt;&gt;"><br></table></form></body></html>';	
+	    body += '<tr><td colspan=2 align=center><br><input type=submit value="First Round ---&gt;&gt;"><hr></table></form></body></html>';	
 	    response.writeHead(200, {"Content-Type": "text/html"});
 	    response.write(body);
 	    response.end();
@@ -89,17 +89,17 @@ function displayLineup(teams, data, round, nextStep, action, response) {
 
     var b = '<html><head><title>'+round+' Round</title>\n' +
 	util.randomStyle() +
-    	'</head><body>'+
+    	'</head><body><hr>'+
 	'<form name="the-form" action="/'+action+'" method="post"><center>' +
 	'<input type=hidden name="data" value="'+ dataStr +'">\n<table>\n' +	
-	'<tr><td align=center colspan=3><h1>'+round+' Round </h1>\n'; 
+	'<tr><td align=center colspan=3><hr><h1>'+round+' Round </h1>\n'; 
 
 
     for (var i = 0; i < numLineups; i++) {
 	b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0], i+1) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1], 0) + '\n';
     }
 
-    b += '<tr><td colspan=3 align=center><BR><input type=submit value="'+nextStep+' ---&gt;&gt;"><BR></table></form></body></html>';	
+    b += '<tr><td colspan=3 align=center><BR><input type=submit value="'+nextStep+' ---&gt;&gt;"><hr></table></form></body></html>';	
 
     for (var i=0; i<2; i++) {
 	teams[i].shift();
@@ -303,7 +303,7 @@ function finalStep (body, response) {
 		       'draft_id':draftEntry.id}
 
 	b += '<tr><td align=center colspan=3><input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
-	b += '<br><input type=submit value="Confirm &amp; Save"></hr></table></form></body></html>';
+	b += '<br><input type=submit value="Confirm &amp; Save"><hr></table></form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
 	response.write(b);
