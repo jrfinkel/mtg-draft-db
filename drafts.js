@@ -292,7 +292,6 @@ function finalStep (body, response) {
 		       'players':playerMap, 
 		       'draft_id':draftEntry.id}
 
-	b += '<HR>';
 
 	var summary = {};
 	results.player.forEach(function (p) {
@@ -308,8 +307,10 @@ function finalStep (body, response) {
 	    else { summary[l] = loser.name+' < '+winner.name; }	    
 	});
 
+	b += '<tr><td colspan=3><hr>';
+
 	Object.keys(summary).forEach(function(id) {
-	    b += '<tr><td>'+summary[id];
+	    b += summary[id] + '<br>';
 	});
 
 	b += '<hr><tr><td align=center colspan=3><input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
