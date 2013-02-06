@@ -54,7 +54,7 @@ function startDraftPage (response) {
     
     var body = '<html><head><title>Start a New Draft</title>\n' +
 	util.randomStyle() +
-    	'</head><body><form name="the-form" action="/first-lineup" method="post">\n' +
+    	'</head><body><form name="the-form" action="/play" method="post">\n' +
 	'<table align=center><tr><td colspan=2 align=center><hr><h1>New Draft</h1>';
 
     listFormats(function(formats) {
@@ -95,8 +95,11 @@ function displayLineup(teams, data, nextStep, action, response) {
 	'<tr><td align=center colspan=3><hr><h1>Play!</h1>\n'; 
 
 
-    for (var i = 0; i < 3 * numLineups; i++) {
-	b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0], i+1) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1], 0) + '\n';
+    for (var j = 0; j < 3; j++) {
+	for (var k = 0; k < numLineups; k++) {
+	    var i = j*k;
+	    b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0], k+1) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1], ((k+j)%numLineups)+1) + '\n';
+	}
     }
 
     b += '<tr><td colspan=3 align=center><BR><input type=submit value="'+nextStep+' ---&gt;&gt;"><hr></table></form></body></html>';	
@@ -170,30 +173,11 @@ function firstLineup (body, response) {
 		});
 		t++;
 	    });
-//	    displayLineup(outTeams, {'teams':outTeams, 'format':body['format']}, 'Second Round', 'second-lineup', response);
 	    displayLineup(outTeams, {'teams':outTeams, 'format':body['format']}, 'Draft Summary', 'final-step', response);
 	});
     }); 
 
 }
-
-// function secondLineup (body, response) {
-//     var data = JSON.parse(unescape(body['data']));
-//     data['results'] = {};
-//     data['results']['team'] = [0, 0];
-//     data['results']['player'] = [];
-
-//     data['results'] = readWinners(body, data['results']);
-
-//     displayLineup(data['teams'], data, 'Second', 'Third Round', 'third-lineup', response);
-// }
-
-// function thirdLineup (body, response) {
-//     var data = JSON.parse(unescape(body['data']));
-//     data['results'] = readWinners(body, data['results']);
-
-//     displayLineup(data['teams'], data, 'Third', 'Draft Summary', 'final-step', response);
-// }
 
 function newRatings (winnerRating, loserRating) {
     var k = 20;
@@ -382,8 +366,8 @@ exports.setup = function setupHandlers (app) {
 	startDraftPage(response);
     });
 
-    app.post('/first-lineup', function(request, response) {
-	console.log('POST: first-lineup');
+    app.post('/play', function(request, response) {
+	console.log('POST: play');
 	util.readPostData(request, function(body) { 
 	    firstLineup(body, response);
 	});
