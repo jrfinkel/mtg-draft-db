@@ -94,8 +94,10 @@ function displayLineup(teams, data, nextStep, action, response) {
 	'<input type=hidden name="data" value="'+ dataStr +'">\n<table>\n' +	
 	'<tr><td align=center colspan=3><hr><h1>Play!</h1>\n'; 
 
+    var numRounds = 3;
+    if (numLineups < 3) { numRounds = numLineups; }
 
-    for (var j = 0; j < 3; j++) {
+    for (var j = 0; j < numRounds; j++) {
 	for (var k = 0; k < numLineups; k++) {
 	    var i = (j*numLineups)+k;
 	    b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0], k+1) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1], ((k+j)%numLineups)+1) + '\n';
