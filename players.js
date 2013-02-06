@@ -26,21 +26,6 @@ function insertPlayerInDB(body) {
     });
 }
 
-var addPlayerForm = '<center><table bgcolor=white><tr><td><hr><h2><marquee>New Player</marquee></h2><hr>\n' +
-    '<form name="the-form" action="/add-player" method="post">\n' +
-    'Name: <input type="text" name="name" value="Loser McLoserstein"><br>\n' +
-    'Set Credit: <input type="text" name="set_credit" value="0"><br>\n' +
-    'Rating: <input type="text" name="rating" value="1600"><br>\n' +
-    'Individual Wins: <input type="text" name="ind_wins" value="0"><br>\n' +
-    'Individual Losses: <input type="text" name="ind_losses" value="0"><br>\n' +
-    'Draft Wins: <input type="text" name="draft_wins" value="0"><br>\n' +
-    'Draft Ties: <input type="text" name="draft_ties" value="0"><br>\n' +
-    'Draft Losses: <input type="text" name="draft_losses" value="0"><br>\n' +
-    'Money Won/Lost: <input type="text" name="money" value="0"><br><br>\n' +
-    'Notes: <input type="text" name="notes" value=""><br><br>\n' +
-    '<input type="submit" name="Create Player"><input type="reset" name="Clear">' +
-    '<hr></form></table></center>';
-
 function addPlayerPage (header, response) {
 
     var body = '<html><head><title>Add Player</title>\n' +
@@ -60,7 +45,8 @@ function addPlayerPage (header, response) {
 	'<tr><td align=right>Draft Ties: <td align=left><input type="text" name="draft_ties" value="0"><br>\n' +
 	'<tr><td align=right>Draft Losses: <td align=left><input type="text" name="draft_losses" value="0"><br>\n' +
 	'<tr><td align=right>Money Won/Lost: <td align=left><input type="text" name="money" value="0"><br><br>\n' +
-	'<tr><td colspan=2 align=center><input type="submit" name="Create Player"><input type="reset" name="Clear">' +
+	'<tr><td align=right>Notes: <td align=left><input type="text" name="notes" value=""><br><br>\n' +
+	'<tr><td colspan=2 align=center><input type="submit" value="Create Player"><input type="reset" value="Clear">' +
 	'<hr></form></table></center></body></html>';	
 
     response.writeHead(200, {"Content-Type": "text/html"});
