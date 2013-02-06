@@ -348,13 +348,7 @@ function confirmedStep (body, response) {
     data.results.player.forEach(function(p) {
 	var winner = p[0];
 	var loser = p[1];
-
-	b += JSON.stringify(data.players[winner])+'<BR>';
-	b += JSON.stringify(data.players[loser])+'<BR>';
 	processMatch(data['draft_id'], data.players[winner], data.players[loser]);
-	b += JSON.stringify(data.players[winner])+'<BR>';
-	b += JSON.stringify(data.players[loser])+'<BR><BR><HR><BR>';
-	
     });
 
 
@@ -363,9 +357,7 @@ function confirmedStep (body, response) {
     var query;
     Object.keys(data.players).forEach(function(id) {
 	var player = data.players[id];
-	console.log('PLAYER: ' + JSON.stringify(player));
 	var q = 'UPDATE players SET (set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money, latest_timestamp) = ('+ player.set_credit+', '+player.rating +', '+ player.ind_wins + ', ' + player.ind_losses + ', ' + player.draft_wins + ', ' + player.draft_ties + ', ' + player.draft_losses + ', ' + player.money +', '+util.getTS()+ ') WHERE id = '+id+';';
-	console.log('About to query: ' + q);
 	query = client.query(q);
     });
 
@@ -375,8 +367,8 @@ function confirmedStep (body, response) {
 
     b += '</body></html>';
 
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(b);
+    response.writeHead(302, {"Location": "./all-players"});
+//    response.write(b);
     response.end();    
 }
 
