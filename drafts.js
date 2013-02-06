@@ -78,7 +78,7 @@ function startDraftPage (response) {
     });
 }
 
-function displayLineup(teams, data, round, nextStep, action, response) {
+function displayLineup(teams, data, nextStep, action, response) {
     var numLineups = Math.max(Object.keys(teams[0]).length, Object.keys(teams[1]).length);
 
     var dataStr = escape(JSON.stringify(data));
@@ -170,7 +170,7 @@ function firstLineup (body, response) {
 		});
 		t++;
 	    });
-//	    displayLineup(outTeams, {'teams':outTeams, 'format':body['format']}, 'First', 'Second Round', 'second-lineup', response);
+//	    displayLineup(outTeams, {'teams':outTeams, 'format':body['format']}, 'Second Round', 'second-lineup', response);
 	    displayLineup(outTeams, {'teams':outTeams, 'format':body['format']}, 'Draft Summary', 'final-step', response);
 	});
     }); 
