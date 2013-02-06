@@ -231,22 +231,19 @@ function makeDraftEntries (format, teams, callback) {
 function finalStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
-     data['results'] = {};
-     data['results']['team'] = [0, 0];
-     data['results']['player'] = [];
-
-     data['results'] = readWinners(body, data['results']);
-
-    var results = readWinners(body, data['results']);
+    var results = {'team' : [0, 0]
+		   'player' : []};
+    
+    var results = readWinners(body, results);
     var winner = -1;
 
-    if (results['team'][0] > results['team'][1]) {
+    if (results.team[0] > results.team[1]) {
 	winner = 0;
-    } else if (results['team'][0] < results['team'][1]) {
+    } else if (results.team[0] < results.team[1]) {
 	winner = 1;
     }
 
-    makeDraftEntries(data['format'], data['teams'], function(draftEntry) {
+    makeDraftEntries(data.format, data.teams, function(draftEntry) {
 	data.teams = draftEntry.teams;
 
 	var b = '<html><head><title>Final Confirmation</title>' +
@@ -291,7 +288,7 @@ function finalStep (body, response) {
 	}
 
 	
-	var newData = {'results':data['results'], 
+	var newData = {'results':results, 
 		       'players':playerMap, 
 		       'draft_id':draftEntry.id}
 
