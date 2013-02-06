@@ -97,7 +97,7 @@ function displayLineup(teams, data, nextStep, action, response) {
 
     for (var j = 0; j < 3; j++) {
 	for (var k = 0; k < numLineups; k++) {
-	    var i = j*k;
+	    var i = (j*numLinesups)+k;
 	    b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0], k+1) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1], ((k+j)%numLineups)+1) + '\n';
 	}
     }
