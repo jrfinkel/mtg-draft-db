@@ -45,10 +45,21 @@ function addPlayerPage (header, response) {
     var body = '<html><head><title>Add Player</title>\n' +
 	util.randomStyle()+
     	'</head><body>' +
-	header +
-	addPlayerForm +
-	'</body></html>';
-	
+	'<center><table bgcolor=white><tr><td><hr><h2><marquee>'+
+	head+
+	'</marquee></h2><hr>\n' +
+	'<form name="the-form" action="/add-player" method="post">\n' +
+	'Name: <input type="text" name="name" value="Loser McLoserstein"><br>\n' +
+	'Set Credit: <input type="text" name="set_credit" value="0"><br>\n' +
+	'Rating: <input type="text" name="rating" value="1600"><br>\n' +
+	'Individual Wins: <input type="text" name="ind_wins" value="0"><br>\n' +
+	'Individual Losses: <input type="text" name="ind_losses" value="0"><br>\n' +
+	'Draft Wins: <input type="text" name="draft_wins" value="0"><br>\n' +
+	'Draft Ties: <input type="text" name="draft_ties" value="0"><br>\n' +
+	'Draft Losses: <input type="text" name="draft_losses" value="0"><br>\n' +
+	'Money Won/Lost: <input type="text" name="money" value="0"><br><br>\n' +
+	'<input type="submit" name="Create Player"><input type="reset" name="Clear">' +
+	'<hr></form></table></center></body></html>';	
 
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(body);
@@ -120,13 +131,13 @@ exports.setup = function setupHandlers (app) {
     });
 
     app.get('/add-player', function(request, response) {
-	addPlayerPage('', response);
+	addPlayerPage('Add Player', response);
     });
 
     app.post('/add-player', function(request, response) {
 	util.readPostData(request, function(body) { 
 	    insertPlayerInDB(body); 
-	    addPlayerPage('<h3> Added player row for '+body['name']+'. <a href="./all-players">All Players</a></h3>', 
+	    addPlayerPage('Added <a href="./all-players">'+body['name']+'</a>. Add Another?', 
 			  response);
 	});
     });
