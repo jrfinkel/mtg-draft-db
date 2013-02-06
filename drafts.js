@@ -296,14 +296,16 @@ function finalStep (body, response) {
 
 	var summary = {};
 	results.player.forEach(function (p) {
-	    var winner = playerMap[p[0]];
-	    var loser = playerMap[p[1]];
+	    var w = p[0];
+	    var l = p[1];
+	    var winner = playerMap[w];
+	    var loser = playerMap[l];
 
-	    if (summary[winner]) { summary[winner] += ' > '+loser.name; }
-	    else { summary[winner] = winner.name+' > '+loser.name; }
+	    if (summary[w]) { summary[w] += ' > '+loser.name; }
+	    else { summary[w] = winner.name+' > '+loser.name; }
 	    
-	    if (summary[loser]) { summary[loser] += ' < '+winner.name; }
-	    else { summary[loser] = loser.name+' < '+winner.name; }	    
+	    if (summary[l]) { summary[l] += ' < '+winner.name; }
+	    else { summary[l] = loser.name+' < '+winner.name; }	    
 	});
 
 	Object.keys(summary).forEach(function(id) {
