@@ -13,12 +13,13 @@ function insertPlayerInDB(body) {
     var draft_ties = parseInt(body['draft_ties']);
     var draft_losses = parseInt(body['draft_losses']);
     var money = parseFloat(body['money']);
+    var notes = parseFloat(body['notes']);
 
     parseInt(body['win_pos']);
 
     var client = new pg.Client(process.env.DATABASE_URL);
     client.connect();
-    client.query('INSERT INTO players_init (name, set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money, latest_timestamp) VALUES (\''+ name +'\', '+ set_credit +', '+ rating +', '+ ind_wins + ', ' + ind_losses + ', ' + draft_wins + ', ' + draft_ties + ', ' + draft_losses + ', ' + money +', '+util.getTS()+');');
+    client.query('INSERT INTO players_init (name, set_credit, rating, ind_wins, ind_losses, draft_wins, draft_ties, draft_losses, money, latest_timestamp, notes) VALUES (\''+ name +'\', '+ set_credit +', '+ rating +', '+ ind_wins + ', ' + ind_losses + ', ' + draft_wins + ', ' + draft_ties + ', ' + draft_losses + ', ' + money +', '+util.getTS()+', '+notes+');');
     var query = client.query('INSERT INTO players SELECT * FROM players_init ORDER BY id DESC LIMIT 1;');
 
     query.on('end', function() { 
@@ -46,7 +47,7 @@ function addPlayerPage (header, response) {
 	'<tr><td align=right>Draft Losses: <td align=left><input type="text" name="draft_losses" value="0"><br>\n' +
 	'<tr><td align=right>Money Won/Lost: <td align=left><input type="text" name="money" value="0"><br>\n' +
 	'<tr><td align=right>Notes: <td align=left><input type="text" name="notes" value=""><br>\n' +
-	'<tr><td colspan=2 align=center><input type="submit" value="Create Player"><input type="reset" value="Clear">' +
+	'<tr><td colspan=2 align=center><BR><input type="submit" value="Create Player"><input type="reset" value="Clear">' +
 	'<hr></form></table></center></body></html>';	
 
     response.writeHead(200, {"Content-Type": "text/html"});
