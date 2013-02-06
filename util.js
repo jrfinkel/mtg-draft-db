@@ -29,7 +29,7 @@ exports.randomColoredStyle = function randomColoredStyle(isblack) {
 }
 
 exports.randomStyle = function randomStyle() {
-    return randomColoredStyle(false);
+    return exports.randomColoredStyle(false);
 }
 
 exports.getIP = function getIP(request) {
