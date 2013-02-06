@@ -273,10 +273,10 @@ function finalStep (body, response) {
 	    }
 	    
 	    if (i == 0 || winner != -1) {
-		b += '\n<tr><th><th align=center>$$<th align=center>SC\n';
+		b += '\n<tr><th><th>$$<th>SC\n';
 	    }
 	    data.teams[i].forEach(function(player) {
-		b += '<tr><td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value='+player.id+'><input type="text" name="money'+playerNum+'" value="'+money+'" size="3"><td><input type="text" name="set_credit'+playerNum+'" value="-1" size="3">';
+		b += '<tr><td align="center">'+player.name+'<td align="center"><input type="hidden" name="player'+playerNum+'" value='+player.id+'><input type="text" name="money'+playerNum+'" value="'+money+'" size="3"><td align=center><input type="text" name="set_credit'+playerNum+'" value="-1" size="3">';
 		playerNum++;
 
 		player.draft_wins += winDiff;
