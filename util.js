@@ -16,7 +16,7 @@ exports.randomColoredStyle = function randomColoredStyle(isblack) {
     var image = images[r];
     var color; 
     if (isblack) { color = 'black' }
-    else color = { 'red'; }
+    else { color = 'red'; }
     
     var style = '<style type="text/css">\n' +
 	'body     { background-image:url('+image+'); color: '+color+' }' +
