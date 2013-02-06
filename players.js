@@ -64,7 +64,7 @@ function allPlayers (response, order_by) {
 
     response.writeHead(200, {"Content-Type": "text/html"});
 
-    displayPlayers('SELECT * FROM players ORDER BY '+order_by+';',
+    displayPlayers('SELECT *, to_timestamp(latest_timestamp) AS latest_timestamp_utc, ROUND( rating,2) AS the_rating FROM players ORDER BY '+order_by+';',
 			function rowFn (row) {
 			    body += playerRowFn(row); },
 			function endFn () { 
@@ -79,14 +79,14 @@ function playerRowFn(row) {
 	'<td>'+row['id']+'</td>\n' +
 	'<td>'+row['name']+'</td>\n' +
 	'<td>'+row['set_credit']+'</td>\n' +
-	'<td>'+row['rating']+'</td>\n' +
+	'<td>'+row['the_rating']+'</td>\n' +
 	'<td>'+row['ind_wins']+'</td>\n' +
 	'<td>'+row['ind_losses']+'</td>\n' +
 	'<td>'+row['draft_wins']+'</td>\n' +
 	'<td>'+row['draft_ties']+'</td>\n' +
 	'<td>'+row['draft_losses']+'</td>\n' +
 	'<td>'+row['money']+'</td>\n' +
-	'<td>'+row['latest_timestamp']+'</td></tr>\n';
+	'<td>'+row['latest_timestamp_utc']+'</td></tr>\n';
 
 }
 
