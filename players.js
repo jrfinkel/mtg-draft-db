@@ -70,7 +70,7 @@ function addPlayerPage (header, response) {
 function allPlayers (response, order_by) {
     var body = '<html><head>\n'+
 	'<title>All Players</title>\n' +
-	util.randomStyle()+
+	util.randomColoredStyle(true)+
     	'</head><body>\n' +
 	playerTableHeader();
 
@@ -103,7 +103,7 @@ function playerRowFn(row) {
 }
 
 function playerTableHeader() {
-    return '<font color=black><table cellpadding="5" cellspacing="0" border="5"><tr><th>ID<th>Name<th>Set Credit<th>Rating<th>Individual Wins<th>Individual Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money<TH>Latest Timestamp</tr>' ;
+    return '<table cellpadding="5" cellspacing="0" border="5"><tr><th>ID<th>Name<th>Set Credit<th>Rating<th>Individual Wins<th>Individual Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money<TH>Latest Timestamp</tr>' ;
 }
 
 function displayPlayers(querySQL, rowCallback, endCallback) {

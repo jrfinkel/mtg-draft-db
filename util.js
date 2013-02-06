@@ -1,7 +1,7 @@
 var qs = require('querystring');
 var url = require('url');
 
-exports.randomStyle = function randomStyle() {
+exports.randomColoredStyle = function randomColoredStyle(black?) {
     var images = ['https://raw.github.com/jrfinkel/fact-images/master/magic-images/grumpy.jpg',
 		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/elsie.jpg',
 		  'https://raw.github.com/jrfinkel/fact-images/master/magic-images/harry.jpg',
@@ -14,7 +14,9 @@ exports.randomStyle = function randomStyle() {
 
     var r = Math.floor(Math.random() * images.length);
     var image = images[r];
-    var color = 'red';
+    var color; 
+    if (black?) { color = 'black' }
+    else color = { 'red'; }
     
     var style = '<style type="text/css">\n' +
 	'body     { background-image:url('+image+'); color: '+color+' }' +
@@ -24,6 +26,10 @@ exports.randomStyle = function randomStyle() {
 
     return style
 
+}
+
+exports.randomStyle = function randomStyle() {
+    return randomColoredStyle(false);
 }
 
 exports.getIP = function getIP(request) {
