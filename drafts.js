@@ -231,7 +231,7 @@ function makeDraftEntries (format, teams, callback) {
 function finalStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
-    var results = {'team' : [0, 0]
+    var results = {'team' : [0, 0],
 		   'player' : []};
     
     var results = readWinners(body, results);
