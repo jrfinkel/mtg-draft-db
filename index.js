@@ -57,8 +57,20 @@ app.get('/winners', function(request, response) {
 });
 
 app.get('/add-format', function(request, response) {
-    addFormatPage('Add Format', response);
+    addFormatPage('Add Format!', response);
 });
+
+app.post('/add-format', function(request, response) {
+    util.readPostData(request, function(body) { 
+	pg.connect(process.env.DATABASE_URL, function(err, client) {
+	    var query = client.query('INSERT INTO formats (format) VALUES (\''+body['format']+'\');');	
+	    query.on('end', function(row) { 
+		addFormatPage('Added '+body['format']+' Format! Add Another?', response);
+	    });
+	});
+    });
+});
+
 
 players.setup(app);
 drafts.setup(app);
