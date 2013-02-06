@@ -307,14 +307,14 @@ function finalStep (body, response) {
 	    else { summary[l] = loser.name+' < '+winner.name; }	    
 	});
 
-	b += '<tr><td colspan=3><hr>';
+	b += '<tr><td colspan=3><hr><br>';
 
 	Object.keys(summary).forEach(function(id) {
 	    b += summary[id] + '<br>';
 	});
 
-	b += '<hr><tr><td align=center colspan=3><input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
-	b += '<br><input type=submit value="Confirm &amp; Save"><hr></table></form></body></html>';
+	b += '<br><hr><tr><td align=center colspan=3><input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
+	b += '<input type=submit value="Confirm &amp; Save"><hr></table></form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
 	response.write(b);
