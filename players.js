@@ -105,9 +105,6 @@ function displayPlayers(querySQL, rowCallback, endCallback) {
 
 exports.setup = function setupHandlers (app) {
     app.get('/all-players', function(request, response) {
-	console.log("QUERY: "+JSON.stringify(request.query));
-	console.log("ORDER_BY1: "+JSON.stringify(unescape(request.query.order_by)));
-
 	if (request.query.order_by) {
 	    allPlayers(response, unescape(request.query.order_by));
 	} else {
