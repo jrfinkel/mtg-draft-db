@@ -307,10 +307,10 @@ function finalStep (body, response) {
 	});
 
 	Object.keys(summary).forEach(function(id) {
-	    b += summary[id]+'<BR>';
+	    b += '<tr><td>'+summary[id];
 	});
 
-	b += '<tr><td align=center colspan=3><input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
+	b += '<hr><tr><td align=center colspan=3><input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
 	b += '<br><input type=submit value="Confirm &amp; Save"><hr></table></form></body></html>';
   
 	response.writeHead(200, {"Content-Type": "text/html"});
