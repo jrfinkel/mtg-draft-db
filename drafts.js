@@ -331,8 +331,6 @@ function confirmedStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
 
-    var b = '<html><head>'+util.randomStyle()+'</head><body>';
-
      for (var i=0; i<10; i++) {
 	if (body['player'+i]) {
 	    var player_id = parseInt(body['player'+i]);
@@ -365,10 +363,7 @@ function confirmedStep (body, response) {
      	client.end();
     });
 
-    b += '</body></html>';
-
     response.writeHead(302, {"Location": "./all-players"});
-//    response.write(b);
     response.end();    
 }
 

@@ -12,6 +12,24 @@ app.listen(port, function() {
   console.log("Listening on " + port);
 });
 
+function addFormatPage (header, response) {
+
+    var body = '<html><head><title>Add Format</title>\n' +
+	util.randomStyle()+
+    	'</head><body>' +
+	'<form name="the-form" action="/add-format" method="post">\n' +
+	'<center><table bgcolor=white><tr><td align=center><hr><h2><marquee>'+
+	header+
+	'</marquee></h2><hr>\n' +
+	'<tr><td align=center><input type="text" name="format" value="">\n' +
+	'<tr><td align=center><BR><input type="submit" value="Add Format"><input type="reset" value="Clear">' +
+	'<hr></form></table></center></body></html>';	
+
+    response.writeHead(200, {"Content-Type": "text/html"});
+    response.write(body);
+    response.end();
+}
+
 app.get('/winners', function(request, response) {
     var b = '<html><head><title>We Love Magic: the Gathering</title>'+util.randomStyle()+'</head><body>\n' +
 	'<center><table><tr><td>' +
@@ -36,7 +54,10 @@ app.get('/winners', function(request, response) {
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(b);
     response.end();
+});
 
+app.get('/add-format', function(request, response) {
+    addFormatPage('Add Format', response);
 });
 
 players.setup(app);
