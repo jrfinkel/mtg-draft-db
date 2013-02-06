@@ -37,6 +37,7 @@ var addPlayerForm = '<center><table bgcolor=white><tr><td><hr><h2><marquee>New P
     'Draft Ties: <input type="text" name="draft_ties" value="0"><br>\n' +
     'Draft Losses: <input type="text" name="draft_losses" value="0"><br>\n' +
     'Money Won/Lost: <input type="text" name="money" value="0"><br><br>\n' +
+    'Notes: <input type="text" name="notes" value=""><br><br>\n' +
     '<input type="submit" name="Create Player"><input type="reset" name="Clear">' +
     '<hr></form></table></center>';
 
