@@ -103,7 +103,7 @@ function playerRowFn(row) {
 }
 
 function playerTableHeader() {
-    return '<table cellpadding="5" cellspacing="0" border="5" color=black><tr><th>ID<th>Name<th>Set Credit<th>Rating<th>Individual Wins<th>Individual Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money<TH>Latest Timestamp</tr>' ;
+    return '<font color=black><table cellpadding="5" cellspacing="0" border="5"><tr><th>ID<th>Name<th>Set Credit<th>Rating<th>Individual Wins<th>Individual Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money<TH>Latest Timestamp</tr>' ;
 }
 
 function displayPlayers(querySQL, rowCallback, endCallback) {
