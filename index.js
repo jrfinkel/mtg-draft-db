@@ -30,8 +30,8 @@ app.get('/winners', function(request, response) {
 	'<a href="./all-players?order_by=ind_losses+DESC">Players (by Individual Losses)</a><BR>' + 
 	'<a href="./all-players?order_by=draft_wins+DESC">Players (by Team Wins)</a><BR>' + 
 	'<a href="./all-players?order_by=draft_losses+DESC">Players (by Team Losses)</a><BR>' + 
-	'<a href="./add-player">All Matches</a><BR>' + 
-	'<a href="./add-player">All Drafts</a><BR>' + 
+//	'<a href="./add-player">All Matches</a><BR>' + 
+//	'<a href="./add-player">All Drafts</a><BR>' + 
 	'<hr></table></body></html>';
 
     response.writeHead(200, {"Content-Type": "text/html"});
