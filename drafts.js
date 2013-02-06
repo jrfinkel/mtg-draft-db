@@ -292,6 +292,24 @@ function finalStep (body, response) {
 		       'players':playerMap, 
 		       'draft_id':draftEntry.id}
 
+	b += '<HR>';
+
+	var summary = {};
+	results.player.forEach(function (p) {
+	    var winner = playerMap[p[0]];
+	    var loser = playerMap[p[1]];
+
+	    if (summary[winner]) { summary[winner] += ' > '+loser.name; }
+	    else { summary[winner] = winner.name+' > '+loser.name; }
+	    
+	    if (summary[loser]) { summary[loser] += ' < '+winner.name; }
+	    else { summary[loser] = loser.name+' < '+winner.name; }	    
+	});
+
+	Object.keys(summary).forEach(function(id) {
+	    b += summary[id]+'<BR>';
+	});
+
 	b += '<tr><td align=center colspan=3><input type="hidden" name="data" value="'+escape(JSON.stringify(newData))+'">';
 	b += '<br><input type=submit value="Confirm &amp; Save"><hr></table></form></body></html>';
   
