@@ -64,7 +64,7 @@ function allPlayers (response, order_by) {
 
     response.writeHead(200, {"Content-Type": "text/html"});
 
-    displayPlayers('SELECT *, to_timestamp(latest_timestamp) AS latest_timestamp_utc, ROUND( rating,2) AS the_rating FROM players ORDER BY '+order_by+';',
+    displayPlayers('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc, ROUND(rating::numeric,2) AS the_rating FROM players ORDER BY '+order_by+';',
 			function rowFn (row) {
 			    body += playerRowFn(row); },
 			function endFn () { 
