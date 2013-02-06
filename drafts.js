@@ -87,15 +87,15 @@ function displayLineup(teams, data, round, nextStep, action, response) {
 	teams[i].unshift({'name':'No Player', 'id':-1});
     }	 
 
-    var b = '<html><head><title>'+round+' Round</title>\n' +
+    var b = '<html><head><title>Results</title>\n' +
 	util.randomStyle() +
     	'</head><body><hr>'+
 	'<form name="the-form" action="/'+action+'" method="post"><center>' +
 	'<input type=hidden name="data" value="'+ dataStr +'">\n<table>\n' +	
-	'<tr><td align=center colspan=3><hr><h1>'+round+' Round </h1>\n'; 
+	'<tr><td align=center colspan=3><hr><h1>Play!</h1>\n'; 
 
 
-    for (var i = 0; i < numLineups; i++) {
+    for (var i = 0; i < 3 * numLineups; i++) {
 	b += '<tr><td>'+ playerDropdown('player'+i+'0', teams[0], i+1) + ' <td><input type="radio" name="win'+i+'" value="0" checked="checked"> vs <input type="radio" name="win'+i+'" value="1"> <td>' + playerDropdown('player'+i+'1', teams[1], 0) + '\n';
     }
 
@@ -139,7 +139,7 @@ function readTeams(body) {
 
 function readWinners (body, result) {
 
-    for (var i=0; i<5; i++) {
+    for (var i=0; i<15; i++) {
 	team0Player = body['player'+i+'0'];
 	team1Player = body['player'+i+'1'];
 	if (team0Player && team1Player && team0Player != -1 && team1Player != -1) {
@@ -170,29 +170,30 @@ function firstLineup (body, response) {
 		});
 		t++;
 	    });
-	    displayLineup(outTeams, {'teams':outTeams, 'format':body['format']}, 'First', 'Second Round', 'second-lineup', response);
+//	    displayLineup(outTeams, {'teams':outTeams, 'format':body['format']}, 'First', 'Second Round', 'second-lineup', response);
+	    displayLineup(outTeams, {'teams':outTeams, 'format':body['format']}, 'Draft Summary', 'final-step', response);
 	});
     }); 
 
 }
 
-function secondLineup (body, response) {
-    var data = JSON.parse(unescape(body['data']));
-    data['results'] = {};
-    data['results']['team'] = [0, 0];
-    data['results']['player'] = [];
+// function secondLineup (body, response) {
+//     var data = JSON.parse(unescape(body['data']));
+//     data['results'] = {};
+//     data['results']['team'] = [0, 0];
+//     data['results']['player'] = [];
 
-    data['results'] = readWinners(body, data['results']);
+//     data['results'] = readWinners(body, data['results']);
 
-    displayLineup(data['teams'], data, 'Second', 'Third Round', 'third-lineup', response);
-}
+//     displayLineup(data['teams'], data, 'Second', 'Third Round', 'third-lineup', response);
+// }
 
-function thirdLineup (body, response) {
-    var data = JSON.parse(unescape(body['data']));
-    data['results'] = readWinners(body, data['results']);
+// function thirdLineup (body, response) {
+//     var data = JSON.parse(unescape(body['data']));
+//     data['results'] = readWinners(body, data['results']);
 
-    displayLineup(data['teams'], data, 'Third', 'Draft Summary', 'final-step', response);
-}
+//     displayLineup(data['teams'], data, 'Third', 'Draft Summary', 'final-step', response);
+// }
 
 function newRatings (winnerRating, loserRating) {
     var k = 20;
@@ -244,6 +245,12 @@ function makeDraftEntries (format, teams, callback) {
 function finalStep (body, response) {
 
     var data = JSON.parse(unescape(body['data']));
+     data['results'] = {};
+     data['results']['team'] = [0, 0];
+     data['results']['player'] = [];
+
+     data['results'] = readWinners(body, data['results']);
+
     var results = readWinners(body, data['results']);
     var winner = -1;
 
