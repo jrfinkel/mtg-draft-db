@@ -46,7 +46,7 @@ function addPlayerPage (header, response) {
 	util.randomStyle()+
     	'</head><body>' +
 	'<center><table bgcolor=white><tr><td><hr><h2><marquee>'+
-	head+
+	header+
 	'</marquee></h2><hr>\n' +
 	'<form name="the-form" action="/add-player" method="post">\n' +
 	'Name: <input type="text" name="name" value="Loser McLoserstein"><br>\n' +
