@@ -44,8 +44,8 @@ function addPlayerPage (header, response) {
 	'<tr><td align=right>Draft Wins: <td align=left><input type="text" name="draft_wins" value="0"><br>\n' +
 	'<tr><td align=right>Draft Ties: <td align=left><input type="text" name="draft_ties" value="0"><br>\n' +
 	'<tr><td align=right>Draft Losses: <td align=left><input type="text" name="draft_losses" value="0"><br>\n' +
-	'<tr><td align=right>Money Won/Lost: <td align=left><input type="text" name="money" value="0"><br><br>\n' +
-	'<tr><td align=right>Notes: <td align=left><input type="text" name="notes" value=""><br><br>\n' +
+	'<tr><td align=right>Money Won/Lost: <td align=left><input type="text" name="money" value="0"><br>\n' +
+	'<tr><td align=right>Notes: <td align=left><input type="text" name="notes" value=""><br>\n' +
 	'<tr><td colspan=2 align=center><input type="submit" value="Create Player"><input type="reset" value="Clear">' +
 	'<hr></form></table></center></body></html>';	
 
