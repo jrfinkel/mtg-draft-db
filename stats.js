@@ -149,10 +149,17 @@ function draftInfo(request, response) {
 function allDrafts (request, response) {
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
+
+	var body = '<html><head><title>All Drafts</title>'+
+	    util.randomColoredStyle(false)+'</head>'+
+	    '<body><center><table><tr><th><Draft ID<th>Date';
+
+
 	client.query('SELECT * FROM drafts;', 
 		     function(err1, result) {
-			 
-			 var body = JSON.stringify(result.rows);
+			 result.rows.foEach(function (draft) {
+			     body += '<tr><td>'+draft.id+'<td>'+dateString(draft.timestamp);
+			 });
 
 			 response.writeHead(200, {"Content-Type": "text/html"});
 			 response.write(body);
