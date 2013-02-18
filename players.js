@@ -125,14 +125,14 @@ function playerInfo(request, response) {
 					      util.randomColoredStyle(true)+'</head>'+
 					      '<body><h1>'+player.name+'</h1><table>';
 
-					  forEach([['id', player.id], ['Set Credit', player.set_credit],
-						   ['Rating', player.rating], ['Individual Wins', player.ind_wins],
-						   ['Individual Losses', player.ind_losses], ['Draft Wins', player.draft_wins],
-						   ['Draft Ties', player.draft_ties], ['Draft Losses', player.draft_losses],
-						   ['Money', player.money], ['Notes', player.notes]], 
-						  function(x) {
-						      body += '<tr><td align=right><b>'+x[0]+'<td>'+x[1];
-						  });
+					  [['id', player.id], ['Set Credit', player.set_credit],
+					   ['Rating', player.rating], ['Individual Wins', player.ind_wins],
+					   ['Individual Losses', player.ind_losses], ['Draft Wins', player.draft_wins],
+					   ['Draft Ties', player.draft_ties], ['Draft Losses', player.draft_losses],
+					   ['Money', player.money], ['Notes', player.notes]].forEach( 
+					       function(x) {
+						   body += '<tr><td align=right><b>'+x[0]+'<td>'+x[1];
+					       });
 
 					  body += '</table></body></html>';
 
