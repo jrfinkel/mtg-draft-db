@@ -107,22 +107,21 @@ function playerInfo(request, response) {
     var playerId = qp['id'];
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
-	var query = client.query('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc FROM players WHERE id = '+playerId);
-	var player;
-	query.on('row', function(row) { player = row; });
-	query.on('end', function() { 
+	client.query('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc FROM players WHERE id = '+playerId, 
+		     function(err, result) {
+			 var player = result.rows[0].id;
+			 
+			 client.query('SELECT *, FROM matches WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
+				      function(err, result) {
+					  var matches = result;
 
-	    var body = JSON.stringify(player);
+					  var body = JSON.stringify({'player': player, 'matches':matches});
 
-	    var query = client.query('SELECT *, FROM matches WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';');
-
-	    body += JSON.stringify;
-	    body = '[' + body + ']';
-
-	    response.writeHead(200, {"Content-Type": "text/html"});
-	    response.write(body);
-	    response.end();
-	});
+					  response.writeHead(200, {"Content-Type": "text/html"});
+					  response.write(body);
+					  response.end();
+				      });
+		     });
     });
 }
 
