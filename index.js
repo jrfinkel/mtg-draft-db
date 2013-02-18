@@ -2,6 +2,7 @@ var express = require('express');
 var players = require('./players');
 var drafts = require('./drafts');
 var formats = require('./formats');
+var stats = require('./stats');
 var util = require('./util');
 
 console.log('Starting server.');
@@ -42,6 +43,7 @@ app.get('/winners', function(request, response) {
 
 players.setup(app);
 drafts.setup(app);
+stats.setup(app);
 formats.setup(app);
 
 console.log('Finished loading server');
