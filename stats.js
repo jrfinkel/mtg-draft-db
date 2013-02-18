@@ -146,7 +146,7 @@ function draftInfo(request, response) {
 }
 
 
-function allDrafts (response, order_by) {
+function allDrafts (request, response) {
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	client.query('SELECT * FROM drafts;', 
