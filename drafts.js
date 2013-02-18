@@ -267,7 +267,7 @@ function finalStep (body, response) {
 		money = 0;
 		tieDiff++;
 	    } else {
-		b += '<tr><td align=center colspan=3><hr><marquee><h2>Losers</h2></marquee><hr>';
+		b += '<tr><td align=center colspan=3><hr><h2><marquee>Losers</marquee><h2><hr>';
 		money = -20;
 		loseDiff++;
 	    }
