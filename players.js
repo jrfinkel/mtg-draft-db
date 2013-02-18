@@ -103,9 +103,9 @@ function displayPlayers(querySQL, rowCallback, endCallback) {
 }
 
 function playerInfo(request, response) {
+    var qp = util.readGetData(request);
     var playerId = qp['id'];
 
-    var qp = util.readGetData(request);
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	var query = client.query('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc FROM players WHERE id = '+playerId);
 	var player;
