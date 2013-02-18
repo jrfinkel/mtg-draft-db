@@ -155,10 +155,10 @@ function allDrafts (request, response) {
 	    '<body><center><table>';
 
 
-	client.query('SELECT * FROM drafts ORDER BY draft_id DESC;', 
+	client.query('SELECT * FROM drafts ORDER BY id DESC;', 
 		     function(err1, result) {
 			 result.rows.forEach(function (draft) {
-			     body += '<tr><td>'+draft.id+'<td>'+draft.timestamp;
+			     body += '<tr><td><a href="./draft?id='+draft.id+'">'+draft.id+'</a><td>'+dateString(draft.timestamp);
 			 });
 //			 var body = JSON.stringify(result.rows);
 
