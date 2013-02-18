@@ -67,3 +67,7 @@ exports.readGetData = function readGetData(request) {
 
     return qs.parse(url.parse(request.url).query);
 }
+
+exports.dateString = function dateString(ts) {
+    return '' + new Date(ts);
+}

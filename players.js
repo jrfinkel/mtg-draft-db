@@ -64,7 +64,7 @@ function allPlayers (response, order_by) {
 
     response.writeHead(200, {"Content-Type": "text/html"});
 
-    displayPlayers('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc, ROUND(rating::numeric,2) AS the_rating FROM players ORDER BY '+order_by+';',
+    displayPlayers('SELECT *, ROUND(rating::numeric,2) AS the_rating FROM players ORDER BY '+order_by+';',
 			function rowFn (row) {
 			    body += playerRowFn(row); },
 			function endFn () { 
@@ -74,19 +74,19 @@ function allPlayers (response, order_by) {
 }
 
 
-function playerRowFn(row) {
+function playerRowFn(player) {
     return '<tr>'+
-	'<td>'+row['id']+'</td>\n' +
-	'<td>'+row['name']+'</td>\n' +
-	'<td>'+row['set_credit']+'</td>\n' +
-	'<td>'+row['the_rating']+'</td>\n' +
-	'<td>'+row['ind_wins']+'</td>\n' +
-	'<td>'+row['ind_losses']+'</td>\n' +
-	'<td>'+row['draft_wins']+'</td>\n' +
-	'<td>'+row['draft_ties']+'</td>\n' +
-	'<td>'+row['draft_losses']+'</td>\n' +
-	'<td>'+row['money']+'</td>\n' +
-	'<td>'+row['latest_timestamp_utc']+'</td></tr>\n';
+	'<td>'+player.id+'</td>\n' +
+	'<td>'+player.name+'</td>\n' +
+	'<td>'+player.set_credit+'</td>\n' +
+	'<td>'+player.the_rating+'</td>\n' +
+	'<td>'+player.ind_wins+'</td>\n' +
+	'<td>'+player.ind_losses+'</td>\n' +
+	'<td>'+player.draft_wins+'</td>\n' +
+	'<td>'+player.draft_ties+'</td>\n' +
+	'<td>'+player.draft_losses+'</td>\n' +
+	'<td>'+player.money+'</td>\n' +
+	'<td>'+util.dateString(player.latest_timestamp)+'</td></tr>\n';
 
 }
 
@@ -107,7 +107,7 @@ function playerInfo(request, response) {
     var playerId = qp['id'];
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
-	client.query('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc FROM players WHERE id = '+playerId+';', 
+	client.query('SELECT * FROM players WHERE id = '+playerId+';', 
 		     function(err, result) {
 			 var player = result.rows[0];
 
@@ -127,7 +127,7 @@ function playerInfo(request, response) {
 			 
 			 body += '</table>';
 			 
-			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name, TO_TIMESTAMP(timestamp) AS timestamp_utc,'+ 
+			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name,'+ 
 				      ' ROUND(winner_end_rating::numeric,2) AS winner_rating,'+
 				      ' ROUND(loser_end_rating::numeric,2) AS loser_rating'+
                                       ' FROM matches m'+
@@ -147,7 +147,7 @@ function playerInfo(request, response) {
 					      [match.draft_id, 
 					      match.winner_name, match.winner_team_id, match.winner_rating,
 					      match.loser_name, match.loser_team_id, match.loser_rating,
-					      match.timestamp_utc].forEach(function(v) {
+					      util.dateString(match.timestamp)].forEach(function(v) {
 						  body += '<td align=center>'+v;
 					      });						  
 					  });
