@@ -102,6 +102,22 @@ function displayPlayers(querySQL, rowCallback, endCallback) {
     });
 }
 
+function playerInfo(request, response) {
+    var qp = util.readGetData(request);
+    pg.connect(process.env.DATABASE_URL, function(err, client) {
+	var query = client.query('SELECT * FROM players WHERE id = '+qp['id']);
+	var player;
+	query.on('row', function(row) { player = row; });
+	query.on('end', function() { 
+
+	    var body = JSON.stringify(player);
+
+	    response.writeHead(200, {"Content-Type": "text/html"});
+	    response.write(body);
+	    response.end();
+	});
+    });
+}
 
 exports.setup = function setupHandlers (app) {
     app.get('/all-players', function(request, response) {
@@ -113,7 +129,7 @@ exports.setup = function setupHandlers (app) {
     });
 
     app.get('/player', function(request, response) {
-	//playerInfo(response);
+	playerInfo(request, response);
     });
 
     app.get('/add-player', function(request, response) {

@@ -64,8 +64,6 @@ exports.readGetData = function readGetData(request) {
     console.log('QP: '+url.parse(request.url).query);
     var data = qs.parse(url.parse(request.url).query);
     console.log('DATA: '+JSON.stringify(data));
-    var id = data['id'];
-    console.log('FACT ID: '+id);
 
     return qs.parse(url.parse(request.url).query);
 }
