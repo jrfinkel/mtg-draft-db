@@ -103,14 +103,21 @@ function displayPlayers(querySQL, rowCallback, endCallback) {
 }
 
 function playerInfo(request, response) {
+    var playerId = qp['id'];
+
     var qp = util.readGetData(request);
     pg.connect(process.env.DATABASE_URL, function(err, client) {
-	var query = client.query('SELECT * FROM players WHERE id = '+qp['id']);
+	var query = client.query('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc FROM players WHERE id = '+playerId);
 	var player;
 	query.on('row', function(row) { player = row; });
 	query.on('end', function() { 
 
 	    var body = JSON.stringify(player);
+
+	    var query = client.query('SELECT *, FROM matches WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';');
+
+	    body += JSON.stringify;
+	    body = '[' + body + ']';
 
 	    response.writeHead(200, {"Content-Type": "text/html"});
 	    response.write(body);
