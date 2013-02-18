@@ -22,6 +22,7 @@ app.get('/winners', function(request, response) {
 	'<a href="./add-player">Add Player</a><BR>' + 
 	'<a href="./add-format">Add Format</a><BR>' + 
 	'<hr><h2>Look at Stuff</h2><hr>' + 
+	'<a href="./all-drafts">All Drafts</a><BR>' + 
 	'<a href="./all-players?order_by=rating+DESC">Players (by Rating)</a><BR>' + 
 	'<a href="./all-players?order_by=money+DESC">Players (by Money)</a><BR>' + 
 	'<a href="./all-players?order_by=latest_timestamp+DESC">Players (by Recent Activity)</a><BR>' + 
@@ -31,8 +32,6 @@ app.get('/winners', function(request, response) {
 	'<a href="./all-players?order_by=ind_losses+DESC">Players (by Individual Losses)</a><BR>' + 
 	'<a href="./all-players?order_by=draft_wins+DESC">Players (by Team Wins)</a><BR>' + 
 	'<a href="./all-players?order_by=draft_losses+DESC">Players (by Team Losses)</a><BR>' + 
-//	'<a href="./add-player">All Matches</a><BR>' + 
-//	'<a href="./add-player">All Drafts</a><BR>' + 
 	'<hr></table></body></html>';
 
     response.writeHead(200, {"Content-Type": "text/html"});
