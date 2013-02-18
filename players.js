@@ -147,7 +147,7 @@ function playerInfo(request, response) {
 
 					      body += '<tr>';
 					      [match.draft_id, 
-					       match.winner_name, //'<a href="./player?id='+match.winner_id+'>'+match.winner_name+'</a>', 
+					       '<a href="./player?id='+match.winner_id+'">'+match.winner_name+'</a>', 
 					       match.winner_team_id, match.winner_rating,
 					       match.loser_name, 
 					       match.loser_team_id, match.loser_rating,
