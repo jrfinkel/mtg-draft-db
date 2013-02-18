@@ -109,13 +109,13 @@ function playerInfo(request, response) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
 	client.query('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc FROM players WHERE id = '+playerId, 
 		     function(err, result) {
-			 var player = result.rows[0].id;
+			 var player = result.rows[0];
 			 
 			 client.query('SELECT *, FROM matches WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
 				      function(err, result) {
 					  var matches = result;
 
-					  var body = JSON.stringify({'player': player, 'matches':matches});
+					  var body = JSON.stringify([player, matches]);
 
 					  response.writeHead(200, {"Content-Type": "text/html"});
 					  response.write(body);
