@@ -103,7 +103,7 @@ function playerInfo(request, response) {
 				      ' JOIN players w ON w.id=m.winner_id'+
 				      ' JOIN players l ON l.id=m.loser_id'+
 				      ' WHERE winner_id = '+playerId+' OR loser_id = '+playerId+
-				      ' ORDER BY draft_id DESC;', 
+				      ' ORDER BY match_id DESC;', 
 				      function(err1, result1) {
 					  var matches = result1.rows;
 
@@ -130,7 +130,7 @@ function draftInfo(request, response) {
 		     ' JOIN players w ON w.id=m.winner_id'+
 		     ' JOIN players l ON l.id=m.loser_id'+
 		     ' WHERE draft_id = '+draftId+
-		     ' ORDER BY draft_id DESC;', 
+		     ' ORDER BY match_id DESC;', 
 		     function(err1, result1) {
 			 var matches = result1.rows;
 			 
@@ -158,7 +158,7 @@ function allDrafts (request, response) {
 	client.query('SELECT * FROM drafts ORDER BY id DESC;', 
 		     function(err1, result) {
 			 result.rows.forEach(function (draft) {
-			     body += '<tr><td><a href="./draft?id='+draft.id+'">'+draft.id+'</a><td>'+dateString(draft.timestamp);
+			     body += '<tr><td><a href="./draft?id='+draft.id+'">'+draft.id+'</a><td>'+util.dateString(draft.timestamp);
 			 });
 //			 var body = JSON.stringify(result.rows);
 
