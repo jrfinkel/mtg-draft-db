@@ -143,13 +143,15 @@ function playerInfo(request, response) {
 					      '<th>Loser<th>Loser Team<th>Loser Post Rating<th>Date';
 
 					  matches.forEach(function(match) {
+					      console.log(JSON.stringify(match));
+
 					      body += '<tr>';
 					      [match.draft_id, 
-					       '<a href="./player?id='+match.winner_id+'>'+match.winner_name+'</a>', 
+					       match.winner_name, //'<a href="./player?id='+match.winner_id+'>'+match.winner_name+'</a>', 
 					       match.winner_team_id, match.winner_rating,
 					       match.loser_name, 
 					       match.loser_team_id, match.loser_rating,
-					      util.dateString(match.timestamp)].forEach(function(v) {
+					       util.dateString(match.timestamp)].forEach(function(v) {
 						  body += '<td align=center>'+v;
 					      });						  
 					  });
