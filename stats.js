@@ -157,9 +157,10 @@ function allDrafts (request, response) {
 
 	client.query('SELECT * FROM drafts;', 
 		     function(err1, result) {
-			 //result.rows.foEach(function (draft) {
-
-			 var body = JSON.stringify(result.rows);
+			 result.rows.forEach(function (draft) {
+			     body += '<tr><td>'+draft.id+'<td>'+draft.timestamp;
+			 }
+//			 var body = JSON.stringify(result.rows);
 
 			 response.writeHead(200, {"Content-Type": "text/html"});
 			 response.write(body);
