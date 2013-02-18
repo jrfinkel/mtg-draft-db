@@ -111,9 +111,9 @@ function playerInfo(request, response) {
 		     function(err, result) {
 			 var player = result.rows[0];
 			 
-			 client.query('SELECT *, TO_TIMESTAMP(timestamp) AS timestamp_utc FROM matches WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
-				      function(err, result) {
-					  var matches = result;
+			 client.query('SELECT * FROM matches WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
+				      function(err1, result1) {
+					  var matches = result1;
 
 					  var body = JSON.stringify([player, matches]);
 
