@@ -107,7 +107,7 @@ function playerInfo(request, response) {
     var playerId = qp['id'];
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
-	client.query('SELECT * FROM players WHERE id = '+playerId+';', 
+	client.query('SELECT *, ROUND(rating::numeric,2) AS the_rating FROM players WHERE id = '+playerId+';', 
 		     function(err, result) {
 			 var player = result.rows[0];
 
@@ -117,7 +117,7 @@ function playerInfo(request, response) {
 			     '<body><center><table><tr><td><center><h1>'+player.name+'</h1><tr><td><table>';
 			 
 			 [['id', player.id], ['Set Credit', player.set_credit],
-			  ['Rating', player.rating], ['Individual Wins', player.ind_wins],
+			  ['Rating', player.the_rating], ['Individual Wins', player.ind_wins],
 			  ['Individual Losses', player.ind_losses], ['Draft Wins', player.draft_wins],
 			  ['Draft Ties', player.draft_ties], ['Draft Losses', player.draft_losses],
 			  ['Money', player.money], ['Notes', player.notes]].forEach( 
