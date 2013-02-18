@@ -137,8 +137,8 @@ function playerInfo(request, response) {
 				      ' WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
 				      function(err1, result1) {
 					
-					  console.log(JSON.stringify(result1));
-					  var matches = result1.rows;
+					  console.log('RESULT: '+JSON.stringify(result1));
+					  var matches = result1['rows'];
 
 					  body += '<BR><BR><table><tr><th>Match ID<th>Draft ID'+
 					      '<th>Winner<th>Winner Team<th>Winner Post Rating'+
