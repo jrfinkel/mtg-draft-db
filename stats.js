@@ -159,7 +159,7 @@ function allDrafts (request, response) {
 		     function(err1, result) {
 			 result.rows.forEach(function (draft) {
 			     body += '<tr><td>'+draft.id+'<td>'+draft.timestamp;
-			 }
+			 });
 //			 var body = JSON.stringify(result.rows);
 
 			 response.writeHead(200, {"Content-Type": "text/html"});
