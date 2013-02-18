@@ -149,7 +149,7 @@ function playerInfo(request, response) {
 					      [match.draft_id, 
 					       '<a href="./player?id='+match.winner_id+'">'+match.winner_name+'</a>', 
 					       match.winner_team_id, match.winner_rating,
-					       match.loser_name, 
+					       '<a href="./player?id='+match.loser_id+'">'+match.loser_name+'</a>', 
 					       match.loser_team_id, match.loser_rating,
 					       util.dateString(match.timestamp)].forEach(function(v) {
 						  body += '<td align=center>'+v;
