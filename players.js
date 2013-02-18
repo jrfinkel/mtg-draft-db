@@ -142,9 +142,9 @@ function playerInfo(request, response) {
 					  matches.forEach(function(match) {
 					      body += '<tr>';
 					      [match.id, match.draft_id, 
-					       winner_name, winner_team_id, winner_end_rating,
-					       loser_name, loser_team_id, loser_end_rating,
-					       timestamp_utc].forEach(function(v) {
+					       match.winner_name, match.winner_team_id, match.winner_end_rating,
+					       match.loser_name, match.loser_team_id, match.loser_end_rating,
+					       match.timestamp_utc].forEach(function(v) {
 						   body += '<td>'+v;
 					       });						  
 					  });
