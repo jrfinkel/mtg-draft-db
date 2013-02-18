@@ -114,7 +114,7 @@ function playerInfo(request, response) {
 
 			 var body = '<html><head><title>'+player.name+'</title>'+
 			     util.randomColoredStyle(true)+'</head>'+
-			     '<body><center><table><tr><td><center><h1>'+player.name+'</h1><tr><td><table>';
+			     '<body><center><table><tr><td><center><h1>'+player.name+'</h1><table>';
 			 
 			 [['id', player.id], ['Set Credit', player.set_credit],
 			  ['Rating', player.the_rating], ['Individual Wins', player.ind_wins],
