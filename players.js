@@ -111,7 +111,11 @@ function playerInfo(request, response) {
 		     function(err, result) {
 			 var player = result.rows[0];
 			 
-			 client.query('SELECT * FROM matches WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
+			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name'+ 
+                                      ' FROM matches m'+
+				      ' JOIN players w ON w.id=m.winner_id'+
+				      ' JOIN players l ON l.id=m.loser_id'+
+				      ' WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
 				      function(err1, result1) {
 					  var matches = result1;
 
