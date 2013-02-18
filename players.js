@@ -136,6 +136,8 @@ function playerInfo(request, response) {
 				      ' JOIN players l ON l.id=m.loser_id'+
 				      ' WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
 				      function(err1, result1) {
+					
+					  console.log(JSON.stringify(result1));
 					  var matches = result1.rows;
 
 					  body += '<BR><BR><table><tr><th>Match ID<th>Draft ID'+
