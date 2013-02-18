@@ -107,11 +107,11 @@ function playerInfo(request, response) {
     var playerId = qp['id'];
 
     pg.connect(process.env.DATABASE_URL, function(err, client) {
-	client.query('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc FROM players WHERE id = '+playerId, 
+	client.query('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc FROM players WHERE id = '+playerId+';', 
 		     function(err, result) {
 			 var player = result.rows[0];
 			 
-			 client.query('SELECT *, FROM matches WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
+			 client.query('SELECT *, TO_TIMESTAMP(timestamp) AS timestamp_utc FROM matches WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
 				      function(err, result) {
 					  var matches = result;
 
