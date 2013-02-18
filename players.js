@@ -131,7 +131,7 @@ function playerInfo(request, response) {
 						   ['Draft Ties', player.draft_ties], ['Draft Losses', player.draft_losses],
 						   ['Money', player.money], ['Notes', player.notes]], 
 						  function(x) {
-						      body += '<tr><td align=right><b>'+x[0]'<td>'+x[1];
+						      body += '<tr><td align=right><b>'+x[0]+'<td>'+x[1];
 						  });
 
 					  body += '</table></body></html>';
