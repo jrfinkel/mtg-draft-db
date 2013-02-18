@@ -268,7 +268,7 @@ function finalStep (body, response) {
 		tieDiff++;
 	    } else {
 		b += '<tr><td align=center colspan=3><hr><h2><marquee>Losers</marquee><h2><hr>';
-		money = -20;
+		money = -20; 
 		loseDiff++;
 	    }
 	    
