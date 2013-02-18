@@ -110,6 +110,22 @@ function playerInfo(request, response) {
 	client.query('SELECT *, TO_TIMESTAMP(latest_timestamp) AS latest_timestamp_utc FROM players WHERE id = '+playerId+';', 
 		     function(err, result) {
 			 var player = result.rows[0];
+
+
+			 var body = '<html><head><title>'+player.name+'</title>'+
+			     util.randomColoredStyle(true)+'</head>'+
+			     '<body><center><h1>'+player.name+'</h1><table>';
+			 
+			 [['id', player.id], ['Set Credit', player.set_credit],
+			  ['Rating', player.rating], ['Individual Wins', player.ind_wins],
+			  ['Individual Losses', player.ind_losses], ['Draft Wins', player.draft_wins],
+			  ['Draft Ties', player.draft_ties], ['Draft Losses', player.draft_losses],
+			  ['Money', player.money], ['Notes', player.notes]].forEach( 
+			      function(x) {
+				  body += '<tr><td align=right><b>'+x[0]+'<td>'+x[1];
+			      });
+			 
+			 body += '</table>';
 			 
 			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name, TO_TIMESTAMP(timestamp) AS timestamp_utc'+ 
                                       ' FROM matches m'+
@@ -117,24 +133,21 @@ function playerInfo(request, response) {
 				      ' JOIN players l ON l.id=m.loser_id'+
 				      ' WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
 				      function(err1, result1) {
-					  var matches = result1;
+					  var matches = result1.rows;
 
-					  //var body = JSON.stringify([player, matches]);
+					  body += '<table><tr><th>Match ID<th>Draft ID'+
+					      '<th>Winner<th>Winner Team<th>Winner Post Rating'+
+					      '<th>Loser<th>Loser Team<th>Loser Post Rating<th>Date'+
 
-					  var body = '<html><head><title>'+player.name+'</title>'+
-					      util.randomColoredStyle(true)+'</head>'+
-					      '<body><h1>'+player.name+'</h1><table>';
-
-					  [['id', player.id], ['Set Credit', player.set_credit],
-					   ['Rating', player.rating], ['Individual Wins', player.ind_wins],
-					   ['Individual Losses', player.ind_losses], ['Draft Wins', player.draft_wins],
-					   ['Draft Ties', player.draft_ties], ['Draft Losses', player.draft_losses],
-					   ['Money', player.money], ['Notes', player.notes]].forEach( 
-					       function(x) {
-						   body += '<tr><td align=right><b>'+x[0]+'<td>'+x[1];
-					       });
-
-					  body += '</table></body></html>';
+					  matches.forEach(function(match) {
+					      body += '<tr>';
+					      [match.id, match.draft_id, 
+					       winner_name, winner_team_id, winner_end_rating,
+					       loser_name, loser_team_id, loser_end_rating,
+					       timestamp_utc].forEach(function(v) {
+						   body += '<td>'+v;
+					       });						  
+					  });
 
 					  response.writeHead(200, {"Content-Type": "text/html"});
 					  response.write(body);
