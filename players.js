@@ -133,17 +133,18 @@ function playerInfo(request, response) {
                                       ' FROM matches m'+
 				      ' JOIN players w ON w.id=m.winner_id'+
 				      ' JOIN players l ON l.id=m.loser_id'+
-				      ' WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
+				      ' WHERE winner_id = '+playerId+' OR loser_id = '+playerId+
+				      ' ORDER BY draft_id DESC;', 
 				      function(err1, result1) {
 					  var matches = result1.rows;
 
-					  body += '<BR><BR><table><tr><th>Match ID<th>Draft ID'+
+					  body += '<BR><BR><table border=1><tr><th>Draft ID'+
 					      '<th>Winner<th>Winner Team<th>Winner Post Rating'+
 					      '<th>Loser<th>Loser Team<th>Loser Post Rating<th>Date';
 
 					  matches.forEach(function(match) {
 					      body += '<tr>';
-					      [match.id, match.draft_id, 
+					      [match.draft_id, 
 					      match.winner_name, match.winner_team_id, match.winner_rating,
 					      match.loser_name, match.loser_team_id, match.loser_rating,
 					      match.timestamp_utc].forEach(function(v) {
