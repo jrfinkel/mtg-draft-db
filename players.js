@@ -139,7 +139,7 @@ function playerInfo(request, response) {
 					  var matches = result1.rows;
 
 					  body += '<BR><BR><table border=1 cellspacing=0 cellpadding=2><tr><th>Draft ID'+
-					      '<th>Winner<th>Winner Team<th>Winner Post Rating'+
+					      '<th>Winner<th>Winner Team<th>Winner Post Rating'+ 
 					      '<th>Loser<th>Loser Team<th>Loser Post Rating<th>Date';
 
 					  matches.forEach(function(match) {
