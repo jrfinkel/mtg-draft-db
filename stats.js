@@ -103,7 +103,7 @@ function playerInfo(request, response) {
 				      ' JOIN players w ON w.id=m.winner_id'+
 				      ' JOIN players l ON l.id=m.loser_id'+
 				      ' WHERE winner_id = '+playerId+' OR loser_id = '+playerId+
-				      ' ORDER BY match_id DESC;', 
+				      ' ORDER BY id DESC;', 
 				      function(err1, result1) {
 					  var matches = result1.rows;
 
@@ -130,7 +130,7 @@ function draftInfo(request, response) {
 		     ' JOIN players w ON w.id=m.winner_id'+
 		     ' JOIN players l ON l.id=m.loser_id'+
 		     ' WHERE draft_id = '+draftId+
-		     ' ORDER BY match_id DESC;', 
+		     ' ORDER BY id DESC;', 
 		     function(err1, result1) {
 			 var matches = result1.rows;
 			 
