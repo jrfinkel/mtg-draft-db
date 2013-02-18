@@ -146,6 +146,21 @@ function draftInfo(request, response) {
 }
 
 
+function allDrafts (response, order_by) {
+
+    pg.connect(process.env.DATABASE_URL, function(err, client) {
+	client.query('SELECT * FROM drafts;', 
+		     function(err1, result) {
+			 
+			 var body = JSON.stringify(result.rows);
+
+			 response.writeHead(200, {"Content-Type": "text/html"});
+			 response.write(body);
+			 response.end();
+		     });
+    });
+}
+
 
 
 exports.setup = function setupHandlers (app) {
