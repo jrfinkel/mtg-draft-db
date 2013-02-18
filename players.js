@@ -114,7 +114,7 @@ function playerInfo(request, response) {
 
 			 var body = '<html><head><title>'+player.name+'</title>'+
 			     util.randomColoredStyle(true)+'</head>'+
-			     '<body><center><table><tr><td colspan=2><center><h1>'+player.name+'</h1>';
+			     '<body><center><table><tr><td><center><h1>'+player.name+'</h1><tr><td><table>';
 			 
 			 [['id', player.id], ['Set Credit', player.set_credit],
 			  ['Rating', player.rating], ['Individual Wins', player.ind_wins],
@@ -125,7 +125,7 @@ function playerInfo(request, response) {
 				  body += '<tr><td align=right><b>'+x[0]+'<td>'+x[1];
 			      });
 			 
-			 body += '</table>';
+			 body += '</table></table>';
 			 
 			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name,'+ 
 				      ' ROUND(winner_end_rating::numeric,2) AS winner_rating,'+
