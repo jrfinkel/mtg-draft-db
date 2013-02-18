@@ -145,7 +145,7 @@ function playerInfo(request, response) {
 					      match.winner_name, match.winner_team_id, match.winner_end_rating,
 					      match.loser_name, match.loser_team_id, match.loser_end_rating,
 					      match.timestamp_utc].forEach(function(v) {
-						  body += '<td>'+v;
+						  body += '<td align=center>'+v;
 					      });						  
 					  });
 
