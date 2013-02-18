@@ -77,7 +77,7 @@ function allPlayers (response, order_by) {
 function playerRowFn(player) {
     return '<tr>'+
 	'<td>'+player.id+'</td>\n' +
-	'<td>'+player.name+'</td>\n' +
+	'<td><a href="./player?id='+player.id+'">'+player.name+'</a></td>\n' +
 	'<td>'+player.set_credit+'</td>\n' +
 	'<td>'+player.the_rating+'</td>\n' +
 	'<td>'+player.ind_wins+'</td>\n' +
