@@ -152,14 +152,14 @@ function allDrafts (request, response) {
 
 	var body = '<html><head><title>All Drafts</title>'+
 	    util.randomColoredStyle(false)+'</head>'+
-	    '<body><center><table><tr><th><Draft ID<th>Date';
+	    '<body><center><table>';
 
 
-	client.query('SELECT * FROM drafts ORDER BY draft_id DESC;', 
+	client.query('SELECT * FROM drafts;', 
 		     function(err1, result) {
-			 result.rows.forEach(function (draft) {
-			     body += '<tr><td>'+draft.id+'<td>'+dateString(draft.timestamp);
-			 });
+			 //result.rows.foEach(function (draft) {
+
+			 var body = JSON.stringify(result.rows);
 
 			 response.writeHead(200, {"Content-Type": "text/html"});
 			 response.write(body);
