@@ -127,18 +127,13 @@ function playerInfo(request, response) {
 			 
 			 body += '</table>';
 			 
-			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name,'+
-				      ' TO_TIMESTAMP(timestamp) AS timestamp_utc,'+ 
-				      //' ROUND(winner_end_rating::numeric,2) AS winner_rating,'+
-				      //' ROUND(loser_end_rating::numeric,2) AS loser_rating,'+
+			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name, TO_TIMESTAMP(timestamp) AS timestamp_utc'+ 
                                       ' FROM matches m'+
 				      ' JOIN players w ON w.id=m.winner_id'+
 				      ' JOIN players l ON l.id=m.loser_id'+
 				      ' WHERE winner_id = '+playerId+' OR loser_id = '+playerId+';', 
 				      function(err1, result1) {
-					
-					  console.log('RESULT: '+JSON.stringify(result1));
-					  var matches = result1['rows'];
+					  var matches = result1.rows;
 
 					  body += '<BR><BR><table><tr><th>Match ID<th>Draft ID'+
 					      '<th>Winner<th>Winner Team<th>Winner Post Rating'+
