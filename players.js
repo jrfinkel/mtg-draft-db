@@ -127,7 +127,9 @@ function playerInfo(request, response) {
 			 
 			 body += '</table>';
 			 
-			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name, TO_TIMESTAMP(timestamp) AS timestamp_utc'+ 
+			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name, TO_TIMESTAMP(timestamp) AS timestamp_utc,'+ 
+				      ' ROUND(winner_end_rating::numeric,2) AS winner_rating,'+
+				      ' ROUND(loser_end_rating::numeric,2) AS loser_rating'+
                                       ' FROM matches m'+
 				      ' JOIN players w ON w.id=m.winner_id'+
 				      ' JOIN players l ON l.id=m.loser_id'+
@@ -142,8 +144,8 @@ function playerInfo(request, response) {
 					  matches.forEach(function(match) {
 					      body += '<tr>';
 					      [match.id, match.draft_id, 
-					      match.winner_name, match.winner_team_id, match.winner_end_rating,
-					      match.loser_name, match.loser_team_id, match.loser_end_rating,
+					      match.winner_name, match.winner_team_id, match.winner_rating,
+					      match.loser_name, match.loser_team_id, match.loser_rating,
 					      match.timestamp_utc].forEach(function(v) {
 						  body += '<td align=center>'+v;
 					      });						  
