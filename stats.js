@@ -155,7 +155,7 @@ function allDrafts (request, response) {
 	    '<body><center><table><tr><th><Draft ID<th>Date';
 
 
-	client.query('SELECT * FROM drafts;', 
+	client.query('SELECT * FROM drafts ORDER BY draft_id DESC;', 
 		     function(err1, result) {
 			 result.rows.foEach(function (draft) {
 			     body += '<tr><td>'+draft.id+'<td>'+dateString(draft.timestamp);
