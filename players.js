@@ -135,7 +135,7 @@ function playerInfo(request, response) {
 				      function(err1, result1) {
 					  var matches = result1.rows;
 
-					  body += '<table><tr><th>Match ID<th>Draft ID'+
+					  body += '<BR><BR><table><tr><th>Match ID<th>Draft ID'+
 					      '<th>Winner<th>Winner Team<th>Winner Post Rating'+
 					      '<th>Loser<th>Loser Team<th>Loser Post Rating<th>Date'+
 
@@ -148,6 +148,8 @@ function playerInfo(request, response) {
 						   body += '<td>'+v;
 					       });						  
 					  });
+
+					  body += '</table></body></html>';
 
 					  response.writeHead(200, {"Content-Type": "text/html"});
 					  response.write(body);
