@@ -140,13 +140,13 @@ function playerInfo(request, response) {
 					      '<th>Loser<th>Loser Team<th>Loser Post Rating<th>Date'+
 
 					  matches.forEach(function(match) {
-					      body += '<tr>';
-					      [match.id, match.draft_id, 
-					       match.winner_name, match.winner_team_id, match.winner_end_rating,
-					       match.loser_name, match.loser_team_id, match.loser_end_rating,
-					       match.timestamp_utc].forEach(function(v) {
-						   body += '<td>'+v;
-					       });						  
+					      body += '<tr><td>'+JSON.stringify(match);
+					      //[match.id, match.draft_id, 
+					      // match.winner_name, match.winner_team_id, match.winner_end_rating,
+					      // match.loser_name, match.loser_team_id, match.loser_end_rating,
+					      // match.timestamp_utc].forEach(function(v) {
+						//   body += '<td>'+v;
+					       //});						  
 					  });
 
 					  body += '</table></body></html>';
