@@ -114,7 +114,7 @@ function playerInfo(request, response) {
 
 			 var body = '<html><head><title>'+player.name+'</title>'+
 			     util.randomColoredStyle(true)+'</head>'+
-			     '<body><table><tr><td colspan=2><center><h1>'+player.name+'</h1><br>';
+			     '<body><center><table><tr><td colspan=2><center><h1>'+player.name+'</h1><br>';
 			 
 			 [['id', player.id], ['Set Credit', player.set_credit],
 			  ['Rating', player.rating], ['Individual Wins', player.ind_wins],
@@ -145,8 +145,10 @@ function playerInfo(request, response) {
 					  matches.forEach(function(match) {
 					      body += '<tr>';
 					      [match.draft_id, 
-					      match.winner_name, match.winner_team_id, match.winner_rating,
-					      match.loser_name, match.loser_team_id, match.loser_rating,
+					       '<a href="./player?id='+match.winner_id+'>'+match.winner_name+'</a>', 
+					       match.winner_team_id, match.winner_rating,
+					       match.loser_name, 
+					       match.loser_team_id, match.loser_rating,
 					      util.dateString(match.timestamp)].forEach(function(v) {
 						  body += '<td align=center>'+v;
 					      });						  
