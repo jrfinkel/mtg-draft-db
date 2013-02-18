@@ -102,6 +102,29 @@ function displayPlayers(querySQL, rowCallback, endCallback) {
     });
 }
 
+function displayMatches(matches) {
+    var body = '<table border=1 cellspacing=0 cellpadding=2><tr><th>Draft ID'+
+	'<th>Winner<th>Winner\'s Team<th>Winner Post Rating'+ 
+	'<th>Loser<th>Loser\'s Team<th>Loser Post Rating<th>Date';
+    
+    matches.forEach(function(match) {
+	console.log(JSON.stringify(match));
+	
+	body += '<tr>';
+	[match.draft_id, 
+	 '<a href="./player?id='+match.winner_id+'">'+match.winner_name+'</a>', 
+	 match.winner_team_id, match.winner_rating,
+	 '<a href="./player?id='+match.loser_id+'">'+match.loser_name+'</a>', 
+	 match.loser_team_id, match.loser_rating,
+	 util.dateString(match.timestamp)].forEach(function(v) {
+	     body += '<td align=center>'+v;
+	 });						  
+    });
+    
+    body += '</table>';
+    return body;
+}
+
 function playerInfo(request, response) {
     var qp = util.readGetData(request);
     var playerId = qp['id'];
@@ -138,25 +161,7 @@ function playerInfo(request, response) {
 				      function(err1, result1) {
 					  var matches = result1.rows;
 
-					  body += '<BR><BR><table border=1 cellspacing=0 cellpadding=2><tr><th>Draft ID'+
-					      '<th>Winner<th>Winner Team<th>Winner Post Rating'+ 
-					      '<th>Loser<th>Loser Team<th>Loser Post Rating<th>Date';
-
-					  matches.forEach(function(match) {
-					      console.log(JSON.stringify(match));
-
-					      body += '<tr>';
-					      [match.draft_id, 
-					       '<a href="./player?id='+match.winner_id+'">'+match.winner_name+'</a>', 
-					       match.winner_team_id, match.winner_rating,
-					       '<a href="./player?id='+match.loser_id+'">'+match.loser_name+'</a>', 
-					       match.loser_team_id, match.loser_rating,
-					       util.dateString(match.timestamp)].forEach(function(v) {
-						  body += '<td align=center>'+v;
-					      });						  
-					  });
-
-					  body += '</table></body></html>';
+					  body += '<BR><BR>'+displayMatches(matches)+'</body></html>';
 
 					  response.writeHead(200, {"Content-Type": "text/html"});
 					  response.write(body);
