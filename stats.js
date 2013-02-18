@@ -180,4 +180,8 @@ exports.setup = function setupHandlers (app) {
 	draftInfo(request, response);
     });
 
+    app.get('/all-drafts', function(request, response) {
+	allDrafts(request, response);
+    });
+
 }
