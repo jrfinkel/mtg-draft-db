@@ -79,9 +79,9 @@ function playerInfo(request, response) {
 				  body += '<tr><td align=right><b>'+x[0]+'<td>'+x[1];
 			      });
 			 
-			 body += '<tr><td align=right><b>Notes<td><textarea rows="4" cols="50" name="notes">'+player.notes+'</textarea>';
+			 body += '<tr><td align=center colspan=2><b>Notes<BR><textarea rows="4" cols="40" name="notes">'+player.notes+'</textarea>';
 			 body += '<tr><td alight=right><b>Delete Player?</b><td><input type="checkbox" name="delete">';
-			 body += '<tr><td alight=right colspan=2><input type="submit">';
+			 body += '<tr><td alight=center colspan=2><input type="submit">';
 			 body += '</table></table>';
 			 
 			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name,'+ 
