@@ -70,6 +70,7 @@ function displayMatches(matches) {
     body += '</table>';
     return body;
 }
+exports.displayMatches = displayMatches;
 
 function draftInfo(request, response) {
     var qp = util.readGetData(request);
@@ -97,6 +98,7 @@ function draftInfo(request, response) {
 		     });
     });
 }
+
 
 
 function allDrafts (request, response) {
