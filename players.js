@@ -56,6 +56,34 @@ function addPlayerPage (header, response) {
     response.end();
 }
 
+function deletePlayer(id) {
+    pg.connect(process.env.DATABASE_URL, function(err, client) {
+	client.query('DELETE FROM players WHERE id = '+id+';',
+		     function(err, result) {});
+    });
+}
+
+function updateNotes(id, newNotes) {
+    pg.connect(process.env.DATABASE_URL, function(err, client) {
+	client.query('UPDATE players SET notes = \''+newNotes+'\' WHERE id = \''+id+'\';',
+		     function(err, result) {});
+    });    
+}
+
+function editPlayer(body, response) {
+    var redir;
+    if (body.delete) {
+	deletePlayer(body.id);
+	redir = './all-players'; 
+    } else {
+	updateNotes(body.id, body.notes);
+	redir = './player?id='+body.id;
+    }
+    
+    response.writeHead(302, {"Location": redir});
+    response.end();    
+}
+
 function playerInfo(request, response) {
     var qp = util.readGetData(request);
     var playerId = qp['id'];
@@ -68,7 +96,7 @@ function playerInfo(request, response) {
 
 			 var body = '<html><head><title>'+player.name+'</title>'+
 			     util.randomColoredStyle(true)+'</head>'+
-			     '<body><center><form><table><tr><td><center><h1>'+player.name+'</h1><table>';
+			     '<body><center><form name="the-form" action="/edit-player" method="post"><table><tr><td><center><h1>'+player.name+'</h1><table>';
 			 
 			 [['id', player.id], ['Pack Credit', player.set_credit],
 			  ['Rating', player.the_rating], ['Individual Wins', player.ind_wins],
@@ -82,7 +110,7 @@ function playerInfo(request, response) {
 			 body += '</table>';
 			 body += '<tr><td align=center><BR><b>Notes<BR><textarea rows="4" cols="40" name="notes">'+player.notes+'</textarea>';
 			 body += '<tr><td align=center><center><b>Delete Player?</b><input type="checkbox" name="delete">';
-			 body += '<tr><td align=center><center><input type="submit">';
+			 body += '<tr><td align=center><center><BR><input type="hidden" name="id" value="'+player.id+'"><input type="submit">';
 			 body += '</table>';
 			 
 			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name,'+ 
@@ -117,6 +145,12 @@ exports.setup = function setupHandlers (app) {
 	    insertPlayerInDB(body); 
 	    addPlayerPage('Added <a href="./all-players">'+body['name']+'</a>. Add Another?', 
 			  response);
+	});
+    });
+    
+    app.post('/edit-player', function(request, response) {
+	util.readPostData(request, function(body) { 
+	    editPlayer(body, response);
 	});
     });
     
