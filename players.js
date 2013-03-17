@@ -135,12 +135,12 @@ function playerInfo(request, response) {
 }
 
 
-exports.setup = function setupHandlers (app) {
-    app.get('/add-player', function(request, response) {
+exports.setup = function setupHandlers (app, basicAuth) {
+    app.get('/add-player', basicAuth, function(request, response) {
 	addPlayerPage('Add Player', response);
     });
 
-    app.post('/add-player', function(request, response) {
+    app.post('/add-player', basicAuth, function(request, response) {
 	util.readPostData(request, function(body) { 
 	    insertPlayerInDB(body); 
 	    addPlayerPage('Added <a href="./all-players">'+body['name']+'</a>. Add Another?', 
@@ -148,7 +148,7 @@ exports.setup = function setupHandlers (app) {
 	});
     });
     
-    app.post('/edit-player', function(request, response) {
+    app.post('/edit-player', basicAuth, function(request, response) {
 	util.readPostData(request, function(body) { 
 	    editPlayer(body, response);
 	});

@@ -19,13 +19,13 @@ function addFormatPage (header, response) {
     response.end();
 }
 
-exports.setup = function setupHandlers (app) {
+exports.setup = function setupHandlers (app, basicAuth) {
 
-    app.get('/add-format', function(request, response) {
+    app.get('/add-format', basicAuth, function(request, response) {
 	addFormatPage('Add Format!', response);
     });
     
-    app.post('/add-format', function(request, response) {
+    app.post('/add-format', basicAuth, function(request, response) {
 	util.readPostData(request, function(body) { 
 	    pg.connect(process.env.DATABASE_URL, function(err, client) {
 		var query = client.query('INSERT INTO formats (format) VALUES (\''+body['format']+'\');');	

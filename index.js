@@ -13,14 +13,9 @@ console.log('Starting server.');
 var username = 'draft';
 var password = 'database';
 
-//function authorize(username, password) {
-//    return 'draft' === username & 'database' === password;
-//}
-
 var app = express();
 
 app.use(express.logger());
-app.use(connect.basicAuth(username, password));
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
@@ -53,9 +48,11 @@ app.get('/winners', function(request, response) {
 });
 
 
-players.setup(app);
-drafts.setup(app);
+var basicAuth = connect.basicAuth(username, password);
+
+players.setup(app, basicAuth);
+drafts.setup(app, basicAuth);
 stats.setup(app);
-formats.setup(app);
+formats.setup(app, basicAuth);
 
 console.log('Finished loading server');

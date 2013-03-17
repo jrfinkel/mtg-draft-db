@@ -379,7 +379,7 @@ function confirmedStep (body, response) {
 }
 
 
-exports.setup = function setupHandlers (app) {
+exports.setup = function setupHandlers (app, basicAuth) {
 
     app.get('/start-draft', function(request, response) {
 	console.log('GET: start-draft');
@@ -414,7 +414,7 @@ exports.setup = function setupHandlers (app) {
 	});
     });
 
-    app.post('/confirm', function(request, response) {
+    app.post('/confirm', basicAuth, function(request, response) {
 	console.log('POST: confirm');
 	util.readPostData(request, function(body) { 
 	    confirmedStep(body, response);
