@@ -37,7 +37,7 @@ function playerRowFn(player) {
 }
 
 function playerTableHeader() {
-    return '<table cellpadding="5" cellspacing="0" border="5"><tr><th>ID<th>Name<th>Set Credit<th>Rating<th>Individual Wins<th>Individual Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money<TH>Latest Timestamp</tr>' ;
+    return '<table cellpadding="5" cellspacing="0" border="5"><tr><th>ID<th>Name<th>Decks<th>Rating<th>Individual Wins<th>Individual Losses<th>Team Wins<th>Team Ties<th>Team Losses<th>Money<TH>Latest Timestamp</tr>' ;
 }
 
 function displayPlayers(querySQL, rowCallback, endCallback) {
@@ -85,7 +85,7 @@ function playerInfo(request, response) {
 			     util.randomColoredStyle(true)+'</head>'+
 			     '<body><center><table><tr><td><center><h1>'+player.name+'</h1><table>';
 			 
-			 [['id', player.id], ['Set Credit', player.set_credit],
+			 [['id', player.id], ['Pack Credit', player.set_credit],
 			  ['Rating', player.the_rating], ['Individual Wins', player.ind_wins],
 			  ['Individual Losses', player.ind_losses], ['Draft Wins', player.draft_wins],
 			  ['Draft Ties', player.draft_ties], ['Draft Losses', player.draft_losses],

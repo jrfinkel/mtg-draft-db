@@ -11,7 +11,7 @@ console.log('Starting server.');
 
 
 function authorize(username, password) {
-    return 'jon' === username & 'jenny' === password;
+    return 'draft' === username & 'database' === password;
 }
 
 var app = express();

@@ -38,7 +38,7 @@ function addPlayerPage (header, response) {
 	'<form name="the-form" action="/add-player" method="post">\n' +
 	
 	'<tr><td align=right>Name: <td align=left><input type="text" name="name" value="Loser McLoserstein"><br>\n' +
-	'<tr><td align=right>Set Credit: <td align=left><input type="text" name="set_credit" value="0"><br>\n' +
+	'<tr><td align=right>Pack Credit: <td align=left><input type="text" name="set_credit" value="0"><br>\n' +
 	'<tr><td align=right>Rating: <td align=left><input type="text" name="rating" value="1600"><br>\n' +
 	'<tr><td align=right>Individual Wins: <td align=left><input type="text" name="ind_wins" value="0"><br>\n' +
 	'<tr><td align=right>Individual Losses: <td align=left><input type="text" name="ind_losses" value="0"><br>\n' +
