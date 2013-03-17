@@ -76,13 +76,14 @@ function playerInfo(request, response) {
 			  ['Draft Ties', player.draft_ties], ['Draft Losses', player.draft_losses],
 			  ['Money', player.money]].forEach( 
 			      function(x) {
-				  body += '<tr><td align=right width=50%><b>'+x[0]+'<td>'+x[1];
+				  body += '<tr><td align=right><b>'+x[0]+'<td>'+x[1];
 			      });
 			 
-			 body += '<tr><td align=center colspan=2><b>Notes<BR><textarea rows="4" cols="40" name="notes">'+player.notes+'</textarea>';
-			 body += '<tr><td align=center colspan=2><center><b>Delete Player?</b><input type="checkbox" name="delete">';
-			 body += '<tr><td align=center colspan=2><center><input type="submit">';
-			 body += '</table></table>';
+			 body += '</table>';
+			 body += '<tr><td align=center><BR><b>Notes<BR><textarea rows="4" cols="40" name="notes">'+player.notes+'</textarea>';
+			 body += '<tr><td align=center><center><b>Delete Player?</b><input type="checkbox" name="delete">';
+			 body += '<tr><td align=center><center><input type="submit">';
+			 body += '</table>';
 			 
 			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name,'+ 
 				      ' ROUND(winner_end_rating::numeric,2) AS winner_rating,'+
