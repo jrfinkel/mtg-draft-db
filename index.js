@@ -1,13 +1,25 @@
 var express = require('express');
+
 var players = require('./players');
 var drafts = require('./drafts');
 var formats = require('./formats');
 var stats = require('./stats');
 var util = require('./util');
 
+
 console.log('Starting server.');
 
-var app = express(express.logger());
+
+function authorize(username, password) {
+    return 'jon' === username & 'jenny' === password;
+}
+
+var app = express();
+
+app.use(express.logger());
+app.use(express.basicAuth(authorize));
+
+connect(connect.basicAuth('username', 'password'));
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
