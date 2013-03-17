@@ -68,17 +68,20 @@ function playerInfo(request, response) {
 
 			 var body = '<html><head><title>'+player.name+'</title>'+
 			     util.randomColoredStyle(true)+'</head>'+
-			     '<body><center><table><tr><td><center><h1>'+player.name+'</h1><table>';
+			     '<body><center><form><table><tr><td><center><h1>'+player.name+'</h1><table>';
 			 
 			 [['id', player.id], ['Pack Credit', player.set_credit],
 			  ['Rating', player.the_rating], ['Individual Wins', player.ind_wins],
 			  ['Individual Losses', player.ind_losses], ['Draft Wins', player.draft_wins],
 			  ['Draft Ties', player.draft_ties], ['Draft Losses', player.draft_losses],
-			  ['Money', player.money], ['Notes', player.notes]].forEach( 
+			  ['Money', player.money]].forEach( 
 			      function(x) {
 				  body += '<tr><td align=right><b>'+x[0]+'<td>'+x[1];
 			      });
 			 
+			 body += '<tr><td align=right><b>Notes<td><textarea rows="4" cols="50" name="notes">'+player.notes+'</textarea>';
+			 body += '<tr><td alight=right><b>Delete Player?</b><td><input type="checkbox" name="delete">';
+			 body += '<tr><td alight=right colspan=2><input type="submit">';
 			 body += '</table></table>';
 			 
 			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name,'+ 
