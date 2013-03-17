@@ -71,53 +71,6 @@ function displayMatches(matches) {
     return body;
 }
 
-function playerInfo(request, response) {
-    var qp = util.readGetData(request);
-    var playerId = qp['id'];
-
-    pg.connect(process.env.DATABASE_URL, function(err, client) {
-	client.query('SELECT *, ROUND(rating::numeric,2) AS the_rating FROM players WHERE id = '+playerId+';', 
-		     function(err, result) {
-			 var player = result.rows[0];
-
-
-			 var body = '<html><head><title>'+player.name+'</title>'+
-			     util.randomColoredStyle(true)+'</head>'+
-			     '<body><center><table><tr><td><center><h1>'+player.name+'</h1><table>';
-			 
-			 [['id', player.id], ['Pack Credit', player.set_credit],
-			  ['Rating', player.the_rating], ['Individual Wins', player.ind_wins],
-			  ['Individual Losses', player.ind_losses], ['Draft Wins', player.draft_wins],
-			  ['Draft Ties', player.draft_ties], ['Draft Losses', player.draft_losses],
-			  ['Money', player.money], ['Notes', player.notes]].forEach( 
-			      function(x) {
-				  body += '<tr><td align=right><b>'+x[0]+'<td>'+x[1];
-			      });
-			 
-			 body += '</table></table>';
-			 
-			 client.query('SELECT m.*, w.name AS winner_name, l.name AS loser_name,'+ 
-				      ' ROUND(winner_end_rating::numeric,2) AS winner_rating,'+
-				      ' ROUND(loser_end_rating::numeric,2) AS loser_rating'+
-                                      ' FROM matches m'+
-				      ' JOIN players w ON w.id=m.winner_id'+
-				      ' JOIN players l ON l.id=m.loser_id'+
-				      ' WHERE winner_id = '+playerId+' OR loser_id = '+playerId+
-				      ' ORDER BY id DESC;', 
-				      function(err1, result1) {
-					  var matches = result1.rows;
-
-					  body += '<BR><BR>'+displayMatches(matches)+'</body></html>';
-
-					  response.writeHead(200, {"Content-Type": "text/html"});
-					  response.write(body);
-					  response.end();
-				      });
-		     });
-    });
-}
-
-
 function draftInfo(request, response) {
     var qp = util.readGetData(request);
     var draftId = qp['id'];
@@ -178,10 +131,6 @@ exports.setup = function setupHandlers (app) {
 	} else {
 	    allPlayers(response, 'latest_timestamp DESC');
 	}
-    });
-
-    app.get('/player', function(request, response) {
-	playerInfo(request, response);
     });
 
     app.get('/draft', function(request, response) {
