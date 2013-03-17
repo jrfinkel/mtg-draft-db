@@ -1,4 +1,5 @@
 var express = require('express');
+var connect = require('connect');
 
 var players = require('./players');
 var drafts = require('./drafts');
@@ -9,15 +10,17 @@ var util = require('./util');
 
 console.log('Starting server.');
 
+var username = 'draft';
+var password = 'database';
 
-function authorize(username, password) {
-    return 'draft' === username & 'database' === password;
-}
+//function authorize(username, password) {
+//    return 'draft' === username & 'database' === password;
+//}
 
 var app = express();
 
 app.use(express.logger());
-app.use(express.basicAuth(authorize));
+app.use(express.basicAuth(username, password));
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
