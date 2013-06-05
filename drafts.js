@@ -1,9 +1,6 @@
 var pg = require('pg');
 var util = require('./util');
 
-
-
-
 function syncQuery(psql_query, callback) {
     var res = new Array();
 
